@@ -25,5 +25,6 @@
             "aliases": {}
         }
     },
-    "minimum-stability": "dev"
+    "homepage": "https://nexamerchant.github.io/docs/",
+    "minimum-stability": "stable"
 }
