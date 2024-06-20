@@ -29,15 +29,17 @@ class Install extends CommandInterface
         }
         
         $this->warn('Step: Publishing L5Swagger Provider File...');
-        $result = Artisan::call("vendor:publish", [
-            "--tag" => "bagisto-rest-api-swagger"
-        ]);
+        // $result = Artisan::call("vendor:publish", [
+        //     "--tag" => "bagisto-rest-api-swagger"
+        // ]);
+        $result = shell_exec('php artisan vendor:publish --tag=bagisto-rest-api-swagger');
         $this->info($result);
 
         $this->warn('Step: Generate l5-swagger docs (Admin & Shop)...');
-        $result =  Artisan::call("l5-swagger:generate", [
-            "--all" => true
-        ]);
+        // $result =  Artisan::call("l5-swagger:generate", [
+        //     "--all" => true
+        // ]);
+        $result = shell_exec('php artisan l5-swagger:generate --all');
         $this->info($result);
 
         $this->comment('-----------------------------');
