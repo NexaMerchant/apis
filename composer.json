@@ -10,7 +10,7 @@
     ],
     "require": {
         "darkaonline/l5-swagger": "^8.5",
-        "laravel/passport": "^10"
+        "laravel/passport": "^11.10"
     },
     "autoload": {
         "psr-4": {
