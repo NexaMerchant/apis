@@ -10,8 +10,7 @@
     ],
     "require": {
         "ext-sodium": "*",
-        "darkaonline/l5-swagger": "^8.5",
-        "laravel/passport": "^12"
+        "darkaonline/l5-swagger": "^8.5"
     },
     "autoload": {
         "psr-4": {
