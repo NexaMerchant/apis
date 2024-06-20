@@ -38,11 +38,15 @@ class ApisServiceProvider extends ServiceProvider
         $this->app->register(EventServiceProvider::class);
         */
 
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/../Resources/views' => $this->app->resourcePath('themes/default/views'),
-            ], 'Apis');
-        }
+        
+        $this->publishes([
+            __DIR__.'/../Resources/views' => $this->app->resourcePath('themes/default/views'),
+        ], 'Apis');
+
+        $this->publishes([
+            __DIR__.'/../Config/l5-swagger.php' => config_path('l5-swagger.php'),
+        ], 'api-swagger');
+        
 
     }
 
