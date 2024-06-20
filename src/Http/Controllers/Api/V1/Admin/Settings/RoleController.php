@@ -4,7 +4,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Settings;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Settings\RoleResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Settings\RoleResource;
 use Webkul\User\Repositories\AdminRepository;
 use Webkul\User\Repositories\RoleRepository;
 

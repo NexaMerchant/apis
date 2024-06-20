@@ -5,7 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Settings;
 use Illuminate\Support\Facades\Event;
 use Nicelizhi\Manage\Http\Requests\InventorySourceRequest;
 use Webkul\Inventory\Repositories\InventorySourceRepository;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Settings\InventorySourceResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Settings\InventorySourceResource;
 
 class InventorySourceController extends SettingController
 {

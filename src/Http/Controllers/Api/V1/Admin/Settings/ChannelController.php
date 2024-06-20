@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Webkul\Core\Repositories\ChannelRepository;
 use Webkul\Core\Rules\Code;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Settings\ChannelResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Settings\ChannelResource;
 
 class ChannelController extends SettingController
 {

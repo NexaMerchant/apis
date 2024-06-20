@@ -16,7 +16,7 @@ use Webkul\Core\Repositories\SubscribersListRepository;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Webkul\Customer\Repositories\CustomerGroupRepository;
 use Webkul\Shop\Http\Requests\Customer\RegistrationRequest;
-use NexaMerchant\Apis\Http\Resources\V1\Shop\Customer\CustomerResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Customer\CustomerResource;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 class AuthController extends CustomerController

@@ -3,7 +3,7 @@
 namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Shop\Catalog;
 
 use Webkul\Attribute\Repositories\AttributeRepository;
-use NexaMerchant\Apis\Http\Resources\V1\Shop\Catalog\AttributeResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Catalog\AttributeResource;
 
 class AttributeController extends CatalogController
 {

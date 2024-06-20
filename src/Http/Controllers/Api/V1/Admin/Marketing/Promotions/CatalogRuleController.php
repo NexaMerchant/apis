@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Event;
 use Webkul\CatalogRule\Helpers\CatalogRuleIndex;
 use Webkul\CatalogRule\Repositories\CatalogRuleRepository;
 use NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Marketing\MarketingController;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Marketing\Promotions\CatalogRuleResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Marketing\Promotions\CatalogRuleResource;
 
 class CatalogRuleController extends MarketingController
 {

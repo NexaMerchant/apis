@@ -5,7 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Settings;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
 use Nicelizhi\Manage\Http\Requests\UserForm;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Settings\UserResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Settings\UserResource;
 use Webkul\User\Repositories\AdminRepository;
 
 class UserController extends SettingController

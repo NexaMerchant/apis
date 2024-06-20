@@ -5,7 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Catalog;
 use Illuminate\Support\Facades\Event;
 use Webkul\Attribute\Repositories\AttributeFamilyRepository;
 use Webkul\Core\Rules\Code;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Catalog\AttributeFamilyResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Catalog\AttributeFamilyResource;
 
 class AttributeFamilyController extends CatalogController
 {

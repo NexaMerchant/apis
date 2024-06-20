@@ -5,7 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Settings\UserResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Settings\UserResource;
 
 class AccountController extends UserController
 {

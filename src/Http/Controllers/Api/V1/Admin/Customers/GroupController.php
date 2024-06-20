@@ -5,7 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Customers;
 use Illuminate\Support\Facades\Event;
 use Webkul\Core\Rules\Code;
 use Webkul\Customer\Repositories\CustomerGroupRepository;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Customer\CustomerGroupResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Customer\CustomerGroupResource;
 
 class GroupController extends BaseController
 {

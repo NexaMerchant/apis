@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Event;
 use Nicelizhi\Manage\Http\Requests\MassDestroyRequest;
 use Nicelizhi\Manage\Http\Requests\MassUpdateRequest;
 use Webkul\Product\Repositories\ProductReviewRepository;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Catalog\ProductReviewResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Catalog\ProductReviewResource;
 
 class ReviewController extends BaseController
 {

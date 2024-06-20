@@ -8,7 +8,7 @@ use Nicelizhi\Manage\Http\Requests\MassDestroyRequest;
 use Nicelizhi\Manage\Http\Requests\MassUpdateRequest;
 use Webkul\Category\Repositories\CategoryRepository;
 use Webkul\Core\Models\Channel;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Catalog\CategoryResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Catalog\CategoryResource;
 
 class CategoryController extends CatalogController
 {

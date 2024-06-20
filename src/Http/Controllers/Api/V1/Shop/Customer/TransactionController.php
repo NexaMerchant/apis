@@ -3,7 +3,7 @@
 namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Shop\Customer;
 
 use Illuminate\Http\Request;
-use NexaMerchant\Apis\Http\Resources\V1\Shop\Sales\OrderTransactionResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Sales\OrderTransactionResource;
 use Webkul\Sales\Repositories\OrderTransactionRepository;
 
 class TransactionController extends CustomerController

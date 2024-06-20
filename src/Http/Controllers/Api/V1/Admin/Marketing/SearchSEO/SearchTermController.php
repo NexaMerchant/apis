@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Event;
 use Nicelizhi\Manage\Http\Requests\MassDestroyRequest;
 use Webkul\Marketing\Repositories\SearchTermRepository;
 use NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Marketing\MarketingController;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Marketing\SearchSEO\SearchTermResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Marketing\SearchSEO\SearchTermResource;
 
 class SearchTermController extends MarketingController
 {

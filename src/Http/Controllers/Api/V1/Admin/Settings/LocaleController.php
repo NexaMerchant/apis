@@ -5,7 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Settings;
 use Illuminate\Http\Request;
 use Webkul\Core\Repositories\LocaleRepository;
 use Webkul\Core\Rules\Code;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Settings\LocaleResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Settings\LocaleResource;
 
 class LocaleController extends SettingController
 {

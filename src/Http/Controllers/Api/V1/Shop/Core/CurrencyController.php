@@ -3,7 +3,7 @@
 namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Shop\Core;
 
 use Webkul\Core\Repositories\CurrencyRepository;
-use NexaMerchant\Apis\Http\Resources\V1\Shop\Core\CurrencyResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Core\CurrencyResource;
 
 class CurrencyController extends CoreController
 {

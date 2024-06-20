@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Settings\UserResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Settings\UserResource;
 use Webkul\User\Repositories\AdminRepository;
 
 class AuthController extends UserController

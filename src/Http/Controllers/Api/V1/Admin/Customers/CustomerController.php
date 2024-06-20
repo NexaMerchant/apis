@@ -9,9 +9,9 @@ use Nicelizhi\Manage\Http\Requests\MassUpdateRequest;
 use Webkul\Core\Rules\PhoneNumber;
 use Webkul\Customer\Repositories\CustomerNoteRepository;
 use Webkul\Customer\Repositories\CustomerRepository;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Customer\CustomerResource;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Sales\InvoiceResource;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Sales\OrderResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Customer\CustomerResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Sales\InvoiceResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Sales\OrderResource;
 use Webkul\Sales\Repositories\InvoiceRepository;
 
 class CustomerController extends BaseController

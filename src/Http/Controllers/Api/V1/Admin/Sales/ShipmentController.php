@@ -3,7 +3,7 @@
 namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Sales;
 
 use Illuminate\Http\Request;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Sales\ShipmentResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Sales\ShipmentResource;
 use Webkul\Sales\Repositories\OrderItemRepository;
 use Webkul\Sales\Repositories\OrderRepository;
 use Webkul\Sales\Repositories\ShipmentRepository;

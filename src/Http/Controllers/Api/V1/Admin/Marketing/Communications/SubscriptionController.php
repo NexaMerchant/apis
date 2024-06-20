@@ -5,7 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Marketing\Communicatio
 use Illuminate\Support\Facades\Event;
 use Webkul\Core\Repositories\SubscribersListRepository;
 use NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Marketing\MarketingController;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Marketing\Communications\SubscriptionResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Marketing\Communications\SubscriptionResource;
 
 class SubscriptionController extends MarketingController
 {

@@ -5,7 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Marketing\SearchSEO;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Webkul\Sitemap\Repositories\SitemapRepository;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Marketing\SearchSEO\SitemapResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Marketing\SearchSEO\SitemapResource;
 use NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Marketing\MarketingController;
 
 class SitemapController extends MarketingController

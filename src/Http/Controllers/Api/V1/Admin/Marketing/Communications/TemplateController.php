@@ -5,7 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Marketing\Communicatio
 use Illuminate\Support\Facades\Event;
 use Webkul\Marketing\Repositories\TemplateRepository;
 use NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Marketing\MarketingController;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Marketing\Communications\TemplateResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Marketing\Communications\TemplateResource;
 
 class TemplateController extends MarketingController
 {

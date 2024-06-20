@@ -5,7 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Shop\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Webkul\Customer\Repositories\CustomerAddressRepository;
-use NexaMerchant\Apis\Http\Resources\V1\Shop\Customer\CustomerAddressResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Customer\CustomerAddressResource;
 use Webkul\Shop\Http\Requests\Customer\AddressRequest;
 
 class AddressController extends CustomerController

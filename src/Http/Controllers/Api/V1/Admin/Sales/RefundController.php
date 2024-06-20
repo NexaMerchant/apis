@@ -3,7 +3,7 @@
 namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Sales;
 
 use Illuminate\Http\Request;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Sales\RefundResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Sales\RefundResource;
 use Webkul\Sales\Repositories\OrderRepository;
 use Webkul\Sales\Repositories\RefundRepository;
 

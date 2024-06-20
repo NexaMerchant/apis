@@ -5,7 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Marketing\Communicatio
 use Illuminate\Support\Facades\Event;
 use Webkul\Marketing\Repositories\EventRepository;
 use NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Marketing\MarketingController;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Marketing\Communications\EventResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Marketing\Communications\EventResource;
 
 class EventController extends MarketingController
 {

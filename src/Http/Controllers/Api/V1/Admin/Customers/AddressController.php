@@ -10,7 +10,7 @@ use Webkul\Core\Rules\PhoneNumber;
 use Webkul\Customer\Repositories\CustomerAddressRepository;
 use Webkul\Customer\Repositories\CustomerRepository;
 use Webkul\Customer\Rules\VatIdRule;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Customer\CustomerAddressResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Customer\CustomerAddressResource;
 
 class AddressController extends BaseController
 {

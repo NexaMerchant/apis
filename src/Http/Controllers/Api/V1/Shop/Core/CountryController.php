@@ -4,7 +4,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Shop\Core;
 
 use Illuminate\Http\Request;
 use Webkul\Core\Repositories\CountryRepository;
-use NexaMerchant\Apis\Http\Resources\V1\Shop\Core\CountryResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Core\CountryResource;
 
 class CountryController extends CoreController
 {

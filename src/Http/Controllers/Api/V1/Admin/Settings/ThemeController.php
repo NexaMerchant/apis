@@ -4,7 +4,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Settings;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Settings\ThemeResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Settings\ThemeResource;
 use Webkul\Theme\Repositories\ThemeCustomizationRepository;
 
 class ThemeController extends SettingController

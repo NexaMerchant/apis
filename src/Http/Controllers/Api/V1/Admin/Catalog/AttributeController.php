@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Event;
 use Nicelizhi\Manage\Http\Requests\MassDestroyRequest;
 use Webkul\Attribute\Repositories\AttributeRepository;
 use Webkul\Core\Rules\Code;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Catalog\AttributeResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Catalog\AttributeResource;
 
 class AttributeController extends CatalogController
 {

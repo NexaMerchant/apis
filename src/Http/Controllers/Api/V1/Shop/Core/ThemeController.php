@@ -2,7 +2,7 @@
 
 namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Shop\Core;
 
-use NexaMerchant\Apis\Http\Resources\V1\Shop\Core\ThemeResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Core\ThemeResource;
 use Webkul\Theme\Repositories\ThemeCustomizationRepository;
 
 class ThemeController extends CoreController

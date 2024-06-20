@@ -5,7 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Shop\Core;
 use Illuminate\Http\Request;
 use Webkul\Core\Repositories\CoreConfigRepository;
 use NexaMerchant\Apis\Http\Controllers\Api\V1\Shop\ShopController;
-use NexaMerchant\Apis\Http\Resources\V1\Shop\Core\ConfigurationResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Core\ConfigurationResource;
 
 class CoreController extends ShopController
 {

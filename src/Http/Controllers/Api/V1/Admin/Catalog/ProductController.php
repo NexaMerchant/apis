@@ -12,7 +12,7 @@ use Webkul\Core\Rules\Slug;
 use Webkul\Product\Helpers\ProductType;
 use Webkul\Product\Repositories\ProductInventoryRepository;
 use Webkul\Product\Repositories\ProductRepository;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Catalog\ProductResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Catalog\ProductResource;
 
 class ProductController extends CatalogController
 {

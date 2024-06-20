@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Event;
 use Nicelizhi\Manage\Http\Requests\MassDestroyRequest;
 use Webkul\CMS\Repositories\PageRepository;
 use Webkul\Core\Rules\Slug;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\CMS\PageResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\CMS\PageResource;
 
 class PageController extends CMSController
 {

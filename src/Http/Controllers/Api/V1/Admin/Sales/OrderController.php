@@ -4,7 +4,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Sales;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Sales\OrderResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Sales\OrderResource;
 use Webkul\Sales\Repositories\OrderCommentRepository;
 use Webkul\Sales\Repositories\OrderRepository;
 

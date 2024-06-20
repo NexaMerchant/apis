@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Webkul\CartRule\Repositories\CartRuleRepository;
 use NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Marketing\MarketingController;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Marketing\Promotions\CartRuleResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Marketing\Promotions\CartRuleResource;
 
 class CartRuleController extends MarketingController
 {

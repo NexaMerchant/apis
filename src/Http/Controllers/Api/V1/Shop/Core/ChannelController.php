@@ -3,7 +3,7 @@
 namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Shop\Core;
 
 use Webkul\Core\Repositories\ChannelRepository;
-use NexaMerchant\Apis\Http\Resources\V1\Shop\Core\ChannelResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Core\ChannelResource;
 
 class ChannelController extends CoreController
 {

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Nicelizhi\Manage\Http\Requests\MassDestroyRequest;
 use Webkul\CartRule\Repositories\CartRuleCouponRepository;
 use NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Marketing\MarketingController;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Marketing\Promotions\CartRuleCouponResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Marketing\Promotions\CartRuleCouponResource;
 
 class CartRuleCouponController extends MarketingController
 {

@@ -4,7 +4,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Shop\Catalog;
 
 use Illuminate\Http\Request;
 use Webkul\Category\Repositories\CategoryRepository;
-use NexaMerchant\Apis\Http\Resources\V1\Shop\Catalog\CategoryResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Catalog\CategoryResource;
 
 class CategoryController extends CatalogController
 {

@@ -5,7 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Settings\Tax;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Settings\SettingController;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Tax\TaxRateResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Tax\TaxRateResource;
 use Webkul\Tax\Repositories\TaxRateRepository;
 
 class TaxRateController extends SettingController

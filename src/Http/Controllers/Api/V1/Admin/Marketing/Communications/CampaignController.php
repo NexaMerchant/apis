@@ -5,7 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Marketing\Communicatio
 use Illuminate\Support\Facades\Event;
 use Webkul\Marketing\Repositories\CampaignRepository;
 use NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Marketing\MarketingController;
-use NexaMerchant\Apis\Http\Resources\V1\Admin\Marketing\Communications\CampaignResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Marketing\Communications\CampaignResource;
 
 class CampaignController extends MarketingController
 {

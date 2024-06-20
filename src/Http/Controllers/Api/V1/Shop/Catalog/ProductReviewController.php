@@ -5,7 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Shop\Catalog;
 use Illuminate\Http\Request;
 use Webkul\Product\Repositories\ProductReviewRepository;
 use Webkul\Product\Repositories\ProductReviewAttachmentRepository;
-use NexaMerchant\Apis\Http\Resources\V1\Shop\Catalog\ProductReviewResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Catalog\ProductReviewResource;
 
 class ProductReviewController extends CatalogController
 {

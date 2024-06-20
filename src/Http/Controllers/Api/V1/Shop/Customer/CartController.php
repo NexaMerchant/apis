@@ -9,7 +9,7 @@ use Webkul\CartRule\Repositories\CartRuleCouponRepository;
 use Webkul\Checkout\Facades\Cart;
 use Webkul\Customer\Repositories\WishlistRepository;
 use Webkul\Product\Repositories\ProductRepository;
-use NexaMerchant\Apis\Http\Resources\V1\Shop\Checkout\CartResource;
+use NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Checkout\CartResource;
 
 class CartController extends CustomerController
 {
