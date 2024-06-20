@@ -1,5 +1,6 @@
 <?php
 namespace NexaMerchant\Apis\Console\Commands;
+use Illuminate\Support\Facades\Artisan;
 
 use Nicelizhi\Apps\Console\Commands\CommandInterface;
 
@@ -8,7 +9,7 @@ class Install extends CommandInterface
 {
     protected $signature = 'Apis:install';
 
-    protected $description = 'Install Apis an app';
+    protected $description = 'Publish L5SwaggerServiceProvider provider, view and config files.';
 
     public function getAppVer() {
         return config("Apis.ver");
@@ -26,5 +27,22 @@ class Install extends CommandInterface
             $this->error("App Apis Install cannelled");
             return false;
         }
+        
+        $this->warn('Step: Publishing L5Swagger Provider File...');
+        //$result = shell_exec('php artisan vendor:publish --tag=bagisto-rest-api-swagger');
+        $result = Artisan::call("vendor:publish", [
+            "--tag" => "bagisto-rest-api-swagger"
+        ]);
+        $this->info($result);
+
+        $this->warn('Step: Generate l5-swagger docs (Admin & Shop)...');
+        //$result = shell_exec('php artisan l5-swagger:generate --all');
+        $result =  Artisan::call("l5-swagger:generate", [
+            "--all" => true
+        ]);
+        $this->info($result);
+
+        $this->comment('-----------------------------');
+        $this->comment('Success: Bagisto REST API has been configured successfully.');
     }
 }
