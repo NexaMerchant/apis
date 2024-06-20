@@ -8,7 +8,9 @@
             "email": "nice.lizhi@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "darkaonline/l5-swagger": "^8.5"
+    },
     "autoload": {
         "psr-4": {
             "NexaMerchant\\Apis\\": "src/"
