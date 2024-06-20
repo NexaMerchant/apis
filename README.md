@@ -13,3 +13,21 @@ Add it to config/app.php $providers
 ```
 composer require nexa-merchant/apis
 ```
+
+# How to Install
+```
+php artisan apis:install
+```
+
+# How to Generate API Docs
+```
+php artisan Apis:gendocs
+```
+
+# View Api Document
+```
+http://localhost/api/admin/documentation (Admin)
+```
+```
+http://localhost/api/shop/documentation (Shop)
+```
