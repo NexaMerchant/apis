@@ -15,6 +15,14 @@ use NexaMerchant\Apis\Http\Middleware\AssignRequestId;
 class ApisServiceProvider extends ServiceProvider
 {
     private $version = null;
+
+    protected $middlewareAliases = [
+        'sanctum.admin'    => \NexaMerchant\Apis\Http\Middleware\AdminMiddleware::class,
+        'sanctum.customer' => \NexaMerchant\Apis\Http\Middleware\CustomerMiddleware::class,
+        'sanctum.locale'   => \NexaMerchant\Apis\Http\Middleware\LocaleMiddleware::class,
+        'sanctum.currency' => \NexaMerchant\Apis\Http\Middleware\CurrencyMiddleware::class,
+    ];
+
     /**
      * Bootstrap services.
      *
@@ -22,12 +30,13 @@ class ApisServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
+
+        $this->activateMiddlewareAliases();
+
         Route::middleware('web')->group(__DIR__ . '/../Routes/web.php');
         Route::middleware('api')->group(__DIR__ . '/../Routes/api.php');
 
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'Apis');
-
-        $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'Apis');
 
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
@@ -38,16 +47,23 @@ class ApisServiceProvider extends ServiceProvider
         $this->app->register(EventServiceProvider::class);
         */
 
-        
-        $this->publishes([
-            __DIR__.'/../Resources/views' => $this->app->resourcePath('themes/default/views'),
-        ], 'Apis');
-
         $this->publishes([
             __DIR__.'/../Config/l5-swagger.php' => config_path('l5-swagger.php'),
         ], 'api-swagger');
         
 
+    }
+
+     /**
+     * Activate middleware aliases.
+     *
+     * @return void
+     */
+    protected function activateMiddlewareAliases()
+    {
+        collect($this->middlewareAliases)->each(function ($className, $alias) {
+            $this->app['router']->aliasMiddleware($alias, $className);
+        });
     }
 
     /**
