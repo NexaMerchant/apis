@@ -5,8 +5,8 @@ namespace NexaMerchant\Apis\Docs\V1\Shop\Controllers;
 /**
  * @OA\Info(
  *      version="2.1.2",
- *      title="Bagisto Store Front Rest API Documentation",
- *      description="Bagisto Store Front Rest API Documentation",
+ *      title="NexaMerchant Store Front Rest API Documentation",
+ *      description="NexaMerchant Store Front Rest API Documentation",
  *
  *      @OA\Contact(
  *          email="shop@example.com"
@@ -15,7 +15,7 @@ namespace NexaMerchant\Apis\Docs\V1\Shop\Controllers;
  *
  * @OA\Server(
  *      url=APP_URL,
- *      description="Bagisto Rest API"
+ *      description="NexaMerchant Rest API"
  * )
  *
  * @OA\Tag(

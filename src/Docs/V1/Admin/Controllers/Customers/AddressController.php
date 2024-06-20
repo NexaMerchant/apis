@@ -186,7 +186,7 @@ class AddressController
      *                      property="company_name",
      *                      type="string",
      *                      description="Company name",
-     *                      example="Bagisto"
+     *                      example="NexaMerchant"
      *                  ),
      *                  @OA\Property(
      *                      property="vat_id",
@@ -338,7 +338,7 @@ class AddressController
      *                      property="company_name",
      *                      type="string",
      *                      description="Company name",
-     *                      example="Bagisto"
+     *                      example="NexaMerchant"
      *                  ),
      *                  @OA\Property(
      *                      property="vat_id",

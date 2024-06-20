@@ -159,7 +159,7 @@ class SearchTermController
      *                      property="redirect_url",
      *                      type="string",
      *                      description="SearchTerm Redirect URL",
-     *                      example="http://localhost/bagisto_2.x/public"
+     *                      example="http://localhost/NexaMerchant_2.x/public"
      *                  ),
      *                  @OA\Property(
      *                      property="channel_id",
@@ -236,7 +236,7 @@ class SearchTermController
      *                      property="redirect_url",
      *                      type="string",
      *                      description="SearchTerm Redirect URL",
-     *                      example="http://localhost/bagisto_2.x/public"
+     *                      example="http://localhost/NexaMerchant_2.x/public"
      *                  ),
      *                  @OA\Property(
      *                      property="channel_id",

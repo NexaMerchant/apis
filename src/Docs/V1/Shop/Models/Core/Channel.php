@@ -103,7 +103,7 @@ class Channel
      * @OA\Property(
      *     title="Hostname",
      *     description="Channel host name, website URL",
-     *     example="https://demo.bagisto.com/"
+     *     example="https://demo.NexaMerchant.com/"
      * )
      *
      * @var string

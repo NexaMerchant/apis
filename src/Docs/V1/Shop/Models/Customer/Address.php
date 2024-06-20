@@ -48,7 +48,7 @@ class Address
      * @OA\Property(
      *     title="Company Name",
      *     description="Customer's Company Name",
-     *     example="Bagisto-Laravel",
+     *     example="NexaMerchant-Laravel",
      * )
      *
      * @var string

@@ -40,7 +40,7 @@ class SearchTerm
      *     title="Redirect URL",
      *     description="SearchTerm Redirect URL",
      *     type="string",
-     *     example="http://localhost/bagisto_2.x/public"
+     *     example="http://localhost/NexaMerchant_2.x/public"
      * 
      * )
      *
