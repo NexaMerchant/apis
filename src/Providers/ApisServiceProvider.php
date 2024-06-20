@@ -10,6 +10,7 @@ use Webkul\Shop\Http\Middleware\AuthenticateCustomer;
 use Webkul\Shop\Http\Middleware\Currency;
 use Webkul\Shop\Http\Middleware\Locale;
 use Webkul\Shop\Http\Middleware\Theme;
+use NexaMerchant\Apis\Http\Middleware\AssignRequestId;
 
 class ApisServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,8 @@ class ApisServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'Apis');
 
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+
+        $router->aliasMiddleware('assign_request_id', AssignRequestId::class);
         
 
         /*
@@ -87,7 +90,8 @@ class ApisServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-
+                \NexaMerchant\Apis\Console\Commands\Install::class,
+                \NexaMerchant\Apis\Console\Commands\UnInstall::class,
             ]);
         }
     }
