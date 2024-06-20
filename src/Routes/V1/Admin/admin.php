@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group([
-    'prefix'     => 'v1/admin',
-    'middleware' => ['sanctum.locale'],
+    'prefix'     => 'api/v1/admin',
+    'middleware' => ['sanctum.locale','assign_request_id'],
 ], function () {
     /**
      * Authentication routes.
