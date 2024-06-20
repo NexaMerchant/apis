@@ -4,12 +4,12 @@ use Illuminate\Support\Facades\Artisan;
 
 use Nicelizhi\Apps\Console\Commands\CommandInterface;
 
-class Install extends CommandInterface 
+class GenerateApiDocs extends CommandInterface 
 
 {
-    protected $signature = 'Apis:install';
+    protected $signature = 'Apis:gendocs';
 
-    protected $description = 'Publish L5SwaggerServiceProvider provider, view and config files.';
+    protected $description = 'Generate l5-swagger docs (Admin & Shop).';
 
     public function getAppVer() {
         return config("Apis.ver");
@@ -28,15 +28,7 @@ class Install extends CommandInterface
             return false;
         }
         
-        $this->warn('Step: Publishing L5Swagger Provider File...');
-
-        $result = shell_exec('php artisan vendor:publish --tag=api-swagger');
-        $this->info($result);
-
         $this->warn('Step: Generate l5-swagger docs (Admin & Shop)...');
-        // $result =  Artisan::call("l5-swagger:generate", [
-        //     "--all" => true
-        // ]);
         $result = shell_exec('php artisan l5-swagger:generate --all');
         $this->info($result);
 
