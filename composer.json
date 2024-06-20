@@ -1,7 +1,9 @@
 {
     "name": "nexa-merchant/apis",
     "license": "MIT",
-    "description" : "Apps",
+    "description" : "Nexa merchant Apps api",
+    "keywords": ["laravel", "api", "jwt" ],
+    "type": "library",
     "authors": [
         {
             "name": "Steven",
