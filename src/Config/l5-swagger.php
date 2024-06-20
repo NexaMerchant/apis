@@ -41,7 +41,7 @@ return [
                  * Absolute paths to directory containing the swagger annotations are stored.
                 */
                 'annotations' => [
-                    base_path('vendor/nexa-merchant/apis/src/Docs/Shop'),
+                    base_path('vendor/nexa-merchant/apis/src/Docs/V1/Shop'),
                 ],
 
             ],
@@ -84,7 +84,7 @@ return [
                  * Absolute paths to directory containing the swagger annotations are stored.
                 */
                 'annotations' => [
-                    base_path('vendor/nexa-merchant/apis/src/Docs/Admin'),
+                    base_path('vendor/nexa-merchant/apis/src/Docs/V1/Admin'),
                 ],
 
             ],
