@@ -38,7 +38,7 @@ class Subscription
      * @OA\Property(
      *     title="Email",
      *     description="Email",
-     *     example="admin@example.com",
+     *     example="nice.lizhi@gmail.com",
      * )
      *
      * @var string

@@ -4,12 +4,12 @@ namespace NexaMerchant\Apis\Docs\V1\Admin\Controllers;
 
 /**
  * @OA\Info(
- *      version="2.1.2",
+ *      version="1.0.2",
  *      title="NexaMerchant Admin Rest API Documentation",
  *      description="NexaMerchant Admin Rest API Documentation",
  *
  *      @OA\Contact(
- *          email="admin@example.com"
+ *          email="nice.lizhi@gmail.com"
  *      )
  * )
  *

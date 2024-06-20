@@ -37,7 +37,7 @@ class User
      * @OA\Property(
      *     title="Email",
      *     description="Admin user's email",
-     *     example="admin@example.com",
+     *     example="nice.lizhi@gmail.com",
      * )
      *
      * @var string

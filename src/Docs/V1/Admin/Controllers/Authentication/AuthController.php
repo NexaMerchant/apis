@@ -23,7 +23,7 @@ class AuthController
      *                      property="email",
      *                      type="string",
      *                      format="email",
-     *                      example="admin@example.com"
+     *                      example="nice.lizhi@gmail.com"
      *                  ),
      *                  @OA\Property(
      *                      property="password",
@@ -98,7 +98,7 @@ class AuthController
      *                      property="email",
      *                      type="string",
      *                      format="email",
-     *                      example="admin@example.com"
+     *                      example="nice.lizhi@gmail.com"
      *                  ),
      *                  required={"email"}
      *              )

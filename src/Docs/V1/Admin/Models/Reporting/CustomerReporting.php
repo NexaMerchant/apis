@@ -16,7 +16,7 @@ class CustomerReporting
      *     description="Statistics of the customer report",
      *     @OA\Items(
      *         @OA\Property(property="id", type="integer", example=null),
-     *         @OA\Property(property="email", type="string", example="admin@example.com"),
+     *         @OA\Property(property="email", type="string", example="nice.lizhi@gmail.com"),
      *         @OA\Property(property="full_name", type="string", example="John Doe"),
      *         @OA\Property(property="total", type="string", example="100.0000"),
      *         @OA\Property(property="orders", type="integer", example=1),

@@ -220,7 +220,7 @@ class AddressController
      *                  @OA\Property(
      *                      property="email",
      *                      type="string",
-     *                      example="admin@example.com"
+     *                      example="nice.lizhi@gmail.com"
      *                  ),
      *                  @OA\Property(
      *                      property="vat_id",
@@ -358,7 +358,7 @@ class AddressController
      *                  @OA\Property(
      *                      property="email",
      *                      type="string",
-     *                      example="admin@example.com"
+     *                      example="nice.lizhi@gmail.com"
      *                  ),
      *                  @OA\Property(
      *                      property="vat_id",

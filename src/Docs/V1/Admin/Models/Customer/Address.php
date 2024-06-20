@@ -95,7 +95,7 @@ class Address
      * @OA\Property(
      *     title="Email",
      *     description="Customer's Email",
-     *     example="admin@example.com",
+     *     example="nice.lizhi@gmail.com",
      * )
      *
      * @var string

@@ -255,7 +255,7 @@ class AddressController
      *                      property="email",
      *                      description="Address's email",
      *                      type="string",
-     *                      example="admin@example.com"
+     *                      example="nice.lizhi@gmail.com"
      *                  ),
      *                  @OA\Property(
      *                      property="phone",
@@ -407,7 +407,7 @@ class AddressController
      *                      property="email",
      *                      description="Address's email",
      *                      type="string",
-     *                      example="admin@example.com"
+     *                      example="nice.lizhi@gmail.com"
      *                  ),
      *                  @OA\Property(
      *                      property="phone",
