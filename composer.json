@@ -12,6 +12,7 @@
     ],
     "require": {
         "ext-sodium": "*",
+        "laravel/framework": "^10.0",
         "darkaonline/l5-swagger": "^8.5"
     },
     "autoload": {
