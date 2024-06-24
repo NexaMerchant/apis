@@ -20,6 +20,11 @@
             "NexaMerchant\\Apis\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "NexaMerchant\\Apis\\Tests\\": "tests/"
+        }
+    },
     "extra": {
         "laravel": {
             "providers": [
