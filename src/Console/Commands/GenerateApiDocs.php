@@ -21,10 +21,10 @@ class GenerateApiDocs extends CommandInterface
 
     public function handle()
     {
-        $this->info("Install app: Apis");
+        $this->info("Generate Docs");
         if (!$this->confirm('Do you wish to continue?')) {
             // ...
-            $this->error("App Apis Install cannelled");
+            $this->error("Generate Docs cannelled");
             return false;
         }
         
