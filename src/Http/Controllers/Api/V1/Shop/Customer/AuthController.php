@@ -262,4 +262,36 @@ class AuthController extends CustomerController
             $response == Password::RESET_LINK_SENT ? 200 : 400
         );
     }
+
+    /**
+     * Send a code to the email.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCode(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $customer = $this->customerRepository->findOneByField('email', $request->email);
+
+        if (! $customer) {
+            return response(['message' =>'Customer not found'], 404);
+        }
+    }
+
+    public function LoginWithCode(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'code'  => 'required',
+        ]);
+
+        $customer = $this->customerRepository->findOneByField('email', $request->email);
+
+        if (! $customer) {
+            return response(['message' => 'Customer not found'], 404);
+        }
+    }
 }
