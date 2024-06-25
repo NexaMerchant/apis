@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Password;
 use Webkul\Core\Rules\AlphaNumericSpace;
 use Illuminate\Validation\ValidationException;
@@ -281,6 +282,13 @@ class AuthController extends CustomerController
         }
 
         $code = mt_rand(100000, 999999);
+        Cache::put(md5($request->email), $code, 300); // 5 * 60 minutes
+
+        //send email to user
+
+        
+
+        return response(['message' => trans('Apis::app.shop.customer.code.sent')]);
 
     }
 
@@ -295,6 +303,34 @@ class AuthController extends CustomerController
 
         if (! $customer) {
             return response(['message' => 'Customer not found'], 404);
+        }
+
+        $code = Cache::get(md5($request->email));
+        if($code!= $request->code){
+            return response(['message' => 'Invalid code'], 404);
+        }
+        if (! EnsureFrontendRequestsAreStateful::fromFrontend($request)) {
+            $request->validate([
+                'device_name' => 'required',
+            ]);
+
+            $customer = $this->customerRepository->where('email', $request->email)->first();
+
+            /**
+             * Preventing multiple token creation.
+             */
+            $customer->tokens()->delete();
+
+            /**
+             * Event passed to prepare cart after login.
+             */
+            Event::dispatch('customer.after.login', $request->get('email'));
+
+            return response([
+                'data'    => new CustomerResource($customer),
+                'message' => trans('Apis::app.shop.customer.accounts.logged-in-success'),
+                'token'   => $customer->createToken($request->device_name, ['role:customer'])->plainTextToken,
+            ]);
         }
     }
 }

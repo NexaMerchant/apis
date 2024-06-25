@@ -1,6 +1,6 @@
 <?php
 return [
     'name' => 'Apis',
-    'version' => '1.0.0',
-    'versionNum' => '100',
+    'version' => '1.0.4',
+    'versionNum' => '104',
 ];
