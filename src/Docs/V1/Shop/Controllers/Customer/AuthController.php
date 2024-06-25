@@ -219,8 +219,8 @@ class AuthController
      *      path="/api/v1/customer/login-code",
      *      operationId="LoginWithCode",
      *      tags={"Customers"},
-     *      summary="Login customer",
-     *      description="Login customer",
+     *      summary="Login customer use code",
+     *      description="Login customer use code",
      *
      *      @OA\Parameter(
      *          name="accept_token",
