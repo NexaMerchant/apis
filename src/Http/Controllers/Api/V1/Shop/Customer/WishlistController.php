@@ -55,7 +55,7 @@ class WishlistController extends CustomerController
 
             return response([
                 'data'    => CustomerWishlistResource::collection($customer->wishlist_items()->get()),
-                'message' => trans('rest-api::app.shop.wishlist.removed'),
+                'message' => trans('Apis::app.shop.wishlist.removed'),
             ]);
         }
 
@@ -68,7 +68,7 @@ class WishlistController extends CustomerController
 
         return response([
             'data'    => new CustomerWishlistResource($wishlistItem),
-            'message' => trans('rest-api::app.shop.wishlist.success'),
+            'message' => trans('Apis::app.shop.wishlist.success'),
         ]);
     }
 
@@ -89,13 +89,13 @@ class WishlistController extends CustomerController
 
         if (! $wishlistItem) {
             return response([
-                'message' => trans('rest-api::app.shop.wishlist.error.mass-operations.resource-not-found'),
+                'message' => trans('Apis::app.shop.wishlist.error.mass-operations.resource-not-found'),
             ], 400);
         }
 
         if ($wishlistItem->customer_id != $customer->id) {
             return response([
-                'message' => trans('rest-api::app.shop.wishlist.error.security-warning'),
+                'message' => trans('Apis::app.shop.wishlist.error.security-warning'),
             ], 400);
         }
 
@@ -108,12 +108,12 @@ class WishlistController extends CustomerController
 
             return response([
                 'data'    => $cart ? new CartResource($cart) : null,
-                'message' => trans('rest-api::app.shop.wishlist.moved'),
+                'message' => trans('Apis::app.shop.wishlist.moved'),
             ]);
         }
 
         return response([
-            'message' => trans('rest-api::app.shop.wishlist.option-missing'),
+            'message' => trans('Apis::app.shop.wishlist.option-missing'),
         ], 400);
     }
 }

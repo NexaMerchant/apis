@@ -49,7 +49,7 @@ class SitemapController extends MarketingController
 
         return response([
             'data'    => new SitemapResource($sitemap),
-            'message' => trans('rest-api::app.admin.marketing.search-seo.sitemaps.create-success'),
+            'message' => trans('Apis::app.admin.marketing.search-seo.sitemaps.create-success'),
         ]);
     }
 
@@ -76,7 +76,7 @@ class SitemapController extends MarketingController
 
         return response([
             'data'    => new SitemapResource($sitemap),
-            'message' => trans('rest-api::app.admin.marketing.search-seo.sitemaps.update-success'),
+            'message' => trans('Apis::app.admin.marketing.search-seo.sitemaps.update-success'),
         ]);
     }
 
@@ -98,7 +98,7 @@ class SitemapController extends MarketingController
         Event::dispatch('marketing.search_seo.sitemap.delete.after', $id);
 
         return response()->json([
-            'message' => trans('rest-api::app.admin.marketing.search-seo.sitemaps.delete-success'),
+            'message' => trans('Apis::app.admin.marketing.search-seo.sitemaps.delete-success'),
         ], 200);
     }
 }

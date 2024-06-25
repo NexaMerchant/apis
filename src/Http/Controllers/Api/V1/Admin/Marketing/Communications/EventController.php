@@ -46,7 +46,7 @@ class EventController extends MarketingController
 
         return response([
             'data'    => new EventResource($event),
-            'message' => trans('rest-api::app.admin.marketing.communications.events.create-success'),
+            'message' => trans('Apis::app.admin.marketing.communications.events.create-success'),
         ]);
     }
 
@@ -71,7 +71,7 @@ class EventController extends MarketingController
 
         return response([
             'data'    => new EventResource($event),
-            'message' => trans('rest-api::app.admin.marketing.communications.events.update-success'),
+            'message' => trans('Apis::app.admin.marketing.communications.events.update-success'),
         ]);
     }
 
@@ -91,7 +91,7 @@ class EventController extends MarketingController
         Event::dispatch('marketing.events.delete.after', $id);
 
         return response([
-            'message' => trans('rest-api::app.admin.marketing.communications.events.delete-success'),
+            'message' => trans('Apis::app.admin.marketing.communications.events.delete-success'),
         ]);
     }
 }

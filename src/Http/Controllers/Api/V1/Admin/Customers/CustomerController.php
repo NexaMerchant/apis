@@ -82,7 +82,7 @@ class CustomerController extends BaseController
 
         return response([
             'data'    => new CustomerResource($customer),
-            'message' => trans('rest-api::app.admin.customers.customers.create-success'),
+            'message' => trans('Apis::app.admin.customers.customers.create-success'),
         ]);
     }
 
@@ -123,7 +123,7 @@ class CustomerController extends BaseController
 
         return response([
             'data'    => new CustomerResource($customer),
-            'message' => trans('rest-api::app.admin.customers.customers.update-success'),
+            'message' => trans('Apis::app.admin.customers.customers.update-success'),
         ]);
     }
 
@@ -140,12 +140,12 @@ class CustomerController extends BaseController
             $this->getRepositoryInstance()->delete($id);
 
             return response([
-                'message' => trans('rest-api::app.admin.customers.customers.delete-success'),
+                'message' => trans('Apis::app.admin.customers.customers.delete-success'),
             ]);
         }
 
         return response([
-            'message' => trans('rest-api::app.admin.customers.customers.error.order-pending-account-delete'),
+            'message' => trans('Apis::app.admin.customers.customers.error.order-pending-account-delete'),
         ], 400);
     }
 
@@ -169,7 +169,7 @@ class CustomerController extends BaseController
         }
 
         return response([
-            'message' => trans('rest-api::app.admin.customers.customers.mass-operations.update-success'),
+            'message' => trans('Apis::app.admin.customers.customers.mass-operations.update-success'),
         ]);
     }
 
@@ -188,7 +188,7 @@ class CustomerController extends BaseController
              */
             foreach ($customers as $customer) {
                 if ($this->getRepositoryInstance()->haveActiveOrders($customer)) {
-                    throw new \Exception(trans('rest-api::app.admin.customers.customers.error.order-pending-account-delete'));
+                    throw new \Exception(trans('Apis::app.admin.customers.customers.error.order-pending-account-delete'));
                 }
             }
 
@@ -204,7 +204,7 @@ class CustomerController extends BaseController
             }
 
             return response([
-                'message' => trans('rest-api::app.admin.customers.customers.mass-operations.delete-success'),
+                'message' => trans('Apis::app.admin.customers.customers.mass-operations.delete-success'),
             ]);
         } catch (\Exception $exception) {
             return response([
@@ -268,7 +268,7 @@ class CustomerController extends BaseController
 
         return response([
             'data'    => new CustomerResource($customer),
-            'message' => trans('rest-api::app.admin.customers.customers.notes.note-taken'),
+            'message' => trans('Apis::app.admin.customers.customers.notes.note-taken'),
         ]);
     }
 }

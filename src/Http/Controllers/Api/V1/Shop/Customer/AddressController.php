@@ -61,7 +61,7 @@ class AddressController extends CustomerController
 
         return response([
             'data'    => new CustomerAddressResource($customerAddress),
-            'message' => trans('rest-api::app.shop.customer.addresses.create-success'),
+            'message' => trans('Apis::app.shop.customer.addresses.create-success'),
         ]);
     }
 
@@ -102,7 +102,7 @@ class AddressController extends CustomerController
 
         return response([
             'data'    => new CustomerAddressResource($customerAddress),
-            'message' => trans('rest-api::app.shop.customer.addresses.update-success'),
+            'message' => trans('Apis::app.shop.customer.addresses.update-success'),
         ]);
     }
 
@@ -124,7 +124,7 @@ class AddressController extends CustomerController
         Event::dispatch('customer.addresses.delete.after', $id);
 
         return response([
-            'message' => trans('rest-api::app.shop.customer.addresses.delete-success'),
+            'message' => trans('Apis::app.shop.customer.addresses.delete-success'),
         ]);
     }
 }

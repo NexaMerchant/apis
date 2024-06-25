@@ -49,7 +49,7 @@ class ShipmentController extends SalesController
 
         if (! $order->canShip()) {
             return response([
-                'message' => trans('rest-api::app.admin.sales.shipments.error.creation-error'),
+                'message' => trans('Apis::app.admin.sales.shipments.error.creation-error'),
             ], 400);
         }
 
@@ -67,7 +67,7 @@ class ShipmentController extends SalesController
 
         if (! $this->isInventoryValidate($data)) {
             return response([
-                'message' => trans('rest-api::app.admin.sales.shipments.error.invalid-qty-error'),
+                'message' => trans('Apis::app.admin.sales.shipments.error.invalid-qty-error'),
             ], 400);
         }
 
@@ -75,7 +75,7 @@ class ShipmentController extends SalesController
 
         return response([
             'data'    => new ShipmentResource($shipment),
-            'message' => trans('rest-api::app.admin.sales.shipments.create-success'),
+            'message' => trans('Apis::app.admin.sales.shipments.create-success'),
         ]);
     }
 

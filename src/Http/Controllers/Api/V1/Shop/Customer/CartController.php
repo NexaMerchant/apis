@@ -89,19 +89,19 @@ class CartController extends CustomerController
 
                     return response()->json([
                         'data'     => app()->make($this->resource(), ['resource' => Cart::getCart()]),
-                        'message'  => trans('rest-api::app.shop.checkout.cart.item.success'),
+                        'message'  => trans('Apis::app.shop.checkout.cart.item.success'),
                     ]);
                 }
 
                 return response()->json([
                     'data'    => app()->make($this->resource(), ['resource' => Cart::getCart()]),
-                    'message' => trans('rest-api::app.shop.checkout.cart.item.success'),
+                    'message' => trans('Apis::app.shop.checkout.cart.item.success'),
                 ]);
             }
 
             return response()->json([
                 'data'    => null,
-                'message' => trans('rest-api::app.shop.checkout.cart.item.success'),
+                'message' => trans('Apis::app.shop.checkout.cart.item.success'),
             ]);
         } catch (\Exception $exception) {
             return response()->json([
@@ -118,7 +118,7 @@ class CartController extends CustomerController
         foreach (request()->qty as $qty) {
             if (! $qty) {
                 return response()->json([
-                    'message' => trans('rest-api::app.shop.checkout.cart.quantity.illegal'),
+                    'message' => trans('Apis::app.shop.checkout.cart.quantity.illegal'),
                 ], 400);
             }
         }
@@ -128,7 +128,7 @@ class CartController extends CustomerController
 
             return response()->json([
                 'data'    => app()->make($this->resource(), ['resource' => Cart::getCart()]),
-                'message' => trans('rest-api::app.shop.checkout.cart.quantity.success'),
+                'message' => trans('Apis::app.shop.checkout.cart.quantity.success'),
             ]);
         } catch (\Exception $exception) {
             return response()->json([
@@ -156,7 +156,7 @@ class CartController extends CustomerController
 
         return response([
             'data'    => $cart ? app()->make($this->resource(), ['resource' => $cart]) : null,
-            'message' => trans('rest-api::app.shop.checkout.cart.item.success-remove'),
+            'message' => trans('Apis::app.shop.checkout.cart.item.success-remove'),
         ]);
     }
 
@@ -177,7 +177,7 @@ class CartController extends CustomerController
 
         return response([
             'data'    => $cart ? app()->make($this->resource(), ['resource' => $cart]) : null,
-            'message' => trans('rest-api::app.shop.checkout.cart.item.success-remove'),
+            'message' => trans('Apis::app.shop.checkout.cart.item.success-remove'),
         ]);
     }
 
@@ -200,19 +200,19 @@ class CartController extends CustomerController
 
                     return response([
                         'data'    => $cart ? app()->make($this->resource(), ['resource' => $cart]) : null,
-                        'message' => trans('rest-api::app.shop.checkout.cart.coupon.success'),
+                        'message' => trans('Apis::app.shop.checkout.cart.coupon.success'),
                     ]);
                 }
             }
 
             return response([
-                'message' => trans('rest-api::app.shop.checkout.cart.coupon.invalid'),
+                'message' => trans('Apis::app.shop.checkout.cart.coupon.invalid'),
             ], 400);
         } catch (\Exception $e) {
             report($e);
 
             return response([
-                'message' => trans('rest-api::app.shop.checkout.cart.coupon.apply-issue'),
+                'message' => trans('Apis::app.shop.checkout.cart.coupon.apply-issue'),
             ], 400);
         }
     }
@@ -230,7 +230,7 @@ class CartController extends CustomerController
 
         return response([
             'data'    => $cart ? app()->make($this->resource(), ['resource' => $cart]) : null,
-            'message' => __('rest-api::app.shop.checkout.cart.coupon.success-remove'),
+            'message' => __('Apis::app.shop.checkout.cart.coupon.success-remove'),
         ]);
     }
 
@@ -253,7 +253,7 @@ class CartController extends CustomerController
 
         return response([
             'data'    => $cart ? app()->make($this->resource(), ['resource' => $cart]) : null,
-            'message' => __('rest-api::app.shop.checkout.cart.move-wishlist.success'),
+            'message' => __('Apis::app.shop.checkout.cart.move-wishlist.success'),
         ]);
     }
 }

@@ -51,7 +51,7 @@ class ConfigurationController extends AdminController
 
         return response([
             'data'    => $coreConfigData,
-            'message' => trans('rest-api::app.admin.configuration.update-success'),
+            'message' => trans('Apis::app.admin.configuration.update-success'),
         ]);
     }
 

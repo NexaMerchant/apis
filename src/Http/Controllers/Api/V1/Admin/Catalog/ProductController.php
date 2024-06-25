@@ -45,7 +45,7 @@ class ProductController extends CatalogController
                 || ! count($request->get('super_attributes')))
         ) {
             return response([
-                'message' => trans('rest-api::app.admin.catalog.products.error.configurable-error'),
+                'message' => trans('Apis::app.admin.catalog.products.error.configurable-error'),
             ], 400);
         }
 
@@ -63,7 +63,7 @@ class ProductController extends CatalogController
 
         return response([
             'data'    => new ProductResource($product),
-            'message' => trans('rest-api::app.admin.catalog.products.create-success'),
+            'message' => trans('Apis::app.admin.catalog.products.create-success'),
         ]);
     }
 
@@ -107,7 +107,7 @@ class ProductController extends CatalogController
 
         return response([
             'data'    => new ProductResource($product),
-            'message' => trans('rest-api::app.admin.catalog.products.update-success'),
+            'message' => trans('Apis::app.admin.catalog.products.update-success'),
         ]);
     }
 
@@ -130,7 +130,7 @@ class ProductController extends CatalogController
             'data'    => [
                 'total' => $productInventoryRepository->where('product_id', $product->id)->sum('qty'),
             ],
-            'message' => trans('rest-api::app.admin.catalog.products.inventories.update-success'),
+            'message' => trans('Apis::app.admin.catalog.products.inventories.update-success'),
         ]);
     }
 
@@ -150,7 +150,7 @@ class ProductController extends CatalogController
         Event::dispatch('catalog.product.delete.after', $id);
 
         return response([
-            'message' => trans('rest-api::app.admin.catalog.products.delete-success'),
+            'message' => trans('Apis::app.admin.catalog.products.delete-success'),
         ]);
     }
 
@@ -172,7 +172,7 @@ class ProductController extends CatalogController
         }
 
         return response([
-            'message' => trans('rest-api::app.admin.catalog.products.mass-operations.delete-success'),
+            'message' => trans('Apis::app.admin.catalog.products.mass-operations.delete-success'),
         ]);
     }
 
@@ -198,7 +198,7 @@ class ProductController extends CatalogController
         }
 
         return response([
-            'message' => trans('rest-api::app.admin.catalog.products.mass-operations.update-success'),
+            'message' => trans('Apis::app.admin.catalog.products.mass-operations.update-success'),
         ]);
     }
 }

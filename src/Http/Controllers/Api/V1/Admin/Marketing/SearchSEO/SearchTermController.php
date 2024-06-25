@@ -53,7 +53,7 @@ class SearchTermController extends MarketingController
 
         return response([
             'data'    => new SearchTermResource($searchTerm),
-            'message' => trans('rest-api::app.admin.marketing.search-seo.search-terms.create-success'),
+            'message' => trans('Apis::app.admin.marketing.search-seo.search-terms.create-success'),
         ]);
     }
 
@@ -86,7 +86,7 @@ class SearchTermController extends MarketingController
 
         return response([
             'data'    => new SearchTermResource($searchTerm),
-            'message' => trans('rest-api::app.admin.marketing.search-seo.search-terms.update-success'),
+            'message' => trans('Apis::app.admin.marketing.search-seo.search-terms.update-success'),
         ]);
     }
 
@@ -106,7 +106,7 @@ class SearchTermController extends MarketingController
         Event::dispatch('marketing.search_seo.search_terms.delete.after', $id);
 
         return response([
-            'message' => trans('rest-api::app.admin.marketing.search-seo.search-terms.delete-success'),
+            'message' => trans('Apis::app.admin.marketing.search-seo.search-terms.delete-success'),
         ]);
     }
 
@@ -129,7 +129,7 @@ class SearchTermController extends MarketingController
             }
 
             return response([
-                'message' => trans('rest-api::app.admin.marketing.search-seo.search-terms.mass-operations.delete-success'),
+                'message' => trans('Apis::app.admin.marketing.search-seo.search-terms.mass-operations.delete-success'),
             ]);
         } catch (\Exception $e) {
             return response([

@@ -57,7 +57,7 @@ class CategoryController extends CatalogController
 
         return response([
             'data'    => new CategoryResource($category),
-            'message' => trans('rest-api::app.admin.catalog.categories.create-success'),
+            'message' => trans('Apis::app.admin.catalog.categories.create-success'),
         ]);
     }
 
@@ -93,7 +93,7 @@ class CategoryController extends CatalogController
 
         return response([
             'data'    => new CategoryResource($category),
-            'message' => trans('rest-api::app.admin.catalog.categories.update-success'),
+            'message' => trans('Apis::app.admin.catalog.categories.update-success'),
         ]);
     }
 
@@ -108,7 +108,7 @@ class CategoryController extends CatalogController
 
         if (! $this->isCategoryDeletable($category)) {
             return response([
-                'message' => trans('rest-api::app.admin.catalog.categories.root-category-delete'),
+                'message' => trans('Apis::app.admin.catalog.categories.root-category-delete'),
             ], 400);
         }
 
@@ -119,7 +119,7 @@ class CategoryController extends CatalogController
         Event::dispatch('catalog.category.delete.after', $id);
 
         return response([
-            'message' => trans('rest-api::app.admin.catalog.categories.delete-success'),
+            'message' => trans('Apis::app.admin.catalog.categories.delete-success'),
         ]);
     }
 
@@ -147,7 +147,7 @@ class CategoryController extends CatalogController
         }
 
         return response([
-            'message' => trans('rest-api::app.admin.catalog.categories.mass-operations.update-success'),
+            'message' => trans('Apis::app.admin.catalog.categories.mass-operations.update-success'),
         ]);
     }
 
@@ -162,7 +162,7 @@ class CategoryController extends CatalogController
 
         if ($this->containsNonDeletableCategory($categories)) {
             return response([
-                'message' => trans('rest-api::app.admin.catalog.categories.error.root-category-delete'),
+                'message' => trans('Apis::app.admin.catalog.categories.error.root-category-delete'),
             ], 400);
         }
 
@@ -175,7 +175,7 @@ class CategoryController extends CatalogController
         });
 
         return response([
-            'message' => trans('rest-api::app.admin.catalog.categories.mass-operations.delete-success'),
+            'message' => trans('Apis::app.admin.catalog.categories.mass-operations.delete-success'),
         ]);
     }
 

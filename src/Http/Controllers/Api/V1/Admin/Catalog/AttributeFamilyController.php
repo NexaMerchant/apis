@@ -52,7 +52,7 @@ class AttributeFamilyController extends CatalogController
 
         return response([
             'data'    => new AttributeFamilyResource($attributeFamily),
-            'message' => trans('rest-api::app.admin.catalog.families.create-success'),
+            'message' => trans('Apis::app.admin.catalog.families.create-success'),
         ]);
     }
 
@@ -83,7 +83,7 @@ class AttributeFamilyController extends CatalogController
 
         if ($attributeFamily->code != request()->input('code')) {
             return response([
-                'message' => trans('rest-api::app.admin.catalog.families.error.can-not-updated'),
+                'message' => trans('Apis::app.admin.catalog.families.error.can-not-updated'),
             ], 400);
         }
 
@@ -93,7 +93,7 @@ class AttributeFamilyController extends CatalogController
 
         return response([
             'data'    => new AttributeFamilyResource($attributeFamily),
-            'message' => trans('rest-api::app.admin.catalog.families.update-success'),
+            'message' => trans('Apis::app.admin.catalog.families.update-success'),
         ]);
     }
 
@@ -108,13 +108,13 @@ class AttributeFamilyController extends CatalogController
 
         if ($this->getRepositoryInstance()->count() == 1) {
             return response([
-                'message' => trans('rest-api::app.admin.catalog.families.error.last-item-delete'),
+                'message' => trans('Apis::app.admin.catalog.families.error.last-item-delete'),
             ], 400);
         }
 
         if ($attributeFamily->products()->count()) {
             return response([
-                'message' => trans('rest-api::app.admin.catalog.families.error.being-used'),
+                'message' => trans('Apis::app.admin.catalog.families.error.being-used'),
             ], 400);
         }
 
@@ -125,7 +125,7 @@ class AttributeFamilyController extends CatalogController
         Event::dispatch('catalog.attribute_family.delete.after', $id);
 
         return response([
-            'message' => trans('rest-api::app.admin.catalog.families.delete-success'),
+            'message' => trans('Apis::app.admin.catalog.families.delete-success'),
         ]);
     }
 }

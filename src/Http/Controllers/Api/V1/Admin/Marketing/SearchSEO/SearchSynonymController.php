@@ -50,7 +50,7 @@ class SearchSynonymController extends MarketingController
 
         return response([
             'data'    => new SearchSynonymResource($searchSynonym),
-            'message' => trans('rest-api::app.admin.marketing.search-seo.search-synonyms.create-success'),
+            'message' => trans('Apis::app.admin.marketing.search-seo.search-synonyms.create-success'),
         ]);
     }
 
@@ -77,7 +77,7 @@ class SearchSynonymController extends MarketingController
 
         return response([
             'data'    => new SearchSynonymResource($searchSynonym),
-            'message' => trans('rest-api::app.admin.marketing.search-seo.search-synonyms.update-success'),
+            'message' => trans('Apis::app.admin.marketing.search-seo.search-synonyms.update-success'),
         ]);
     }
 
@@ -118,7 +118,7 @@ class SearchSynonymController extends MarketingController
             }
 
             return response([
-                'message' => trans('rest-api::app.admin.marketing.search-seo.search-synonyms.mass-operations.delete-success'),
+                'message' => trans('Apis::app.admin.marketing.search-seo.search-synonyms.mass-operations.delete-success'),
             ]);
         } catch (\Exception $e) {
             return response([

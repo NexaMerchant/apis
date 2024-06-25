@@ -69,7 +69,7 @@ class AttributeController extends CatalogController
 
         return response([
             'data'    => new AttributeResource($attribute),
-            'message' => trans('rest-api::app.admin.catalog.attributes.create-success'),
+            'message' => trans('Apis::app.admin.catalog.attributes.create-success'),
         ]);
     }
 
@@ -106,7 +106,7 @@ class AttributeController extends CatalogController
 
         if ($attribute->type != request()->input('type')) {
             return response([
-                'message' => trans('rest-api::app.admin.catalog.attributes.error.cannot-change-type'),
+                'message' => trans('Apis::app.admin.catalog.attributes.error.cannot-change-type'),
             ], 400);
         }
 
@@ -122,7 +122,7 @@ class AttributeController extends CatalogController
 
         return response([
             'data'    => new AttributeResource($attribute),
-            'message' => trans('rest-api::app.admin.catalog.attributes.update-success'),
+            'message' => trans('Apis::app.admin.catalog.attributes.update-success'),
         ]);
     }
 
@@ -137,7 +137,7 @@ class AttributeController extends CatalogController
 
         if (! $attribute->is_user_defined) {
             return response([
-                'message' => trans('rest-api::app.admin.catalog.attributes.error.system-attributes.delete'),
+                'message' => trans('Apis::app.admin.catalog.attributes.error.system-attributes.delete'),
             ], 400);
         }
 
@@ -148,7 +148,7 @@ class AttributeController extends CatalogController
         Event::dispatch('catalog.attribute.delete.after', $id);
 
         return response([
-            'message' => trans('rest-api::app.admin.catalog.attributes.delete-success'),
+            'message' => trans('Apis::app.admin.catalog.attributes.delete-success'),
         ]);
     }
 
@@ -166,7 +166,7 @@ class AttributeController extends CatalogController
 
             if (! $attribute->is_user_defined) {
                 return response([
-                    'message' => trans('rest-api::app.admin.catalog.attributes.error.system-attributes-delete'),
+                    'message' => trans('Apis::app.admin.catalog.attributes.error.system-attributes-delete'),
                 ], 400);
             }
         }
@@ -180,7 +180,7 @@ class AttributeController extends CatalogController
         }
 
         return response([
-            'message' => trans('rest-api::app.admin.catalog.attributes.delete-success'),
+            'message' => trans('Apis::app.admin.catalog.attributes.delete-success'),
         ]);
     }
 }

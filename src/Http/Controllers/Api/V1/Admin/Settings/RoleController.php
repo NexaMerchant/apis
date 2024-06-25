@@ -54,7 +54,7 @@ class RoleController extends SettingController
 
         return response([
             'data'    => new RoleResource($role),
-            'message' => trans('rest-api::app.admin.settings.roles.create-success'),
+            'message' => trans('Apis::app.admin.settings.roles.create-success'),
         ]);
     }
 
@@ -83,7 +83,7 @@ class RoleController extends SettingController
             && $adminRepository->countAdminsWithAllAccess() === 1
         ) {
             return response([
-                'message' => trans('rest-api::app.admin.settings.roles.error.being-used'),
+                'message' => trans('Apis::app.admin.settings.roles.error.being-used'),
             ], 400);
         }
 
@@ -95,7 +95,7 @@ class RoleController extends SettingController
 
         return response([
             'data'    => new RoleResource($role),
-            'message' => trans('rest-api::app.admin.settings.roles.update-success'),
+            'message' => trans('Apis::app.admin.settings.roles.update-success'),
         ]);
     }
 
@@ -110,13 +110,13 @@ class RoleController extends SettingController
 
         if ($role->admins->isNotEmpty()) {
             return response([
-                'message' => trans('rest-api::app.admin.settings.roles.error.being-used'),
+                'message' => trans('Apis::app.admin.settings.roles.error.being-used'),
             ], 400);
         }
 
         if ($this->getRepositoryInstance()->count() == 1) {
             return response([
-                'message' => trans('rest-api::app.admin.settings.roles.error.last-item-delete'),
+                'message' => trans('Apis::app.admin.settings.roles.error.last-item-delete'),
             ], 400);
         }
 
@@ -127,7 +127,7 @@ class RoleController extends SettingController
         Event::dispatch('user.role.delete.after', $id);
 
         return response([
-            'message' => trans('rest-api::app.admin.settings.roles.delete-success'),
+            'message' => trans('Apis::app.admin.settings.roles.delete-success'),
 
         ]);
     }

@@ -50,7 +50,7 @@ class GroupController extends BaseController
 
         return response([
             'data'    => new CustomerGroupResource($customerGroup),
-            'message' => trans('rest-api::app.admin.customers.groups.create-success'),
+            'message' => trans('Apis::app.admin.customers.groups.create-success'),
         ]);
     }
 
@@ -79,7 +79,7 @@ class GroupController extends BaseController
 
         return response([
             'data'    => new CustomerGroupResource($customerGroup),
-            'message' => trans('rest-api::app.admin.customers.groups.update-success'),
+            'message' => trans('Apis::app.admin.customers.groups.update-success'),
         ]);
     }
 
@@ -94,13 +94,13 @@ class GroupController extends BaseController
 
         if ($customerGroup->is_user_defined == 0) {
             return response([
-                'message' => trans('rest-api::app.admin.customers.groups.error.default-group-delete'),
+                'message' => trans('Apis::app.admin.customers.groups.error.default-group-delete'),
             ], 400);
         }
 
         if (count($customerGroup->customers) > 0) {
             return response([
-                'message' => trans('rest-api::app.admin.customers.groups.error.being-used'),
+                'message' => trans('Apis::app.admin.customers.groups.error.being-used'),
             ], 400);
         }
 
@@ -111,7 +111,7 @@ class GroupController extends BaseController
         Event::dispatch('customer.customer_group.delete.after', $id);
 
         return response([
-            'message' => trans('rest-api::app.admin.customers.groups.delete-success'),
+            'message' => trans('Apis::app.admin.customers.groups.delete-success'),
         ]);
     }
 }

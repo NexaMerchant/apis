@@ -55,7 +55,7 @@ class URLRewriteController extends MarketingController
 
         return response([
             'data'    => new URLRewriteResource($urlRewrite),
-            'message' => trans('rest-api::app.admin.marketing.search-seo.url-rewrites.create-success'),
+            'message' => trans('Apis::app.admin.marketing.search-seo.url-rewrites.create-success'),
         ]);
     }
 
@@ -88,7 +88,7 @@ class URLRewriteController extends MarketingController
 
         return response([
             'data'    => new URLRewriteResource($urlRewrite),
-            'message' => trans('rest-api::app.admin.marketing.search-seo.url-rewrites.update-success'),
+            'message' => trans('Apis::app.admin.marketing.search-seo.url-rewrites.update-success'),
         ]);
     }
 
@@ -108,7 +108,7 @@ class URLRewriteController extends MarketingController
         Event::dispatch('marketing.search_seo.url_rewrites.delete.after', $id);
 
         return response([
-            'message' => trans('rest-api::app.admin.marketing.search-seo.url-rewrites.delete-success'),
+            'message' => trans('Apis::app.admin.marketing.search-seo.url-rewrites.delete-success'),
         ]);
     }
 
@@ -131,7 +131,7 @@ class URLRewriteController extends MarketingController
             }
 
             return response([
-                'message' => trans('rest-api::app.admin.marketing.search-seo.url-rewrites.mass-operations.delete-success'),
+                'message' => trans('Apis::app.admin.marketing.search-seo.url-rewrites.mass-operations.delete-success'),
             ]);
         } catch (\Exception $e) {
             return response([

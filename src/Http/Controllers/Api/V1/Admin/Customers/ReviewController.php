@@ -45,7 +45,7 @@ class ReviewController extends BaseController
 
         return response([
             'data'    => new ProductReviewResource($review),
-            'message' => trans('rest-api::app.admin.customers.reviews.update-success'),
+            'message' => trans('Apis::app.admin.customers.reviews.update-success'),
         ]);
     }
 
@@ -63,7 +63,7 @@ class ReviewController extends BaseController
         Event::dispatch('customer.review.delete.after', $id);
 
         return response([
-            'message' => trans('rest-api::app.admin.customers.reviews.delete-success'),
+            'message' => trans('Apis::app.admin.customers.reviews.delete-success'),
         ]);
     }
 
@@ -87,7 +87,7 @@ class ReviewController extends BaseController
         }
 
         return response([
-            'message' => trans('rest-api::app.admin.customers.reviews.mass-operations.update-success'),
+            'message' => trans('Apis::app.admin.customers.reviews.mass-operations.update-success'),
         ]);
     }
 
@@ -109,7 +109,7 @@ class ReviewController extends BaseController
         }
 
         return response([
-            'message' => trans('rest-api::app.admin.customers.reviews.mass-operations.delete-success'),
+            'message' => trans('Apis::app.admin.customers.reviews.mass-operations.delete-success'),
         ]);
     }
 }

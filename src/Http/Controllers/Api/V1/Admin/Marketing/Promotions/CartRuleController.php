@@ -54,7 +54,7 @@ class CartRuleController extends MarketingController
 
         return response([
             'data'    => new CartRuleResource($cartRule),
-            'message' => trans('rest-api::app.admin.marketing.promotions.cart-rules.create-success'),
+            'message' => trans('Apis::app.admin.marketing.promotions.cart-rules.create-success'),
         ]);
     }
 
@@ -99,7 +99,7 @@ class CartRuleController extends MarketingController
 
         return response([
             'data'    => new CartRuleResource($cartRule),
-            'message' => trans('rest-api::app.admin.marketing.promotions.cart-rules.update-success'),
+            'message' => trans('Apis::app.admin.marketing.promotions.cart-rules.update-success'),
         ]);
     }
 
@@ -119,7 +119,7 @@ class CartRuleController extends MarketingController
         Event::dispatch('promotions.cart_rule.delete.after', $id);
 
         return response([
-            'message' => trans('rest-api::app.admin.marketing.promotions.cart-rules.delete-success'),
+            'message' => trans('Apis::app.admin.marketing.promotions.cart-rules.delete-success'),
         ]);
     }
 }

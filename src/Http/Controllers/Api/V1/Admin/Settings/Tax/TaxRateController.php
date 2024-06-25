@@ -66,7 +66,7 @@ class TaxRateController extends SettingController
 
         return response([
             'data'    => new TaxRateResource($taxRate),
-            'message' => trans('rest-api::app.admin.settings.taxes.tax-rates.create-success'),
+            'message' => trans('Apis::app.admin.settings.taxes.tax-rates.create-success'),
         ]);
     }
 
@@ -103,7 +103,7 @@ class TaxRateController extends SettingController
 
         return response([
             'data'    => new TaxRateResource($taxRate),
-            'message' => trans('rest-api::app.admin.settings.taxes.tax-rates.update-success'),
+            'message' => trans('Apis::app.admin.settings.taxes.tax-rates.update-success'),
         ]);
     }
 
@@ -123,7 +123,7 @@ class TaxRateController extends SettingController
         Event::dispatch('tax.rate.delete.after', $id);
 
         return response([
-            'message' => trans('rest-api::app.admin.settings.taxes.tax-rates.delete-success'),
+            'message' => trans('Apis::app.admin.settings.taxes.tax-rates.delete-success'),
         ]);
     }
 }

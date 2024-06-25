@@ -56,7 +56,7 @@ class UserController extends SettingController
 
         return response([
             'user'    => new UserResource($admin),
-            'message' => trans('rest-api::app.admin.settings.users.create-success'),
+            'message' => trans('Apis::app.admin.settings.users.create-success'),
         ]);
     }
 
@@ -85,7 +85,7 @@ class UserController extends SettingController
 
         return response([
             'user'    => new UserResource($admin),
-            'message' => trans('rest-api::app.admin.settings.users.update-success'),
+            'message' => trans('Apis::app.admin.settings.users.update-success'),
         ]);
     }
 
@@ -100,7 +100,7 @@ class UserController extends SettingController
 
         if ($this->getRepositoryInstance()->count() == 1) {
             return response([
-                'message' => trans('rest-api::app.admin.settings.users.error.last-item-delete'),
+                'message' => trans('Apis::app.admin.settings.users.error.last-item-delete'),
             ], 400);
         }
 
@@ -111,7 +111,7 @@ class UserController extends SettingController
         Event::dispatch('user.admin.delete.after', $id);
 
         return response([
-            'message' => trans('rest-api::app.admin.settings.users.delete-success'),
+            'message' => trans('Apis::app.admin.settings.users.delete-success'),
         ]);
     }
 
@@ -167,7 +167,7 @@ class UserController extends SettingController
     private function cannotChangeRedirectResponse(string $columnName)
     {
         return response([
-            'message' => trans('rest-api::app.admin.settings.users.error.cannot-change-column', ['name' => $columnName]),
+            'message' => trans('Apis::app.admin.settings.users.error.cannot-change-column', ['name' => $columnName]),
         ]);
     }
 }

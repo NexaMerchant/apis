@@ -48,7 +48,7 @@ class CheckoutController extends CustomerController
                 'rates' => $rates,
                 'cart'  => new CartResource(Cart::getCart()),
             ],
-            'message' => trans('rest-api::app.shop.checkout.billing-address-saved'),
+            'message' => trans('Apis::app.shop.checkout.billing-address-saved'),
         ]);
     }
 
@@ -77,7 +77,7 @@ class CheckoutController extends CustomerController
                 'methods' => Payment::getPaymentMethods(),
                 'cart'    => new CartResource(Cart::getCart()),
             ],
-            'message' => trans('rest-api::app.shop.checkout.shipping-method-saved'),
+            'message' => trans('Apis::app.shop.checkout.shipping-method-saved'),
         ]);
     }
 
@@ -106,7 +106,7 @@ class CheckoutController extends CustomerController
             'data'    => [
                 'cart' => new CartResource(Cart::getCart()),
             ],
-            'message' => trans('rest-api::app.shop.checkout.payment-method-saved'),
+            'message' => trans('Apis::app.shop.checkout.payment-method-saved'),
         ]);
     }
 
@@ -126,7 +126,7 @@ class CheckoutController extends CustomerController
                 'cart'   => new CartResource(Cart::getCart()),
                 'status' => ! $status ? false : true,
             ],
-            'message' => ! $status ? trans('rest-api::app.shop.checkout.minimum-order-message', ['amount' => core()->currency($minimumOrderAmount)]) : 'Success',
+            'message' => ! $status ? trans('Apis::app.shop.checkout.minimum-order-message', ['amount' => core()->currency($minimumOrderAmount)]) : 'Success',
         ]);
     }
 
@@ -161,7 +161,7 @@ class CheckoutController extends CustomerController
             'data'    => [
                 'order' => new OrderResource($order),
             ],
-            'message' => trans('rest-api::app.shop.checkout.order-saved'),
+            'message' => trans('Apis::app.shop.checkout.order-saved'),
         ]);
     }
 
@@ -177,23 +177,23 @@ class CheckoutController extends CustomerController
         $minimumOrderAmount = core()->getConfigData('sales.orderSettings.minimum-order.minimum_order_amount') ?? 0;
 
         if (! $cart->checkMinimumOrder()) {
-            throw new \Exception(trans('rest-api::app.shop.checkout.minimum-order-message', ['amount' => core()->currency($minimumOrderAmount)]));
+            throw new \Exception(trans('Apis::app.shop.checkout.minimum-order-message', ['amount' => core()->currency($minimumOrderAmount)]));
         }
 
         if ($cart->haveStockableItems() && ! $cart->shipping_address) {
-            throw new \Exception(trans('rest-api::app.shop.checkout.check-shipping-address'));
+            throw new \Exception(trans('Apis::app.shop.checkout.check-shipping-address'));
         }
 
         if (! $cart->billing_address) {
-            throw new \Exception(trans('rest-api::app.shop.checkout.check-billing-address'));
+            throw new \Exception(trans('Apis::app.shop.checkout.check-billing-address'));
         }
 
         if ($cart->haveStockableItems() && ! $cart->selected_shipping_rate) {
-            throw new \Exception(trans('rest-api::app.shop.checkout.specify-shipping-method'));
+            throw new \Exception(trans('Apis::app.shop.checkout.specify-shipping-method'));
         }
 
         if (! $cart->payment) {
-            throw new \Exception(trans('rest-api::app.shop.checkout.specify-payment-method'));
+            throw new \Exception(trans('Apis::app.shop.checkout.specify-payment-method'));
         }
     }
 }

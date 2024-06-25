@@ -22,7 +22,7 @@ class CustomerMiddleware
         if (EnsureFrontendRequestsAreStateful::fromFrontend($request)) {
             if (! auth('customer')->user()) {
                 return response([
-                    'message' => __('rest-api::app.common-response.error.not-authorized'),
+                    'message' => __('Apis::app.common-response.error.not-authorized'),
                 ], 401);
             }
 
@@ -37,7 +37,7 @@ class CustomerMiddleware
         }
 
         return response([
-            'message' => __('rest-api::app.common-response.error.not-authorized'),
+            'message' => __('Apis::app.common-response.error.not-authorized'),
         ], 401);
     }
 }

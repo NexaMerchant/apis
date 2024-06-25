@@ -57,7 +57,7 @@ class PageController extends CMSController
 
         return response([
             'data'    => new PageResource($page),
-            'message' => trans('rest-api::app.admin.cms.create-success'),
+            'message' => trans('Apis::app.admin.cms.create-success'),
         ]);
     }
 
@@ -73,7 +73,7 @@ class PageController extends CMSController
         $request->validate([
             $locale.'.url_key'     => ['required', new Slug, function ($attribute, $value, $fail) use ($id) {
                 if (! $this->getRepositoryInstance()->isUrlKeyUnique($id, $value)) {
-                    $fail(trans('rest-api::app.admin.cms.error.already-taken'));
+                    $fail(trans('Apis::app.admin.cms.error.already-taken'));
                 }
             }],
             $locale.'.page_title'   => 'required',
@@ -93,7 +93,7 @@ class PageController extends CMSController
 
         return response([
             'data'    => new PageResource($page),
-            'message' => trans('rest-api::app.admin.cms.update-success'),
+            'message' => trans('Apis::app.admin.cms.update-success'),
         ]);
     }
 
@@ -111,7 +111,7 @@ class PageController extends CMSController
         Event::dispatch('cms.pages.delete.after', $id);
 
         return response([
-            'message' => trans('rest-api::app.admin.cms.mass-operations.delete-success'),
+            'message' => trans('Apis::app.admin.cms.mass-operations.delete-success'),
         ]);
     }
 
@@ -133,7 +133,7 @@ class PageController extends CMSController
         }
 
         return response([
-            'message' => trans('rest-api::app.admin.cms.mass-operations.delete-success'),
+            'message' => trans('Apis::app.admin.cms.mass-operations.delete-success'),
         ]);
     }
 }

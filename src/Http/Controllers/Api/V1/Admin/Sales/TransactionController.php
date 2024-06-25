@@ -57,13 +57,13 @@ class TransactionController extends SalesController
 
         if (! $invoice) {
             return response([
-                'message' => trans('rest-api::app.admin.sales.transactions.invoice-missing'),
+                'message' => trans('Apis::app.admin.sales.transactions.invoice-missing'),
             ], 400);
         }
 
         if ($invoice->state == 'paid') {
             return response([
-                'message' => trans('rest-api::app.admin.sales.transactions.already-paid'),
+                'message' => trans('Apis::app.admin.sales.transactions.already-paid'),
             ], 400);
         }
 
@@ -73,7 +73,7 @@ class TransactionController extends SalesController
 
         if ($transactionAmtFinal > $invoice->base_grand_total) {
             return response([
-                'message' => trans('rest-api::app.admin.sales.transactions.transaction-amount-exceeds'),
+                'message' => trans('Apis::app.admin.sales.transactions.transaction-amount-exceeds'),
             ], 400);
         }
 
@@ -112,7 +112,7 @@ class TransactionController extends SalesController
         }
 
         return response([
-            'message' => trans('rest-api::app.admin.sales.transactions.transaction-saved'),
+            'message' => trans('Apis::app.admin.sales.transactions.transaction-saved'),
             'data'    => new OrderTransactionResource($transaction),
         ]);
     }
