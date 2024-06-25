@@ -216,8 +216,8 @@ class AuthController
 
     /**
      * @OA\Post(
-     *      path="/api/v1/customer/login",
-     *      operationId="customerLogin",
+     *      path="/api/v1/customer/login-code",
+     *      operationId="LoginWithCode",
      *      tags={"Customers"},
      *      summary="Login customer",
      *      description="Login customer",
