@@ -213,4 +213,141 @@ class AuthController
     public function forgotPassword()
     {
     }
+
+    /**
+     * @OA\Post(
+     *      path="/api/v1/customer/login",
+     *      operationId="customerLogin",
+     *      tags={"Customers"},
+     *      summary="Login customer",
+     *      description="Login customer",
+     *
+     *      @OA\Parameter(
+     *          name="accept_token",
+     *          description="Accept Token Flag",
+     *          required=false,
+     *          in="query",
+     *
+     *          @OA\Schema(
+     *              type="bool"
+     *          )
+     *      ),
+     *
+     *      @OA\RequestBody(
+     *
+     *          @OA\MediaType(
+     *              mediaType="multipart/form-data",
+     *
+     *              @OA\Schema(
+     *
+     *                  @OA\Property(
+     *                      property="email",
+     *                      type="string",
+     *                      format="email",
+     *                      example="shop@example.com"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="code",
+     *                      type="string",
+     *                      format="code",
+     *                      example="654231"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="device_name",
+     *                      type="string",
+     *                      example="android"
+     *                  ),
+     *                  required={"email", "code"}
+     *              )
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *          @OA\JsonContent(
+     *
+     *              @OA\Property(
+     * 					property="message",
+     * 					type="string",
+     * 					example="Logged in successfully."
+     *				),
+     *				@OA\Property(
+     * 					property="data",
+     * 					type="object",
+     * 					ref="#/components/schemas/Customer"
+     *				)
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request",
+     *
+     *          @OA\JsonContent(
+     *
+     *              @OA\Property(
+     * 					property="message",
+     * 					type="string",
+     * 					example="Invalid Email or Password"
+     * 				)
+     *          )
+     *      )
+     * )
+     */
+    public function LoginWithCode() {
+        
+    }
+
+    /**
+     * @OA\Post(
+     *      path="/api/v1/customer/get-code",
+     *      operationId="customerGetCode",
+     *      tags={"Customers"},
+     *      summary="Get Code",
+     *      description="Get Code",
+     *
+     *      @OA\RequestBody(
+     *
+     *          @OA\MediaType(
+     *              mediaType="multipart/form-data",
+     *
+     *              @OA\Schema(
+     *
+     *                  @OA\Property(
+     *                      property="email",
+     *                      type="string",
+     *                      format="email",
+     *                      example="example@example.com"
+     *                  ),
+     *                  required={"email"}
+     *              )
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *          @OA\JsonContent(
+     *
+     *              @OA\Property(property="message", type="string", example="We have e-mailed your reset password link.")
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request",
+     *
+     *          @OA\JsonContent(
+     *
+     *              @OA\Property(property="message", type="string", example="We can't find a user with that e-mail address.")
+     *          )
+     *      )
+     * )
+     */
+    public function getCode(){
+
+    }
 }
