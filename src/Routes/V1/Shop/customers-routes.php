@@ -20,6 +20,12 @@ Route::controller(AuthController::class)->prefix('customer')->group(function () 
     Route::post('register', 'register');
 
     Route::post('forgot-password', 'forgotPassword');
+
+    // Get the email code
+    Route::post('get-code', 'getCode');
+
+    // Login with code
+    Route::post('login-code', 'LoginWithCode');
 });
 
 /**
