@@ -395,6 +395,12 @@ return [
                     'update-failed'     => 'Beim Aktualisieren Ihres Kontos ist ein Fehler aufgetreten',
                 ],
             ],
+            'code' => [
+                'sent' => 'Bestätigungscode wurde erfolgreich gesendet.',
+                'expired' => 'Der Bestätigungscode ist abgelaufen.',
+                'invalid' => 'Ungültiger Bestätigungscode.',
+                'verified' => 'Ihre E-Mail-Adresse wurde erfolgreich bestätigt.',
+            ],
         ],
 
         'checkout' => [

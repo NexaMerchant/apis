@@ -401,6 +401,12 @@ return [
                     'update-failed'     => 'Se ha producido un error al actualizar su cuenta',
                 ],
             ],
+            'code' => [
+                'sent' => 'El código de verificación se ha enviado correctamente.',
+                'expired' => 'El código de verificación ha caducado. Por favor, solicita un nuevo código.',
+                'invalid' => 'El código de verificación es inválido.',
+                'verified' => 'Tu cuenta ha sido verificada correctamente.',
+            ],
         ],
 
         'checkout' => [

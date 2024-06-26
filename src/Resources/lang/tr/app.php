@@ -401,6 +401,12 @@ return [
                     'update-failed'     => 'Hesabınızı güncelleştirirken bir hata oluştu',
                 ],
             ],
+            'code' => [
+                'sent' => 'Doğrulama kodu başarıyla gönderildi.',
+                'expired' => 'Doğrulama kodu süresi doldu.',
+                'invalid' => 'Geçersiz doğrulama kodu.',
+                'verified' => 'Doğrulama kodu başarıyla doğrulandı.',
+            ],
         ],
 
         'checkout' => [

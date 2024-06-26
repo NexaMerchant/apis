@@ -401,6 +401,12 @@ return [
                     'update-failed'     => 'Si è verificato un errore durante l\'aggiornamento del tuo account',
                 ],
             ],
+            'code' => [
+                'sent' => 'Il codice di verifica è stato inviato alla tua email.',
+                'expired' => 'Il codice di verifica è scaduto. Si prega di richiedere un nuovo codice.',
+                'invalid' => 'Il codice di verifica non è valido. Si prega di inserire un codice di verifica valido.',
+                'verified' => 'Il tuo indirizzo email è stato verificato con successo.',
+            ],
         ],
 
         'checkout' => [

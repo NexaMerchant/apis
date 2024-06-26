@@ -401,6 +401,12 @@ return [
                     'update-failed'     => 'Під час оновлення вашого облікового запису виникла помилка',
                 ],
             ],
+            'code' => [
+                'sent' => 'Verification code sent successfully.',
+                'expired' => 'Verification code expired.',
+                'invalid' => 'Invalid verification code.',
+                'verified' => 'Your account has been verified successfully.',
+            ],
         ],
 
         'checkout' => [

@@ -400,6 +400,12 @@ return [
                     'invalid'          => 'E-mail ou mot de passe invalide',
                 ],
             ],
+            'code' => [
+                'sent' => 'Le code de vérification a été envoyé à votre adresse e-mail.',
+                'expired' => 'Le code de vérification a expiré. Veuillez en demander un nouveau.',
+                'invalid' => 'Le code de vérification est invalide.',
+                'verified' => 'Votre adresse e-mail a été vérifiée avec succès.',
+            ],
         ],
 
         'checkout' => [

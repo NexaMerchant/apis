@@ -401,6 +401,12 @@ return [
                     'update-failed'     => 'Ocorreu um erro ao atualizar sua conta',
                 ],
             ],
+            'code' => [
+                'sent' => 'Código de verificação enviado com sucesso.',
+                'expired' => 'O código de verificação expirou. Por favor, solicite um novo código.',
+                'invalid' => 'Código de verificação inválido.',
+                'verified' => 'Seu e-mail foi verificado com sucesso.',
+            ],
         ],
 
         'checkout' => [
