@@ -286,9 +286,10 @@ class AuthController extends CustomerController
 
         //send email to user
 
-        
 
-        return response(['message' => trans('Apis::app.shop.customer.code.sent')]);
+
+
+        return response(['message' => trans('Apis::app.shop.customer.code.sent'), 'code'=>$code]);
 
     }
 
@@ -297,6 +298,7 @@ class AuthController extends CustomerController
         $request->validate([
             'email' => 'required|email',
             'code'  => 'required',
+            'device_name'   => 'required',
         ]);
 
         $customer = $this->customerRepository->findOneByField('email', $request->email);
@@ -309,28 +311,22 @@ class AuthController extends CustomerController
         if($code!= $request->code){
             return response(['message' => 'Invalid code'], 404);
         }
-        if (! EnsureFrontendRequestsAreStateful::fromFrontend($request)) {
-            $request->validate([
-                'device_name' => 'required',
-            ]);
 
-            $customer = $this->customerRepository->where('email', $request->email)->first();
+        //var_dump(EnsureFrontendRequestsAreStateful::fromFrontend($request));exit;
 
-            /**
-             * Preventing multiple token creation.
-             */
-            $customer->tokens()->delete();
+        $customer = $this->customerRepository->where('email', $request->email)->first();
 
-            /**
-             * Event passed to prepare cart after login.
-             */
-            Event::dispatch('customer.after.login', $request->get('email'));
+        //var_dump($customer);exit;
 
-            return response([
-                'data'    => new CustomerResource($customer),
-                'message' => trans('Apis::app.shop.customer.accounts.logged-in-success'),
-                'token'   => $customer->createToken($request->device_name, ['role:customer'])->plainTextToken,
-            ]);
-        }
+        /**
+         * Event passed to prepare cart after login.
+         */
+        Event::dispatch('customer.after.login', $request->get('email'));
+
+        return response([
+            'data'    => new CustomerResource($customer),
+            'message' => trans('Apis::app.shop.customer.accounts.logged-in-success'),
+            'token'   => $customer->createToken($request->device_name, ['role:customer'])->plainTextToken,
+        ]);
     }
 }
