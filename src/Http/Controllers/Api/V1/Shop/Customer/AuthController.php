@@ -19,6 +19,8 @@ use Webkul\Customer\Repositories\CustomerGroupRepository;
 use Webkul\Shop\Http\Requests\Customer\RegistrationRequest;
 use NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Customer\CustomerResource;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
+use NexaMerchant\Apis\Mail\V1\Customer\SendCodeNotification;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends CustomerController
 {
@@ -285,7 +287,7 @@ class AuthController extends CustomerController
         Cache::put(md5($request->email), $code, 300); // 5 * 60 minutes
 
         //send email to user
-
+        Mail::to($customer->email)->send(new SendCodeNotification($code, $customer));
 
 
 

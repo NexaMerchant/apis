@@ -40,6 +40,8 @@ class ApisServiceProvider extends ServiceProvider
 
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
+        $this->loadViewsFrom(__DIR__ . '/../Resources/views', 'Apis');
+
         $router->aliasMiddleware('assign_request_id', AssignRequestId::class);
         
 
