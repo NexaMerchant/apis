@@ -401,6 +401,12 @@ return [
                     'update-failed'     => 'Er is een fout opgetreden bij het bijwerken van uw account',
                 ],
             ],
+            'code' => [
+                'sent' => 'Verificatiecode is succesvol verzonden.',
+                'expired' => 'Verificatiecode is verlopen. Vraag een nieuwe code aan.',
+                'invalid' => 'Ongeldige verificatiecode.',
+                'verified' => 'Uw e-mailadres is geverifieerd.',
+            ],
         ],
 
         'checkout' => [

@@ -4,6 +4,6 @@
     <title>Login Code</title>
 </head>
 <body>
-    <p>Your login code is: {{ $code }}</p>
+    <p> @lang("Apis::app.email.customers.sendcode.subject") : {{ $code }}</p>
 </body>
 </html>

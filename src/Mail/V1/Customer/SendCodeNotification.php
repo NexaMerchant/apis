@@ -29,7 +29,7 @@ class SendCodeNotification extends Mailable
     {
         return $this->from(core()->getSenderEmailDetails()['email'], core()->getSenderEmailDetails()['name'])
             ->to($this->customer->email)
-            ->subject(trans('apis::app.emails.customers.sendcode.subject'))
+            ->subject(trans('Apis::app.email.customers.sendcode.subject').'  '.$this->code)
             ->view('Apis::emails.v1.customers.sendcode', [
                 'code' => $this->code,
             ]);
