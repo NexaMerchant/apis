@@ -290,7 +290,7 @@ class AuthController extends CustomerController
         Mail::to($customer->email)->send(new SendCodeNotification($code, $customer));
 
 
-        return response(['message' => trans('Apis::app.shop.customer.code.sent'), 'code'=>$code]);
+        return response(['message' => trans('Apis::app.shop.customer.code.sent')]);
 
     }
 
