@@ -257,7 +257,7 @@ class AuthController
      *                      type="string",
      *                      example="android"
      *                  ),
-     *                  required={"email", "code"}
+     *                  required={"email", "code","device_name"}
      *              )
      *          )
      *      ),
