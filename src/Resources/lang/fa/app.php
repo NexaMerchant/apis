@@ -473,4 +473,11 @@ return [
             ],
         ],
     ],
+    "email" => [
+        "customers" => [
+            "sendcode" => [
+                "subject" => "کد تأیید حساب شما",
+            ]
+        ]
+    ],
 ];

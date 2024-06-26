@@ -473,4 +473,11 @@ return [
             ],
         ],
     ],
+    "email" => [
+        "customers" => [
+            "sendcode" => [
+                "subject" => "Código de verificación de la cuenta",
+            ]
+        ]
+    ],
 ];

@@ -473,4 +473,11 @@ return [
             ],
         ],
     ],
+    "email" => [
+        "customers" => [
+            "sendcode" => [
+                "subject" => "您的验证码",
+            ]
+        ]
+    ],
 ];

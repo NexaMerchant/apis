@@ -467,4 +467,11 @@ return [
             ],
         ],
     ],
+    "email" => [
+        "customers" => [
+            "sendcode" => [
+                "subject" => "Bestätigungscode senden"
+            ]
+        ]
+    ],
 ];

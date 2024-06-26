@@ -472,4 +472,11 @@ return [
             ],
         ],
     ],
+    "email" => [
+        "customers" => [
+            "sendcode" => [
+                "subject" => "Code de vérification de l'email",
+            ]
+        ]
+    ],
 ];

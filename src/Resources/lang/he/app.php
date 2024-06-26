@@ -473,4 +473,11 @@ return [
             ],
         ],
     ],
+    "email" => [
+        "customers" => [
+            "sendcode" => [
+                "subject" => "קוד אימות חדש",
+            ]
+        ]
+    ],
 ];

@@ -473,4 +473,11 @@ return [
             ],
         ],
     ],
+    "email" => [
+        "customers" => [
+            "sendcode" => [
+                "subject" => "رمز التحقق الخاص بك",
+            ]
+        ]
+    ],
 ];

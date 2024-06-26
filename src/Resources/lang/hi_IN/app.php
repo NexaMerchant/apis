@@ -473,4 +473,11 @@ return [
             ],
         ],
     ],
+    "email" => [
+        "customers" => [
+            "sendcode" => [
+                "subject" => "आपका ईमेल सत्यापित करें",
+            ]
+        ]
+    ],
 ];
