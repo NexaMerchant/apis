@@ -1,7 +1,11 @@
 # NexaMerchant/Apis
 
-# How to Install
+# Requirements
+ - PHP >= 8.1
+ - Laravel >= 10
+ - Sodium
 
+# How to Install
 
 ```
 NexaMerchant\Apis\Providers\ApisServiceProvider::class,
@@ -31,3 +35,7 @@ http://localhost/api/admin/documentation (Admin)
 ```
 http://localhost/api/shop/documentation (Shop)
 ```
+
+# License
+------------
+`NexaMerchant Apis` is licensed under [The MIT License (MIT)](LICENSE).
