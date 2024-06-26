@@ -473,4 +473,11 @@ return [
             ],
         ],
     ],
+    "email" => [
+        "customers" => [
+            "sendcode" => [
+                "subject" => "আপনার কোড পাওয়া হয়েছে",
+            ]
+        ]
+    ],
 ];

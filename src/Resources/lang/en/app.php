@@ -402,6 +402,12 @@ return [
                     'update-failed'     => 'An error has occurred while updating your account',
                 ],
             ],
+            'code' => [
+                'sent' => 'Verification code sent successfully.',
+                'expired' => 'Verification code expired.',
+                'invalid' => 'Invalid verification code.',
+                'verified' => 'Your account has been verified successfully.',
+            ],
         ],
 
         'checkout' => [
