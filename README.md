@@ -36,6 +36,10 @@ http://localhost/api/admin/documentation (Admin)
 http://localhost/api/shop/documentation (Shop)
 ```
 
+Bug Report
+------------
+[https://github.com/NexaMerchant/apis/issues](https://github.com/NexaMerchant/apis/issues)
+
 # License
 ------------
 `NexaMerchant Apis` is licensed under [The MIT License (MIT)](LICENSE).
