@@ -19,6 +19,7 @@ class ApisServiceProvider extends ServiceProvider
     protected $middlewareAliases = [
         'sanctum.admin'    => \NexaMerchant\Apis\Http\Middleware\AdminMiddleware::class,
         'sanctum.customer' => \NexaMerchant\Apis\Http\Middleware\CustomerMiddleware::class,
+        'sanctum.app' => \NexaMerchant\Apis\Http\Middleware\AppMiddleware::class,
         'sanctum.locale'   => \NexaMerchant\Apis\Http\Middleware\LocaleMiddleware::class,
         'sanctum.currency' => \NexaMerchant\Apis\Http\Middleware\CurrencyMiddleware::class,
     ];
