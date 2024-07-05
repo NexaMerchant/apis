@@ -31,6 +31,13 @@ trait ProvideUser
         }
     }
 
+    public function setAppAuthDriver(Request $request)
+    {
+        if (EnsureFrontendRequestsAreStateful::fromFrontend($request)) {
+            auth()->setDefaultDriver('app');
+        }
+    }
+
     /**
      * Resolve admin user.
      *
@@ -54,6 +61,15 @@ trait ProvideUser
     {
         if (EnsureFrontendRequestsAreStateful::fromFrontend($request)) {
             return auth('customer')->user();
+        }
+
+        return $request->user();
+    }
+
+    public function resolveAppUser(Request $request)
+    {
+        if (EnsureFrontendRequestsAreStateful::fromFrontend($request)) {
+            return auth('app')->user();
         }
 
         return $request->user();
