@@ -31,12 +31,12 @@ class OrderController extends SalesController
      *
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
+    public function findByEmail(Request $request)
     {
         $validatedData = $request->validate([
             'email'           => 'required',
         ]);
-        $results = $this->getRepositoryInstance()->search($request->all());
+        $results = $this->getRepositoryInstance()->findByEmail($request->get('email'));
 
         return $this->resource()::collection($results);
     }

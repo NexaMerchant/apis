@@ -17,7 +17,7 @@ Route::group([
     Route::controller(OrderController::class)->prefix('orders')->group(function () {
         Route::get('', 'allResources');
 
-        Route::get('search', 'search');
+        Route::get('find-by-email', 'findByEmail');
 
         Route::get('{id}', 'getResource');
 
