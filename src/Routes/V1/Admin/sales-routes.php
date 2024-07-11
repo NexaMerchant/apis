@@ -17,6 +17,8 @@ Route::group([
     Route::controller(OrderController::class)->prefix('orders')->group(function () {
         Route::get('', 'allResources');
 
+        Route::get('search', 'search');
+
         Route::get('{id}', 'getResource');
 
         Route::post('{id}/cancel', 'cancel');

@@ -27,6 +27,21 @@ class OrderController extends SalesController
     }
 
     /**
+     * Search all the orders.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $validatedData = $request->validate([
+            'email'           => 'required',
+        ]);
+        $results = $this->getRepositoryInstance()->search($request->all());
+
+        return $this->resource()::collection($results);
+    }
+
+    /**
      * Cancel action for the specified resource.
      *
      * @return \Illuminate\Http\Response
