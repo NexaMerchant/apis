@@ -25,6 +25,7 @@ class AssignRequestId
         $response = $next($request);
  
         $response->headers->set('Request-Id', $requestId);
+
  
         return $response;
     }

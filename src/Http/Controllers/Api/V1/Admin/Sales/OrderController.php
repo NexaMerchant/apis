@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Event;
 use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Sales\OrderResource;
 use Webkul\Sales\Repositories\OrderCommentRepository;
 use Webkul\Sales\Repositories\OrderRepository;
+use Webkul\Sales\Models\Order;
 
 class OrderController extends SalesController
 {
@@ -36,8 +37,22 @@ class OrderController extends SalesController
         $validatedData = $request->validate([
             'email'           => 'required',
         ]);
-        $results = $this->getRepositoryInstance()->findByEmail($request->get('email'));
 
+        $order = $request->get('order') ?? 'desc';
+        $sort = $request->get('sort') ?? 'id';
+        $page = $request->get('page') ?? 1;
+        $limit = $request->get('limit') ?? 10;
+        $query  = Order::query();
+
+        $query->where('customer_email', $request->get('email'));
+        $query->orderBy($sort, $order);
+        $query->paginate($limit, ['*'], 'page', $page);
+
+        $results = $query->get();
+
+
+       // $results = $this->getRepositoryInstance()->findWhere(["customer_email" => $request->get('email')])->orderBy($sort, $order)->paginate($limit, ['*'], 'page', $page);
+        
         return $this->resource()::collection($results);
     }
 

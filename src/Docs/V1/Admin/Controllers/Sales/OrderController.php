@@ -96,10 +96,10 @@ class OrderController
 
     /**
      * @OA\Get(
-     *      path="/api/v1/admin/sales/orders/search",
+     *      path="/api/v1/admin/sales/orders/find-by-email",
      *      operationId="SearchSalesOrders",
      *      tags={"Orders"},
-     *      summary="Search admin order list",
+     *      summary="Search admin order list by email",
      *      description="Returns order list, if you want to retrieve all orders at once pass pagination=0 otherwise ignore this parameter",
      *      security={ {"sanctum_admin": {} }},
      *
