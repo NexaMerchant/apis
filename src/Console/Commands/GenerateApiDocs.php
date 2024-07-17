@@ -28,7 +28,7 @@ class GenerateApiDocs extends CommandInterface
             return false;
         }
         
-        $this->warn('Step: Generate l5-swagger docs (Admin & Shop)...');
+        $this->warn('Step: Generate l5-swagger docs...');
         $result = shell_exec('php artisan l5-swagger:generate --all');
         $this->info($result);
 
