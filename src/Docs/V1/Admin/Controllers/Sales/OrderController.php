@@ -96,6 +96,96 @@ class OrderController
 
     /**
      * @OA\Get(
+     *      path="/api/v1/admin/sales/orders/search",
+     *      operationId="SearchSalesOrders",
+     *      tags={"Orders"},
+     *      summary="Search admin order list",
+     *      description="Returns order list, if you want to retrieve all orders at once pass pagination=0 otherwise ignore this parameter",
+     *      security={ {"sanctum_admin": {} }},
+     *
+     *      @OA\Parameter(
+     *          name="email",
+     *          description="Order Email",
+     *          required=false,
+     *          in="query",
+     *
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *
+     *      @OA\Parameter(
+     *          name="sort",
+     *          description="Sort column",
+     *          example="id",
+     *          required=false,
+     *          in="query",
+     *
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *
+     *      @OA\Parameter(
+     *          name="order",
+     *          description="Sort order",
+     *          required=false,
+     *          in="query",
+     *
+     *          @OA\Schema(
+     *              type="string",
+     *              enum={"desc", "asc"}
+     *          )
+     *      ),
+     *
+     *      @OA\Parameter(
+     *          name="page",
+     *          description="Page number",
+     *          required=false,
+     *          in="query",
+     *
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *
+     *      @OA\Parameter(
+     *          name="limit",
+     *          description="Limit",
+     *          in="query",
+     *
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *          @OA\JsonContent(
+     *
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *
+     *                  @OA\Items(ref="#/components/schemas/Order")
+     *              ),
+     *
+     *              @OA\Property(
+     *                  property="meta",
+     *                  ref="#/components/schemas/Pagination"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function search()
+    {
+    }
+
+    /**
+     * @OA\Get(
      *      path="/api/v1/admin/sales/orders/{id}",
      *      operationId="getSalesOrder",
      *      tags={"Orders"},

@@ -9,7 +9,7 @@ class GenerateApiDocs extends CommandInterface
 {
     protected $signature = 'Apis:gendocs';
 
-    protected $description = 'Generate l5-swagger docs (Admin & Shop).';
+    protected $description = 'Generate l5-swagger docs.';
 
     public function getAppVer() {
         return config("Apis.ver");
