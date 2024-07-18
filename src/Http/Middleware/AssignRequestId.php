@@ -21,9 +21,9 @@ class AssignRequestId
         Log::withContext([
             'request-id' => $requestId
         ]);
-        
-        if(config("apis.enable_input_log")) {
-            Log::info('Request', [
+
+        if(config("Apis.enable_input_log")) {
+            Log::info('Request Input', [
                 'request_id' => $requestId,
                 'method' => $request->getMethod(),
                 'url' => $request->getUri(),
@@ -32,9 +32,19 @@ class AssignRequestId
         }
  
         $response = $next($request);
+
+
  
         $response->headers->set('Request-Id', $requestId);
 
+        if(config("Apis.enable_output_log")) {
+            Log::info('Response', [
+                'request_id' => $requestId,
+                'status' => $response->status(),
+                'output' => $response->getContent()
+            ]);
+        
+        }
  
         return $response;
     }
