@@ -21,6 +21,15 @@ class AssignRequestId
         Log::withContext([
             'request-id' => $requestId
         ]);
+        
+        if(config("apis.enable_input_log")) {
+            Log::info('Request', [
+                'request_id' => $requestId,
+                'method' => $request->getMethod(),
+                'url' => $request->getUri(),
+                'input' => $request->all()
+            ]);
+        }
  
         $response = $next($request);
  
