@@ -193,6 +193,24 @@ class RefundController
      *                          example=3
      *                      ),
      *                      @OA\Property(
+     *                         property="comments",
+     *                          type="string",
+     *                          description="Provide the refund comments.",
+     *                          example="Refund comments"
+     *                     ),
+     *                      @OA\Property(
+     *                         property="custom_refund_amount",
+     *                         type="integer",
+     *                        description="Provide the custom refund amount, If any.",
+     *                       example=10
+     *                      ),
+     *                     @OA\Property(
+     *                        property="is_refund_money",
+     *                       type="integer",
+     *                      description="Provide the refund money status. 1 or 0 (1 for refund money, 0 for not refund money).",
+     *                      example=1
+     *                      ),
+     *                      @OA\Property(
      *                          property="adjustment_fee",
      *                          type="integer",
      *                          description="Provide the adjustment fee amount, If any.",
