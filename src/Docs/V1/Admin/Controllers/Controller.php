@@ -4,7 +4,7 @@ namespace NexaMerchant\Apis\Docs\V1\Admin\Controllers;
 
 /**
  * @OA\Info(
- *      version="1.0.7",
+ *      version="1.0.9",
  *      title="NexaMerchant Admin Rest API Documentation",
  *      description="NexaMerchant Admin Rest API Documentation",
  *
