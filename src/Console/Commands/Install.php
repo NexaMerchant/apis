@@ -2,7 +2,7 @@
 namespace NexaMerchant\Apis\Console\Commands;
 use Illuminate\Support\Facades\Artisan;
 
-use Nicelizhi\Apps\Console\Commands\CommandInterface;
+use NexaMerchant\Apps\Console\Commands\CommandInterface;
 
 class Install extends CommandInterface 
 

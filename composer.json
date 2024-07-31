@@ -12,12 +12,14 @@
     ],
     "require": {
         "ext-sodium": "*",
+        "nexa-merchant/apps": "dev-main",
         "laravel/framework": "~9.0||~10.0||~11.0",
         "darkaonline/l5-swagger": "^8.5"
     },
     "require-dev": {
         "phpunit/phpcov": ">=6.0",
         "phpunit/phpunit": ">=8.0",
+        "nexa-merchant/apps": "dev-main",
         "laravel/framework": "~9.0||~10.0||~11.0"
     },
     "autoload": {
