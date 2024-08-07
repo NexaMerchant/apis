@@ -45,6 +45,10 @@ class RefundController extends SalesController
             'refund.shipping'          => 'required',
             'refund.adjustment_refund' => 'required',
             'refund.adjustment_fee'    => 'required',
+            'refund.custom_refund_amount' => 'required', // custom refund amount
+            'refund.comment'            => 'required', // refund comment
+            'refund.is_refund_money'    => 'required', 
+
         ]);
 
         $data = $request->all();
@@ -62,6 +66,11 @@ class RefundController extends SalesController
         }
 
         $maxRefundAmount = $totals['grand_total']['price'] - $order->refunds()->sum('base_adjustment_refund');
+
+        if(!empty($data['refund']['custom_refund_amount'])) {
+            $refundAmount = $totals['grand_total']['price'] - $totals['shipping']['price'] + $data['refund']['shipping'] + $data['refund']['adjustment_refund'] - $data['refund']['adjustment_fee'];
+            $data['refund']['adjustment_fee'] = abs($data['refund']['custom_refund_amount'] - $refundAmount);
+        }
 
         $refundAmount = $totals['grand_total']['price'] - $totals['shipping']['price'] + $data['refund']['shipping'] + $data['refund']['adjustment_refund'] - $data['refund']['adjustment_fee'];
 
