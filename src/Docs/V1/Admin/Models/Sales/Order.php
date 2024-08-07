@@ -489,6 +489,8 @@ class Order
      * @OA\Property(
      *     title="Billing Address",
      *     description="Order's billing address"
+     *     type="array"
+     *     @OA\Items(ref="#/components/schemas/OrderAddress")
      * )
      *
      * @var \NexaMerchant\Apis\Docs\V1\Admin\Models\Sale\OrderAddress
