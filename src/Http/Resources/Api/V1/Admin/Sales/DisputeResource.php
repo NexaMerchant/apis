@@ -14,6 +14,7 @@ class DisputeResource extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
             'id'                   => $this->id,
             'order_id'             => $this->order_id,
@@ -85,4 +86,9 @@ class DisputeResource extends JsonResource
             // 'dispute_refund_transaction_payment_transaction_amount' => $this->refund_transaction_payment_transaction_amount,
         ];
     }
+
+    // public static function collects($resource)
+    // {
+    //     return get_class($resource) === 'Webkul\Sales\Models\OrderDispute' ? self::class : parent::collects($resource);
+    // }
 }

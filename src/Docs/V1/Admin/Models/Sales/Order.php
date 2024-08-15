@@ -538,6 +538,18 @@ class Order
 
     /**
      * @OA\Property(
+     *    title="Dispute",
+     *   description="Order's dispute",
+     *  type="array",
+     * @OA\Items(ref="#/components/schemas/Dispute")
+     * )
+     * @var array
+     */
+
+    private $dispute;
+
+    /**
+     * @OA\Property(
      *     title="Created at",
      *     description="Created at",
      *     example="2020-01-27 17:50:45",

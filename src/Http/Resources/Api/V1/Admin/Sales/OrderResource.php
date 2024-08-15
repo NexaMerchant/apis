@@ -104,7 +104,8 @@ class OrderResource extends JsonResource
             'items'                               => OrderItemResource::collection($this->items),
             'invoices'                            => InvoiceResource::collection($this->invoices),
             'shipments'                           => ShipmentResource::collection($this->shipments),
-            'disputes'                            => DisputeResource::collection($this->disputes),
+            //'dispute'                             => $this->when($this->dispute, new DisputeResource($this->dispute)),
+            'dispute'                             => $this->dispute,
             'updated_at'                          => $this->updated_at,
             'created_at'                          => $this->created_at,
         ];
