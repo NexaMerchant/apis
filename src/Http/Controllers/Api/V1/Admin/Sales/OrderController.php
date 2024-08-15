@@ -57,6 +57,21 @@ class OrderController extends SalesController
     }
 
     /**
+     * Get Order disputes
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function disputes(Request $request, int $id) {
+        $order = $this->getRepositoryInstance()->findOrFail($id);
+
+        return response([
+            'data' => $order->disputes,
+        ]);
+    }
+
+
+
+    /**
      * Cancel action for the specified resource.
      *
      * @return \Illuminate\Http\Response

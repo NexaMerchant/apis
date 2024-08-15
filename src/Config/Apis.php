@@ -27,4 +27,7 @@ return [
      * 
      */
     'enable_output_log' => env("APIS_ENABLE_OUTPUT_LOG", false), // Enable output log for all requests
+
+    'description' => 'Apis package is a package that contains all the apis for the application',
+
 ];

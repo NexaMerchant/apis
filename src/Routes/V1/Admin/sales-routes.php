@@ -22,6 +22,9 @@ Route::group([
 
         Route::get('{id}', 'getResource');
 
+        // Order dispute routes.
+        Route::get('{id}/dispute', 'dispute');
+
         Route::post('{id}/cancel', 'cancel');
 
         Route::post('{id}/comments', 'comment');
