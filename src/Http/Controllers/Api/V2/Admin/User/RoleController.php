@@ -11,6 +11,15 @@ use stdClass;
 
 class RoleController extends Controller
 {
+
+    /**
+     * Role list
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     * @throws \Exception
+     * 
+     */
     public function index(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -19,6 +28,12 @@ class RoleController extends Controller
             'name' => 'nullable|string',
             'value' => 'nullable|string',
             'status' => 'nullable|integer',
+        ], [
+            'page.required' => 'page is required',
+            'pageSize.required' => 'pageSize is required',
+            'page.integer' => 'page must be an integer',
+            'pageSize.integer' => 'pageSize must be an integer',
+            'page.min' => 'page must be greater than 0',
         ]);
         if ($validator->fails())
         {
@@ -59,6 +74,13 @@ class RoleController extends Controller
         return $this->success('success', $result);
     }
 
+    /**
+     * Role detail
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     * @throws \Exception
+     */
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -68,6 +90,12 @@ class RoleController extends Controller
             'desc' => 'nullable|string',
             'status' => 'required|integer',
             'permissions' => 'array',
+        ], [
+            'permissions.array' =>'permissions must be an array',
+            'id.required' => 'id is required',
+            'name.required' => 'name is required',
+            'value.required' => 'value is required',
+            'status.required' => 'status is required',
         ]);
         if ($validator->fails())
         {
@@ -81,9 +109,9 @@ class RoleController extends Controller
         DB::beginTransaction();
         try
         {
-            // 删除角色所有权限
+            // delete role permissions
             Enforcer::deletePermissionsForUser($request->value);
-            // 添加角色权限
+            // add role permissions
             $permissions = Permission::whereIn('id', $request->permissions)
                 ->get([
                 'id',
@@ -108,11 +136,21 @@ class RoleController extends Controller
         return $this->success(trans('Success'), []);
     }
 
+    /**
+     * Role set status
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     * @throws \Exception
+     */
     public function setStatus(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer',
             'status' => 'required|integer',
+        ], [
+            'id.required' => 'id is required',
+            'status.required' => 'status is required',
         ]);
         if ($validator->fails())
         {
@@ -128,6 +166,13 @@ class RoleController extends Controller
         return $this->success(trans('Success'), []);
     }
 
+    /**
+     * Role create
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     * @throws \Exception
+     */
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -135,6 +180,10 @@ class RoleController extends Controller
             'value' => 'required|string',
             'desc' => 'nullable|string',
             'status' => 'required|integer',
+        ], [
+            'name.required' => 'name is required',
+            'value.required' => 'value is required',
+            'status.required' => 'status is required',
         ]);
         if ($validator->fails())
         {
@@ -143,9 +192,9 @@ class RoleController extends Controller
         DB::beginTransaction();
         try
         {
-            // 添加角色
+            // add role
             Enforcer::addRoleForUser($request->name, $request->value);
-            // 添加角色权限
+            // add role permissions
             $permissions = Permission::whereIn('id', $request->permissions)
                 ->get([
                 'id',
@@ -172,10 +221,19 @@ class RoleController extends Controller
         return $this->success(trans('Success'), []);
     }
 
+    /**
+     * Role delete
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     * @throws \Exception
+     */
     public function delete(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer',
+        ], [
+            'id.required' => 'id is required',
         ]);
         if ($validator->fails())
         {
