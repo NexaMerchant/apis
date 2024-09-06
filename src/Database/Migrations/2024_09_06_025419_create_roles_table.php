@@ -19,8 +19,7 @@ return new class extends Migration
             $table->string('value')->unique();
             $table->string('desc')->nullable();
             $table->unsignedTinyInteger('status')->default(1);
-            $table->dateTime('created_at')->nullable();
-            $table->dateTime('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 

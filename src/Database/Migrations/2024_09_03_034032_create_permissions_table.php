@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('path')->nullable();
+            $table->string('title')->comment('permission title');
+            $table->string('path')->comment('permission path')->nullable();
             $table->string('name')->nullable();
             $table->string('redirect')->nullable();
             $table->string('icon')->nullable();
@@ -29,8 +29,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('sort')->default(0);
             $table->unsignedTinyInteger('type')->default(0);
             $table->unsignedTinyInteger('status')->default(1);
-            $table->dateTime('created_at')->nullable();
-            $table->dateTime('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 
