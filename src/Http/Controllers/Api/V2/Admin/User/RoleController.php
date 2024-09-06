@@ -76,7 +76,7 @@ class RoleController extends Controller
         $role = Role::find($request->id);
         if (!$role)
         {
-            return $this->fails('更新失败, 角色不存在');
+            return $this->fails(trans('role.not_found'));
         }
         DB::beginTransaction();
         try
@@ -103,9 +103,9 @@ class RoleController extends Controller
         catch (\Throwable $th)
         {
             DB::rollBack();
-            return $this->fails('更新失败');
+            return $this->fails(trans('role.update_failed'));
         }
-        return $this->success('更新成功', []);
+        return $this->success(trans('Success'), []);
     }
 
     public function setStatus(Request $request)
@@ -121,11 +121,11 @@ class RoleController extends Controller
         $role = Role::find($request->id);
         if (!$role)
         {
-            return $this->fails('设置失败, 角色不存在');
+            return $this->fails(trans('role.not_found'));
         }
         $role->status = $request->status;
         $role->save();
-        return $this->success('设置成功', []);
+        return $this->success(trans('Success'), []);
     }
 
     public function create(Request $request)
@@ -166,10 +166,10 @@ class RoleController extends Controller
         catch (\Throwable $th)
         {
             DB::rollBack();
-            return $this->fails('添加失败');
+            return $this->fails(trans('role.create_failed'));
         }
         
-        return $this->success('添加成功');
+        return $this->success(trans('Success'), []);
     }
 
     public function delete(Request $request)
@@ -192,9 +192,9 @@ class RoleController extends Controller
         catch (\Exception $e)
         {
             DB::rollBack();
-            return $this->fails('删除失败');
+            return $this->fails(trans('role.delete_failed'));
         }
-        return $this->success('删除成功');
+        return $this->success(trans('Success'), []);
     }
 
     public function getRoles()
@@ -204,6 +204,6 @@ class RoleController extends Controller
                 'name',
                 'value',
             ]);
-        return $this->success('success', $roles);
+        return $this->success(trans('Success'), $roles);
     }
 }
