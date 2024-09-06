@@ -27,6 +27,12 @@ Route::group(['middleware' => ['auth:sanctum', 'sanctum.admin']], function () {
 
     // menu
 
+    Route::post('logout', [AdminController::class, 'logout']);
+    Route::post('refresh', [AdminController::class, 'refresh']);
+
+    Route::get('get-user-info', [AdminController::class, 'admin']);
+    Route::get('get-menu', [AdminController::class, 'menu']);
+
     // role
     Route::get('/role/index', [RoleController::class, 'index']);
     Route::put('/role/update', [RoleController::class, 'update']);
