@@ -22,6 +22,8 @@ class CreateRulesTable extends Migration
             $table->string('v4')->nullable();
             $table->string('v5')->nullable();
             $table->timestamps();
+
+            $table->comment('casbin rule table');
         
         });
     }

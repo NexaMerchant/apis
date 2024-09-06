@@ -30,6 +30,9 @@ return new class extends Migration
             $table->unsignedTinyInteger('type')->default(0);
             $table->unsignedTinyInteger('status')->default(1);
             $table->timestamps();
+
+
+            $table->comment('permission table');
         });
     }
 

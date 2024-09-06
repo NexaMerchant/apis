@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('desc')->nullable();
             $table->unsignedTinyInteger('status')->default(1);
             $table->timestamps();
+
+            $table->comment('role table');
         });
     }
 
