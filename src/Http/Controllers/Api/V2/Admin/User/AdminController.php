@@ -2,9 +2,9 @@
 
 namespace NexaMerchant\Apis\Http\Controllers\Api\V2\Admin\User;
 
-use App\Models\Admin;
-use App\Models\Permission;
-use App\Models\Role;
+use NexaMerchant\Apis\Models\Admin;
+use NexaMerchant\Apis\Models\Permission;
+use NexaMerchant\Apis\Models\Role;
 use Illuminate\Support\Facades\Validator;
 use Lauthz\Facades\Enforcer;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class AdminController extends Controller
 {
     public function menu(Request $request)
     {
-        $admin = $request->user('admin');
+        $admin = $request->user();
         $roles = Enforcer::getRolesForUser($admin->id);
         $permissions = [];
         foreach ($roles as $role)
