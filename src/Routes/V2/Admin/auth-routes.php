@@ -24,29 +24,30 @@ Route::group(['middleware' => ['auth:sanctum', 'sanctum.admin']], function () {
 
         Route::put('update', 'update');
     });
+
+    // menu
+
+    // role
+    Route::get('/role/index', [RoleController::class, 'index']);
+    Route::put('/role/update', [RoleController::class, 'update']);
+    Route::put('/role/set-status', [RoleController::class, 'setStatus']);
+    Route::post('/role/create', [RoleController::class, 'create']);
+    Route::delete('/role/delete', [RoleController::class, 'delete']);
+    Route::get('/role/get-roles', [RoleController::class, 'getRoles']);
+    // permission
+    Route::get('/permission/index', [PermissionController::class, 'index']);
+    Route::put('/permission/update', [PermissionController::class, 'update']);
+    Route::put('/permission/set-status', [PermissionController::class, 'setStatus']);
+    Route::post('/permission/create', [PermissionController::class, 'create']);
+    Route::delete('/permission/delete', [PermissionController::class, 'delete']);
+    Route::get('/permission/get-tree', [PermissionController::class, 'getTree']); // 获取权限树
+
+    // user
+    Route::get('/user/index', [AdminController::class, 'index']);
+    Route::put('/user/update', [AdminController::class, 'update']);
+    Route::put('/user/set-status', [AdminController::class, 'setStatus']);
+    Route::post('/user/create', [AdminController::class, 'create']);
+    Route::delete('/user/delete', [AdminController::class, 'delete']);
+
+
 });
-
-// menu
-
-
-// role
-Route::get('/role/index', [RoleController::class, 'index']);
-Route::put('/role/update', [RoleController::class, 'update']);
-Route::put('/role/set-status', [RoleController::class, 'setStatus']);
-Route::post('/role/create', [RoleController::class, 'create']);
-Route::delete('/role/delete', [RoleController::class, 'delete']);
-Route::get('/role/get-roles', [RoleController::class, 'getRoles']);
-// permission
-Route::get('/permission/index', [PermissionController::class, 'index']);
-Route::put('/permission/update', [PermissionController::class, 'update']);
-Route::put('/permission/set-status', [PermissionController::class, 'setStatus']);
-Route::post('/permission/create', [PermissionController::class, 'create']);
-Route::delete('/permission/delete', [PermissionController::class, 'delete']);
-Route::get('/permission/get-tree', [PermissionController::class, 'getTree']); // 获取权限树
-
-// user
-Route::get('/user/index', [AdminController::class, 'index']);
-Route::put('/user/update', [AdminController::class, 'update']);
-Route::put('/user/set-status', [AdminController::class, 'setStatus']);
-Route::post('/user/create', [AdminController::class, 'create']);
-Route::delete('/user/delete', [AdminController::class, 'delete']);
