@@ -9,11 +9,21 @@ use stdClass;
 
 class PermissionController extends Controller
 {
+    /**
+     * 
+     * permission index
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * 
+     */
     public function index(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'title' => 'nullable|string',
             'status' => 'nullable|integer',
+        ],[
+            'title.string' => 'title must be a string',
+            'status.integer' => 'status must be an integer',
         ]);
         if ($validator->fails())
         {
@@ -51,6 +61,13 @@ class PermissionController extends Controller
         return $this->success('success', $result);
     }
 
+    /**
+     * 
+     * permission get tree
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * 
+     */
     public function getTree()
     {
         $all = Permission::where('status', 1)
@@ -79,6 +96,14 @@ class PermissionController extends Controller
             }
         }
     }
+
+    /**
+     * 
+     * permission update
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * 
+     */
 
     public function update(Request $request)
     {
@@ -183,6 +208,14 @@ class PermissionController extends Controller
         return $this->success('success');
     }
 
+    /**
+     * 
+     * permission create
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * 
+     */
+
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -275,10 +308,21 @@ class PermissionController extends Controller
         return $this->success('success');
     }
 
+    /**
+     * 
+     * permission delete
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * 
+     */
     public function delete(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer|min:1',
+        ],[
+            'id.required' => 'id is required',
+            'id.integer' => 'id must be an integer',
+            'id.min' => 'id must be greater than 0',
         ]);
         if ($validator->fails())
         {
