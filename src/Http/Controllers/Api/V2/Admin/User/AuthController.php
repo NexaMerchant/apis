@@ -1,5 +1,4 @@
 <?php
-
 namespace NexaMerchant\Apis\Http\Controllers\Api\V2\Admin\User;
 
 use NexaMerchant\Apis\Http\Controllers\Api\V2\Admin\AdminController;
@@ -11,6 +10,7 @@ use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Webkul\User\Repositories\AdminRepository;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 use NexaMerchant\Apis\Http\Resources\Api\V2\Admin\Settings\UserResource;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends AdminController
 {
@@ -23,10 +23,18 @@ class AuthController extends AdminController
      */
     public function login(Request $request, AdminRepository $adminRepository)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'email'    => 'required|email',
             'password' => 'required',
+        ], 
+        [
+            'email.required' => trans('Apis::app.error.Email is required'),
+            'email.email' => trans('Apis::app.error.Email is not valid'),
+            'password.required' => trans('Apis::app.error.Password is required')
         ]);
+        if($validator->fails()) {
+            return $this->fails($validator->errors()->first(), 400);
+        }
 
         if(!EnsureFrontendRequestsAreStateful::fromFrontend($request)) {
             $request->validate(['device_name' => 'required']);
