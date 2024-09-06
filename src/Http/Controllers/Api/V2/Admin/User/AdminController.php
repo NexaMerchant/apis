@@ -13,6 +13,11 @@ use stdClass;
 
 class AdminController extends Controller
 {
+    /**
+     * Get the menu
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function menu(Request $request)
     {
         $admin = $request->user();
