@@ -2,7 +2,7 @@
 
 namespace NexaMerchant\Apis\Http\Controllers\Api\V2\Admin\User;
 
-use App\Models\Permission;
+use NexaMerchant\Apis\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use stdClass;
@@ -96,6 +96,25 @@ class PermissionController extends Controller
             'sort' => 'nullable|integer',
             'status' => 'nullable|integer',
             'type' => 'required|integer',
+        ],[
+            'id.required' => 'id is required',
+            'id.integer' => 'id must be an integer',
+            'id.min' => 'id must be greater than 0',
+            'parent_id.integer' => 'parent_id must be an integer',
+            'title.required' => 'title is required',
+            'title.string' => 'title must be a string',
+            'name.string' => 'name must be a string',
+            'redirect.string' => 'redirect must be a string',
+            'icon.string' => 'icon must be a string',
+            'path.string' => 'path must be a string',
+            'component.string' => 'component must be a string',
+            'permission.required' => 'permission is required',
+            'permission.string' => 'permission must be a string',
+            'affix.integer' => 'affix must be an integer',
+            'sort.integer' => 'sort must be an integer',
+            'status.integer' => 'status must be an integer',
+            'type.required' => 'type is required',
+            'type.integer' => 'type must be an integer',
         ]);
         if ($validator->fails())
         {
@@ -179,13 +198,31 @@ class PermissionController extends Controller
             'sort' => 'nullable|integer',
             'status' => 'nullable|integer',
             'type' => 'required|integer',
+        ],
+        [
+            'parent_id.integer' => 'parent_id must be an integer',
+            'title.required' => 'title is required',
+            'title.string' => 'title must be a string',
+            'name.string' => 'name must be a string',
+            'redirect.string' => 'redirect must be a string',
+            'icon.string' => 'icon must be a string',
+            'component.string' => 'component must be a string',
+            'path.string' => 'path must be a string',
+            'permission.required' => 'permission is required',
+            'permission.string' => 'permission must be a string',
+            'permission.unique' => 'permission already exists',
+            'affix.integer' => 'affix must be an integer',
+            'sort.integer' => 'sort must be an integer',
+            'status.integer' => 'status must be an integer',
+            'type.required' => 'type is required',
+            'type.integer' => 'type must be an integer',
         ]);
         if ($validator->fails())
         {
             return $this->fails($validator->errors());
         }
         $permission = new Permission();
-        if ($request->filled('parent_id'))
+        if ($request->filled('parent_id') && $request->parent_id!="0")
         {
             $parent = Permission::find($request->parent_id);
             if (!$parent)
@@ -193,6 +230,8 @@ class PermissionController extends Controller
                 return $this->fails('parent not found');
             }
             $permission->parent_id = $request->parent_id;
+        }else{
+            $permission->parent_id = 0;
         }
         $permission->title = $request->title;
         if ($request->filled('name'))
