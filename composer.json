@@ -1,6 +1,7 @@
 {
     "name": "nexa-merchant/apis",
     "license": "MIT",
+    "version": "2.0.0",
     "description" : "Nexa merchant Apps api",
     "keywords": ["laravel", "api", "jwt", "nexa merchant", "merchant", "restful", "restful api"],
     "type": "library",
