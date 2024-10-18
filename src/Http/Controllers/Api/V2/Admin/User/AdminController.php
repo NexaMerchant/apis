@@ -4,7 +4,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V2\Admin\User;
 
 use NexaMerchant\Apis\Models\Admin;
 use NexaMerchant\Apis\Models\Permission;
-use NexaMerchant\Apis\Models\Role;
+use NexaMerchant\Apis\Models\UserRole as Role;
 use Illuminate\Support\Facades\Validator;
 use Lauthz\Facades\Enforcer;
 use Illuminate\Http\Request;

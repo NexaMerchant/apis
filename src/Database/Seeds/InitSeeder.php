@@ -4,7 +4,7 @@ namespace NexaMerchant\Apis\Database\Seeds;
 
 use NexaMerchant\Apis\Models\Admin;
 use NexaMerchant\Apis\Models\Permission;
-use NexaMerchant\Apis\Models\Role;
+use NexaMerchant\Apis\Models\UserRole as Role;
 
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;

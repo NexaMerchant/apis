@@ -1,7 +1,7 @@
 <?php
 namespace NexaMerchant\Apis\Http\Controllers\Api\V2\Admin\User;
 
-use NexaMerchant\Apis\Models\Role;
+use NexaMerchant\Apis\Models\UserRole as Role;
 use NexaMerchant\Apis\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
