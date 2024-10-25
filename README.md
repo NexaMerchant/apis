@@ -1,5 +1,8 @@
 # NexaMerchant/Apis
 
+[![Build Status](https://github.com/NexaMerchant/apis/workflows/Laravel/badge.svg)](https://github.com/NexaMerchant/apis)
+[![Release](https://img.shields.io/github/release/NexaMerchant/apis.svg?style=flat-square)](https://github.com/NexaMerchant/apis/releases)
+
 # Requirements
  - PHP >= 8.1
  - Laravel >= 10
