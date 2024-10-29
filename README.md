@@ -7,6 +7,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/Nexa-Merchant/apis.svg?style=flat-square)](https://packagist.org/packages/Nexa-Merchant/apis)
 [![Total Downloads](https://img.shields.io/packagist/dt/Nexa-Merchant/apis.svg?style=flat-square)](https://packagist.org/packages/Nexa-Merchant/apis)
 
+
 # Requirements
  - PHP >= 8.1
  - Laravel >= 10
