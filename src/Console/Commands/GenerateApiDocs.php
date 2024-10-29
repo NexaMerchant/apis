@@ -27,12 +27,20 @@ class GenerateApiDocs extends CommandInterface
             $this->error("Generate Docs cannelled");
             return false;
         }
-        
-        $this->warn('Step: Generate l5-swagger docs...');
-        $result = shell_exec('php artisan l5-swagger:generate --all');
-        $this->info($result);
 
-        $this->comment('-----------------------------');
-        $this->comment('Success: NexaMerchant REST API has been configured successfully.');
+        try {
+            $this->warn('Step: Generate l5-swagger docs...');
+            $result = shell_exec('php artisan l5-swagger:generate --all');
+
+
+            $this->info($result);
+
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
+        }
+        
+        
+
+        
     }
 }

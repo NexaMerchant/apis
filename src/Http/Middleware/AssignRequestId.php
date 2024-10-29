@@ -27,6 +27,7 @@ class AssignRequestId
                 'request_id' => $requestId,
                 'method' => $request->getMethod(),
                 'url' => $request->getUri(),
+                'headers' => $request->headers->all(),
                 'input' => $request->all()
             ]);
         }
