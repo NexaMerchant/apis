@@ -1,10 +1,10 @@
 <?php
 
-namespace NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Sales;
+namespace NexaMerchant\Apis\Http\Resources\Api\V2\Admin\Sales;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Customer\CustomerResource;
-use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Settings\ChannelResource;
+use NexaMerchant\Apis\Http\Resources\Api\V2\Admin\Customer\CustomerResource;
+use NexaMerchant\Apis\Http\Resources\Api\V2\Admin\Settings\ChannelResource;
 
 class OrderResource extends JsonResource
 {

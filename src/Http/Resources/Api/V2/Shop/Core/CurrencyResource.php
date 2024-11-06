@@ -1,8 +1,8 @@
 <?php
 
-namespace NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Core;
+namespace NexaMerchant\Apis\Http\Resources\Api\V2\Shop\Core;
 
-use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Settings\CurrencyResource as AdminCurrencyResource;
+use NexaMerchant\Apis\Http\Resources\Api\V2\Admin\Settings\CurrencyResource as AdminCurrencyResource;
 
 class CurrencyResource extends AdminCurrencyResource
 {

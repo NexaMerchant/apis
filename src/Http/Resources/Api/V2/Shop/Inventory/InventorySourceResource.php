@@ -1,8 +1,8 @@
 <?php
 
-namespace NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Inventory;
+namespace NexaMerchant\Apis\Http\Resources\Api\V2\Shop\Inventory;
 
-use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Settings\InventorySourceResource as AdminInventorySourceResource;
+use NexaMerchant\Apis\Http\Resources\Api\V2\Admin\Settings\InventorySourceResource as AdminInventorySourceResource;
 
 class InventorySourceResource extends AdminInventorySourceResource
 {

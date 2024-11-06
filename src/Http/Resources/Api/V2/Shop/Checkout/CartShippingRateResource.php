@@ -1,6 +1,6 @@
 <?php
 
-namespace NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Checkout;
+namespace NexaMerchant\Apis\Http\Resources\Api\V2\Shop\Checkout;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Webkul\Checkout\Facades\Cart;

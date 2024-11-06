@@ -1,6 +1,6 @@
 <?php
 
-namespace NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Catalog;
+namespace NexaMerchant\Apis\Http\Resources\Api\V2\Admin\Catalog;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 

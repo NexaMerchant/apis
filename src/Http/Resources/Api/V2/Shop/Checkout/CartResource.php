@@ -1,10 +1,10 @@
 <?php
 
-namespace NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Checkout;
+namespace NexaMerchant\Apis\Http\Resources\Api\V2\Shop\Checkout;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Core\ChannelResource;
-use NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Customer\CustomerResource;
+use NexaMerchant\Apis\Http\Resources\Api\V2\Shop\Core\ChannelResource;
+use NexaMerchant\Apis\Http\Resources\Api\V2\Shop\Customer\CustomerResource;
 use Webkul\Tax\Helpers\Tax;
 
 class CartResource extends JsonResource

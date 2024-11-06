@@ -1,9 +1,9 @@
 <?php
 
-namespace NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Checkout;
+namespace NexaMerchant\Apis\Http\Resources\Api\V2\Shop\Checkout;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Catalog\ProductResource;
+use NexaMerchant\Apis\Http\Resources\Api\V2\Shop\Catalog\ProductResource;
 
 class CartItemResource extends JsonResource
 {

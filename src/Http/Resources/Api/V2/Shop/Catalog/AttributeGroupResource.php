@@ -1,8 +1,8 @@
 <?php
 
-namespace NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Catalog;
+namespace NexaMerchant\Apis\Http\Resources\Api\V2\Shop\Catalog;
 
-use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Catalog\AttributeGroupResource as AdminAttributeGroupResource;
+use NexaMerchant\Apis\Http\Resources\Api\V2\Admin\Catalog\AttributeGroupResource as AdminAttributeGroupResource;
 
 class AttributeGroupResource extends AdminAttributeGroupResource
 {

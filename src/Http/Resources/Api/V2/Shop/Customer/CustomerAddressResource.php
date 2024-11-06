@@ -1,8 +1,8 @@
 <?php
 
-namespace NexaMerchant\Apis\Http\Resources\Api\V1\Shop\Customer;
+namespace NexaMerchant\Apis\Http\Resources\Api\V2\Shop\Customer;
 
-use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Customer\CustomerAddressResource as AdminCustomerAddressResource;
+use NexaMerchant\Apis\Http\Resources\Api\V2\Admin\Customer\CustomerAddressResource as AdminCustomerAddressResource;
 
 class CustomerAddressResource extends AdminCustomerAddressResource
 {

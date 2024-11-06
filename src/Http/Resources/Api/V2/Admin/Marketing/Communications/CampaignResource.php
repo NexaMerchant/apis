@@ -1,9 +1,9 @@
 <?php
 
-namespace NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Marketing\Communications;
+namespace NexaMerchant\Apis\Http\Resources\Api\V2\Admin\Marketing\Communications;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Customer\CustomerGroupResource;
+use NexaMerchant\Apis\Http\Resources\Api\V2\Admin\Customer\CustomerGroupResource;
 
 class CampaignResource extends JsonResource
 {

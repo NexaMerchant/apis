@@ -1,9 +1,9 @@
 <?php
 
-namespace NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Catalog;
+namespace NexaMerchant\Apis\Http\Resources\Api\V2\Admin\Catalog;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Customer\CustomerResource;
+use NexaMerchant\Apis\Http\Resources\Api\V2\Admin\Customer\CustomerResource;
 
 class ProductReviewResource extends JsonResource
 {
