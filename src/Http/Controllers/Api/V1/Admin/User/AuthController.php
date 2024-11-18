@@ -60,11 +60,14 @@ class AuthController extends UserController
                 'data'    => new UserResource($this->resolveAdminUser($request)),
                 'message' => trans('Apis::app.admin.account.logged-in-success'),
             ]);
+            
         }
 
-        return response([
-            'message' => trans('Apis::app.admin.account.error.invalid'),
-        ], 401);
+        // return response([
+        //     'message' => trans('Apis::app.admin.account.error.invalid'),
+        // ], 401);
+
+        return $this->sendError(trans('Apis::app.admin.account.error.invalid'));
     }
 
     /**
