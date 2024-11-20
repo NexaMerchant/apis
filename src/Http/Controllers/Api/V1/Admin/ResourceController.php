@@ -36,9 +36,54 @@ class ResourceController extends V1Controller implements ResourceContract
     public function allResources(Request $request)
     {
         $query = $this->getRepositoryInstance()->scopeQuery(function ($query) use ($request) {
-            foreach ($request->except($this->requestException) as $input => $value) {
-                $query = $query->whereIn($input, array_map('trim', explode(',', $value)));
+
+            $filterable = $request->except($this->requestException);
+
+            //var_dump($request->all());exit;
+
+            foreach ($filterable as $input => $value) {
+                $relations = explode('-', $input);
+                $fieldWithOperator = array_pop($relations);
+    
+                if (strpos($fieldWithOperator, '__') !== false) {
+                    [$field, $operator] = explode('__', $fieldWithOperator);
+                } else {
+                    $field = $fieldWithOperator;
+                    $operator = 'eq';
+                }
+    
+                $operatorMap = [
+                    'eq' => '=',
+                    'neq' => '<>',
+                    'gt' => '>',
+                    'lt' => '<',
+                    'gte' => '>=',
+                    'lte' => '<=',
+                    'like' => 'like',
+                ];
+    
+                $operator = $operatorMap[$operator] ?? '=';
+    
+                if (!empty($relations)) {
+                    $relation = implode('.', $relations);
+    
+                    $query = $query->whereHas($relation, function ($q) use ($field, $operator, $value) {
+                        if ($operator === 'like') {
+                            $value = "%{$value}%";
+                        }
+                        $q->where($field, $operator, $value);
+                    });
+                } else {
+                    if ($operator === 'like') {
+                        $value = "%{$value}%";
+                    }
+                    $query = $query->where($field, $operator, $value);
+                }
             }
+
+            // foreach ($request->except($this->requestException) as $input => $value) {
+            //     $query = $query->whereIn($input, array_map('trim', explode(',', $value)));
+            // }
 
             if ($sort = $request->input('sort')) {
                 $query = $query->orderBy($sort, $request->input('order') ?? 'desc');
