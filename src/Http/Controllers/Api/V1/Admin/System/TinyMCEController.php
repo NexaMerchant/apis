@@ -2,9 +2,10 @@
 
 namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\System;
 
+use NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\AdminController;
 use Illuminate\Support\Facades\Storage;
 
-class TinyMCEController extends Controller
+class TinyMCEController extends AdminController
 {
     /**
      * Storage folder path.
