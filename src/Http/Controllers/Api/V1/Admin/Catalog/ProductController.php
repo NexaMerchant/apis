@@ -201,4 +201,18 @@ class ProductController extends CatalogController
             'message' => trans('Apis::app.admin.catalog.products.mass-operations.update-success'),
         ]);
     }
+
+    /**
+     * Upload product images.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function upload(Request $request)
+    {
+        $this->upload($request->all(), 'images');
+
+        return response([], 201);
+
+    }
 }

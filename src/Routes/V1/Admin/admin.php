@@ -50,4 +50,9 @@ Route::group([
      * Reporting routes.
      */
     require 'reporting-routes.php';
+
+    /**
+     * System routes.
+     */
+    require 'system-routes.php';
 });
