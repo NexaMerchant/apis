@@ -8,7 +8,7 @@ class TinyMCEController
      * @OA\Post(
      *      path="/api/v1/admin/system/tinymce/upload",
      *      operationId="uploadTinyMCE",
-     *      tags={"TinyMCE"},
+     *      tags={"System"},
      *      summary="Upload file from TinyMCE",
      *      description="Upload file from TinyMCE",
      *      security={ {"sanctum_admin": {} }},
