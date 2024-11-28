@@ -576,17 +576,6 @@ class ProductController
      *      description="Quick create product (Configurable, Grouped, Downloadable, Bundle)",
      *      security={ {"sanctum_admin": {} }},
      *
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="Product ID",
-     *          required=true,
-     *          in="path",
-     *
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *
      *      @OA\RequestBody(
      *
      *          @OA\MediaType(
