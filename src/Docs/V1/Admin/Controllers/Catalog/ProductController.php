@@ -568,6 +568,488 @@ class ProductController
     }
 
     /**
+     * @OA\Post(
+     *      path="/api/v1/admin/catalog/products/quick-create",
+     *      operationId="QuickCreateProduct",
+     *      tags={"Products"},
+     *      summary="Quick create product (Configurable, Grouped, Downloadable, Bundle)",
+     *      description="Quick create product (Configurable, Grouped, Downloadable, Bundle)",
+     *      security={ {"sanctum_admin": {} }},
+     *
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Product ID",
+     *          required=true,
+     *          in="path",
+     *
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *
+     *      @OA\RequestBody(
+     *
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *
+     *              @OA\Schema(
+     *
+     *                  @OA\Property(
+     *                      property="channel",
+     *                      description="Store's channel code",
+     *                      type="string",
+     *                      example="default"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="locale",
+     *                      description="Store's locale code",
+     *                      type="string",
+     *                      example="en"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="sku",
+     *                      description="Product's SKU must be unique",
+     *                      type="string",
+     *                      example="skipping-rope"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="product_number",
+     *                      description="Product's number",
+     *                      type="string",
+     *                      example="sr-001"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="name",
+     *                      description="Product's name",
+     *                      type="string",
+     *                      example="Skipping Rope"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="url_key",
+     *                      description="Product's url key",
+     *                      type="string",
+     *                      example="skipping-rope"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="tax_category_id",
+     *                      description="Product's tax category id",
+     *                      format="id",
+     *                      type="integer",
+     *                      example=null
+     *                  ),
+     *                  @OA\Property(
+     *                      property="new",
+     *                      description="New's status",
+     *                      type="integer",
+     *                      example=1,
+     *                      enum={0,1}
+     *                  ),
+     *                  @OA\Property(
+     *                      property="featured",
+     *                      description="Featured's status",
+     *                      type="integer",
+     *                      example=1,
+     *                      enum={0,1}
+     *                  ),
+     *                  @OA\Property(
+     *                      property="manage_stock",
+     *                      description="Manage Stock status",
+     *                      type="integer",
+     *                      example=1,
+     *                      enum={0,1}
+     *                  ),
+     *                  @OA\Property(
+     *                      property="visible_individually",
+     *                      description="Product visible individually status",
+     *                      type="integer",
+     *                      example=1,
+     *                      enum={0,1}
+     *                  ),
+     *                  @OA\Property(
+     *                      property="guest_checkout",
+     *                      description="Product guest checkout status",
+     *                      type="integer",
+     *                      example=0,
+     *                      enum={0,1}
+     *                  ),
+     *                  @OA\Property(
+     *                      property="status",
+     *                      description="Product status",
+     *                      type="integer",
+     *                      example=1,
+     *                      enum={0,1}
+     *                  ),
+     *                  @OA\Property(
+     *                      property="brand",
+     *                      description="Product's brand attribute",
+     *                      format="id",
+     *                      type="integer",
+     *                      example=17
+     *                  ),
+     *                  @OA\Property(
+     *                      property="short_description",
+     *                      description="Product's short description",
+     *                      type="string",
+     *                      example="What is Lorem Ipsum?"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="description",
+     *                      description="Product's description",
+     *                      type="string",
+     *                      example="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+     *                  ),
+     *                  @OA\Property(
+     *                      property="meta_title",
+     *                      description="Product's meta title",
+     *                      type="string",
+     *                      example="Premium sofa sets"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="meta_description",
+     *                      description="Product's meta description",
+     *                      type="string",
+     *                      example="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+     *                  ),
+     *                  @OA\Property(
+     *                      property="meta_keywords",
+     *                      description="Product's meta keywords",
+     *                      type="string",
+     *                      example="Sofa set"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="price",
+     *                      description="Product's price",
+     *                      type="float",
+     *                      example=0.00
+     *                  ),
+     *                  @OA\Property(
+     *                      property="customer_group_prices",
+     *                      description="Product's customer group prices",
+     *                      type="object",
+     *                      @OA\Property(
+     *                          property="customer_group_price_0",
+     *                          type="object",
+     *                          @OA\Property(
+     *                              property="customer_group_id",
+     *                              type="integer",
+     *                              example=1
+     *                          ),
+     *                          @OA\Property(
+     *                              property="qty",
+     *                              type="integer",
+     *                              example=2
+     *                          ),
+     *                          @OA\Property(
+     *                              property="value_type",
+     *                              type="string",
+     *                              example="fixed",
+     *                              enum={"discount", "fixed"}
+     *                          ),
+     *                          @OA\Property(
+     *                              property="value",
+     *                              type="float",
+     *                              example=3.20
+     *                          )
+     *                      )
+     *                  ),
+     *                  @OA\Property(
+     *                      property="categories",
+     *                      description="Product's categories",
+     *                      type="array",
+     *                      example={
+     *                          "0": 1,
+     *                          "1": 2
+     *                      },
+     *
+     *                      @OA\Items(type="integer", example=1)
+     *                  ),
+     *
+     *                  @OA\Property(
+     *                      property="channels",
+     *                      description="Product's channels",
+     *                      type="array",
+     *                      example={
+     *                          "0": 1,
+     *                          "1": 3,
+     *                          "2": 4
+     *                      },
+     *
+     *                      @OA\Items(type="integer", example=1)
+     *                  ),
+     *
+     *                  @OA\Property(
+     *                      property="variants",
+     *                      description="Product's variants, `Only use in case of configurable type product (required field)`",
+     *                      type="object",
+     *                      @OA\Property(
+     *                          property="28",
+     *                          type="object",
+     *                          @OA\Property(property="sku", type="string", example="skipping-rope-variant-1-6"),
+     *                          @OA\Property(property="name", type="string", example="Red-S"),
+     *                          @OA\Property(property="color", format="id", type="integer", example=1),
+     *                          @OA\Property(property="size", format="id", type="integer", example=6),
+     *                          @OA\Property(property="price", type="float", example=10.50),
+     *                          @OA\Property(property="weight", type="float", example=1.20),
+     *                          @OA\Property(property="status", type="integer", example=1, enum={0,1}),
+     *                          @OA\Property(
+     *                              property="inventories",
+     *                              type="object",
+     *                              @OA\Property(property="1", type="integer", example=500),
+     *                          ),
+     *                          @OA\Property(
+     *                              property="images[]",
+     *                              type="array",
+     *
+     *                              @OA\Items(type="string", format="binary"),
+     *                          )
+     *                      ),
+     *
+     *                      @OA\Property(
+     *                          property="29",
+     *                          type="object",
+     *                          @OA\Property(property="sku", type="string", example="skipping-rope-variant-1-7"),
+     *                          @OA\Property(property="name", type="string", example="Red-M"),
+     *                          @OA\Property(property="color", format="id", type="integer", example=1),
+     *                          @OA\Property(property="size", format="id", type="integer", example=7),
+     *                          @OA\Property(property="price", type="float", example=15.00),
+     *                          @OA\Property(property="weight", type="float", example=1),
+     *                          @OA\Property(property="status", type="integer", example=1, enum={0,1}),
+     *                          @OA\Property(
+     *                              property="inventories",
+     *                              type="object",
+     *                              @OA\Property(property="1", type="integer", example=500),
+     *                          ),
+     *                          @OA\Property(
+     *                              property="images[files]",
+     *                              type="array",
+     *
+     *                              @OA\Items(type="string", format="binary"),
+     *                          )
+     *                      )
+     *                  ),
+     *
+     *                  @OA\Property(
+     *                      property="links",
+     *                      description="Product's links, `Only use in case of grouped type product (required field)`",
+     *                      type="object",
+     *                      @OA\Property(
+     *                          property="link_0",
+     *                          type="object",
+     *                          @OA\Property(property="associated_product_id", format="id", type="integer", example=1),
+     *                          @OA\Property(property="qty", type="integer", example=2),
+     *                          @OA\Property(property="sort_order", type="integer", example=1)
+     *                      ),
+     *                      @OA\Property(
+     *                          property="link_1",
+     *                          type="object",
+     *                          @OA\Property(property="associated_product_id", format="id", type="integer", example=2),
+     *                          @OA\Property(property="qty", type="integer", example=3),
+     *                          @OA\Property(property="sort_order", type="integer", example=2)
+     *                      )
+     *                  ),
+     *                  @OA\Property(
+     *                      property="downloadable_links",
+     *                      description="Product's downloadable links, `Info: Only use in downloadable type product`",
+     *                      type="object",
+     *                      @OA\Property(
+     *                          property="link_0",
+     *                          type="object",
+     *                          @OA\Property(
+     *                              property="en",
+     *                              type="object",
+     *                              @OA\Property(property="title", type="string", example="Link 1")
+     *                          ),
+     *                          @OA\Property(property="price", type="float", example=5.00),
+     *                          @OA\Property(property="type", type="string", example="url", enum={"file", "url"}),
+     *                          @OA\Property(property="url", description="Only use with `type=url`.", format="byte", type="string", example="https://cdn.pixabay.com/photo/2016/03/26/13/08/conceptual-1280533_1280.jpg"),
+     *                          @OA\Property(property="sample_type", type="string", example="url", enum={"file", "url"}),
+     *                          @OA\Property(property="sample_url", description="Only use with `sample_type=url`.", format="byte", type="string", example="https://cdn.pixabay.com/photo/2016/11/22/19/11/brick-wall-1850095_1280.jpg"),
+     *                          @OA\Property(property="downloads", type="integer", example=10),
+     *                          @OA\Property(property="sort_order", type="integer", example=1)
+     *                      ),
+     *                      @OA\Property(
+     *                          property="link_1",
+     *                          type="object",
+     *                          @OA\Property(
+     *                              property="en",
+     *                              type="object",
+     *                              @OA\Property(property="title", type="string", example="Link 2")
+     *                          ),
+     *                          @OA\Property(property="price", type="float", example=10.00),
+     *                          @OA\Property(property="type", type="string", example="url", enum={"file", "url"}),
+     *                          @OA\Property(property="url", description="Only use with `type=url`.", format="byte", type="string", example="https://cdn.pixabay.com/photo/2016/03/26/13/08/conceptual-1280533_1280.jpg"),
+     *                          @OA\Property(property="sample_type", type="string", example="url", enum={"file", "url"}),
+     *                          @OA\Property(property="sample_url", description="Only use with `sample_type=url`.", format="byte", type="string", example="https://cdn.pixabay.com/photo/2016/11/22/19/11/brick-wall-1850095_1280.jpg"),
+     *                          @OA\Property(property="downloads", type="integer", example=20),
+     *                          @OA\Property(property="sort_order", type="integer", example=2)
+     *                      )
+     *                  ),
+     *                  @OA\Property(
+     *                      property="downloadable_samples",
+     *                      description="Product's downloadable samples, `Info: Only use in downloadable type product`",
+     *                      type="object",
+     *                      @OA\Property(
+     *                          property="sample_0",
+     *                          type="object",
+     *                          @OA\Property(
+     *                              property="en",
+     *                              type="object",
+     *                              @OA\Property(property="title", type="string", example="Sample 1")
+     *                          ),
+     *                          @OA\Property(property="type", type="string", example="url", enum={"file", "url"}),
+     *                          @OA\Property(property="url", description="Only use with `type=url`.", format="byte", type="string", example="https://cdn.pixabay.com/photo/2017/10/04/14/50/staging-2816464_1280.jpg"),
+     *                          @OA\Property(property="sort_order", type="integer", example=1)
+     *                      ),
+     *                      @OA\Property(
+     *                          property="sample_1",
+     *                          type="object",
+     *                          @OA\Property(
+     *                              property="en",
+     *                              type="object",
+     *                              @OA\Property(property="title", type="string", example="Sample 2")
+     *                          ),
+     *                          @OA\Property(property="type", type="string", example="url", enum={"file", "url"}),
+     *                          @OA\Property(property="url", description="Only use with `type=url`.", format="byte", type="string", example="https://cdn.pixabay.com/photo/2015/12/05/23/38/nursery-1078923_1280.jpg"),
+     *                          @OA\Property(property="sort_order", type="integer", example=2)
+     *                      )
+     *                  ),
+     *                  @OA\Property(
+     *                      property="bundle_options",
+     *                      description="Bundle product options, `Info: Only use in bundle type product`",
+     *                      type="object",
+     *                      @OA\Property(
+     *                          property="option_0",
+     *                          type="object",
+     *                          @OA\Property(
+     *                              property="en",
+     *                              type="object",
+     *                              @OA\Property(property="label", type="string", example="Select One")
+     *                          ),
+     *                          @OA\Property(property="type", type="string", example="select", enum={"select", "radio", "checkbox", "multiselect"}),
+     *                          @OA\Property(property="is_required", type="integer", example=0, enum={0, 1}),
+     *                          @OA\Property(property="sort_order", type="integer", example=1),
+     *                          @OA\Property(
+     *                              property="products",
+     *                              type="object",
+     *                              @OA\Property(
+     *                                  property="product_0",
+     *                                  type="object",
+     *                                  @OA\Property(property="product_id", format="id", type="integer", example=1),
+     *                                  @OA\Property(property="qty", type="integer", example=2),
+     *                                  @OA\Property(property="sort_order", type="integer", example=1)
+     *                              ),
+     *                              @OA\Property(
+     *                                  property="product_1",
+     *                                  type="object",
+     *                                  @OA\Property(property="product_id", format="id", type="integer", example=2),
+     *                                  @OA\Property(property="qty", type="integer", example=3),
+     *                                  @OA\Property(property="sort_order", type="integer", example=2)
+     *                              )
+     *                          )
+     *                      ),
+     *                      @OA\Property(
+     *                          property="option_1",
+     *                          type="object",
+     *                          @OA\Property(
+     *                              property="en",
+     *                              type="object",
+     *                              @OA\Property(property="label", type="string", example="Radio One")
+     *                          ),
+     *                          @OA\Property(property="type", type="string", example="radio", enum={"select", "radio", "checkbox", "multiselect"}),
+     *                          @OA\Property(property="is_required", type="integer", example=1, enum={0, 1}),
+     *                          @OA\Property(property="sort_order", type="integer", example=2),
+     *                          @OA\Property(
+     *                              property="products",
+     *                              type="object",
+     *                              @OA\Property(
+     *                                  property="product_0",
+     *                                  type="object",
+     *                                  @OA\Property(property="product_id", format="id", type="integer", example=1),
+     *                                  @OA\Property(property="qty", type="integer", example=2),
+     *                                  @OA\Property(property="sort_order", type="integer", example=1)
+     *                              ),
+     *                              @OA\Property(
+     *                                  property="product_1",
+     *                                  type="object",
+     *                                  @OA\Property(property="product_id", format="id", type="integer", example=2),
+     *                                  @OA\Property(property="qty", type="integer", example=3),
+     *                                  @OA\Property(property="sort_order", type="integer", example=2)
+     *                              )
+     *                          )
+     *                      ),
+     *                      @OA\Property(
+     *                          property="option_3",
+     *                          type="object",
+     *                          @OA\Property(
+     *                              property="en",
+     *                              type="object",
+     *                              @OA\Property(property="label", type="string", example="Multiselect One")
+     *                          ),
+     *                          @OA\Property(property="type", type="string", example="multiselect", enum={"select", "radio", "checkbox", "multiselect"}),
+     *                          @OA\Property(property="is_required", type="integer", example=1, enum={0, 1}),
+     *                          @OA\Property(property="sort_order", type="integer", example=3),
+     *                          @OA\Property(
+     *                              property="products",
+     *                              type="object",
+     *                              @OA\Property(
+     *                                  property="product_0",
+     *                                  type="object",
+     *                                  @OA\Property(property="product_id", format="id", type="integer", example=1),
+     *                                  @OA\Property(property="qty", type="integer", example=2),
+     *                                  @OA\Property(property="sort_order", type="integer", example=1)
+     *                              ),
+     *                              @OA\Property(
+     *                                  property="product_1",
+     *                                  type="object",
+     *                                  @OA\Property(property="product_id", format="id", type="integer", example=2),
+     *                                  @OA\Property(property="qty", type="integer", example=3),
+     *                                  @OA\Property(property="sort_order", type="integer", example=2)
+     *                              ),
+     *                              @OA\Property(
+     *                                  property="product_2",
+     *                                  type="object",
+     *                                  @OA\Property(property="product_id", format="id", type="integer", example=3),
+     *                                  @OA\Property(property="qty", type="integer", example=1),
+     *                                  @OA\Property(property="sort_order", type="integer", example=3)
+     *                              )
+     *                          )
+     *                      )
+     *                  ),
+
+     *                  required={"sku", "name", "url_key", "short_description", "description"}
+     *              )
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *          @OA\JsonContent(
+     *
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Product updated successfully."),
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  ref="#/components/schemas/Product"
+     *              )
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      )
+     * )
+     */
+    public function quickCreate()
+    {
+    }
+
+    /**
      * @OA\Put(
      *      path="/api/v1/admin/catalog/products/{id}",
      *      operationId="updateOtherTypeProduct",

@@ -33,6 +33,33 @@ class ProductController extends CatalogController
     }
 
     /**
+     * 
+     * Quick Create a new product.
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function quickCreate(Request $request){
+        $request->validate([
+            'type'                => 'required',
+            'attribute_family_id' => 'required',
+            'sku'                 => ['required', 'unique:products,sku', new Slug],
+        ]);
+
+        
+
+        Event::dispatch('catalog.product.create.before');
+
+        $product = $this->getRepositoryInstance()->create($request->all());
+
+        Event::dispatch('catalog.product.create.after', $product);
+
+        return response([
+            'data'    => new ProductResource($product),
+            'message' => trans('Apis::app.admin.catalog.products.create-success'),
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @return \Illuminate\Http\Response
@@ -60,6 +87,39 @@ class ProductController extends CatalogController
         $product = $this->getRepositoryInstance()->create($request->all());
 
         Event::dispatch('catalog.product.create.after', $product);
+
+        // product update
+        $data = $request->all();
+
+        $multiselectAttributeCodes = [];
+
+        $productAttributes = $this->getRepositoryInstance()->findOrFail($product->id);
+
+        foreach ($productAttributes->attribute_family->attribute_groups as $attributeGroup) {
+            $customAttributes = $productAttributes->getEditableAttributes($attributeGroup);
+
+            if (count($customAttributes)) {
+                foreach ($customAttributes as $attribute) {
+                    if ($attribute->type == 'multiselect' || $attribute->type == 'checkbox') {
+                        array_push($multiselectAttributeCodes, $attribute->code);
+                    }
+                }
+            }
+        }
+
+        if (count($multiselectAttributeCodes)) {
+            foreach ($multiselectAttributeCodes as $multiselectAttributeCode) {
+                if (! isset($data[$multiselectAttributeCode])) {
+                    $data[$multiselectAttributeCode] = [];
+                }
+            }
+        }
+
+        Event::dispatch('catalog.product.update.before', $product->id);
+
+        $product = $this->getRepositoryInstance()->update($data, $product->id);
+
+        Event::dispatch('catalog.product.update.after', $product);
 
         return response([
             'data'    => new ProductResource($product),

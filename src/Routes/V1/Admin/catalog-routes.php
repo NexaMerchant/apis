@@ -29,6 +29,8 @@ Route::group([
         Route::post('mass-update', 'massUpdate');
 
         Route::post('mass-destroy', 'massDestroy');
+
+        Route::post('quick-create', 'quickCreate');
     });
 
     /**
