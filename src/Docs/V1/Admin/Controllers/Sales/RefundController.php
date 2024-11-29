@@ -193,10 +193,10 @@ class RefundController
      *                          example=3
      *                      ),
      *                      @OA\Property(
-     *                         property="comments",
+     *                         property="comment",
      *                          type="string",
-     *                          description="Provide the refund comments.",
-     *                          example="Refund comments"
+     *                          description="Provide the refund comment.",
+     *                          example="Refund comment"
      *                     ),
      *                      @OA\Property(
      *                         property="custom_refund_amount",
