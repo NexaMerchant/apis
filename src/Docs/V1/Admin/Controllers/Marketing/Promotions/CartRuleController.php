@@ -591,4 +591,58 @@ class CartRuleController
     public function destroy()
     {
     }
+
+    /**
+     * @OA\Get(
+     *      path="/api/v1/admin/promotions/cart-rules/get-condition-attributes",
+     *      operationId="getConditionAttributes",
+     *      tags={"CartRules"},
+     *      summary="Get cart rule condition attributes",
+     *      description="Get cart rule condition attributes",
+     *      security={ {"sanctum_admin": {} }},
+     *
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *          @OA\JsonContent(
+     *
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *
+     *                  @OA\Items(
+     *                      type="object",
+     *
+     *                      @OA\Property(
+     *                          property="key",
+     *                          type="string",
+     *                          example="cart|items_qty"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="label",
+     *                          type="string",
+     *                          example="Items Quantity"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="type",
+     *                          type="string",
+     *                          example="integer"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="options",
+     *                          type="array",
+     *                          example={},
+     *
+     *                          @OA\Items(type="string")
+     *                      )
+     *                  )
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function getConditionAttributes()
+    {
+    }
 }
