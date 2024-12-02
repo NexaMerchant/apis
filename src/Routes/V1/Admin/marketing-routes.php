@@ -42,6 +42,9 @@ Route::group([
      * Cart rule routes.
      */
     Route::controller(CartRuleController::class)->prefix('cart-rules')->group(function () {
+
+        Route::get('get-condition-attributes', 'getConditionAttributes');
+
         Route::get('', 'allResources');
 
         Route::post('', 'store');
@@ -52,7 +55,7 @@ Route::group([
 
         Route::delete('{id}', 'destroy');
 
-        Route::get('get-condition-attributes', 'getConditionAttributes');
+        
     });
 
     /**

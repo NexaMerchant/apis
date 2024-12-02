@@ -128,8 +128,15 @@ class CartRuleController extends MarketingController
      * 
      */
     public function getConditionAttributes() {
-        return response()->json([
-            'data' => $this->getRepositoryInstance()->getConditionAttributes(),
+
+        $cartRuleRepository = app(\Webkul\CartRule\Repositories\CartRuleRepository::class);
+
+        $items = $cartRuleRepository->getConditionAttributes();
+
+
+        return response([
+            'message' => trans('Apis::app.admin.marketing.promotions.cart-rules.condition-attributes'),
+            'data'    => $items,
         ]);
     }
 
