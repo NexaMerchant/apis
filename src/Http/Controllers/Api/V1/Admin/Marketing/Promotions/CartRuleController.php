@@ -129,14 +129,160 @@ class CartRuleController extends MarketingController
      */
     public function getConditionAttributes() {
 
-        $cartRuleRepository = app(\Webkul\CartRule\Repositories\CartRuleRepository::class);
+        $cartRule = app(\Webkul\CartRule\Repositories\CartRuleRepository::class);
+       // $categories = app(\Webkul\Category\Repositories\CategoryRepository::class)->getCategoryTree();
+       // $categoryRepository = app(\Webkul\Category\Repositories\CategoryRepository::class);
+        $attributeRepository = app(\Webkul\Attribute\Repositories\AttributeRepository::class);
+        
+        $attributes = [
+            [
+                'key'      => 'cart',
+                'label'    => trans('admin::app.marketing.promotions.cart-rules.create.cart-attribute'),
+                'children' => [
+                    [
+                        'key'   => 'cart|base_sub_total',
+                        'type'  => 'price',
+                        'label' => trans('admin::app.marketing.promotions.cart-rules.create.subtotal'),
+                    ], [
+                        'key'   => 'cart|items_qty',
+                        'type'  => 'integer',
+                        'label' => trans('admin::app.marketing.promotions.cart-rules.create.total-items-qty'),
+                    ], [
+                        'key'     => 'cart|payment_method',
+                        'type'    => 'select',
+                        'options' => $cartRule->getPaymentMethods(),
+                        'label'   => trans('admin::app.marketing.promotions.cart-rules.create.payment-method'),
+                    ], [
+                        'key'     => 'cart|shipping_method',
+                        'type'    => 'select',
+                        'options' => $cartRule->getShippingMethods(),
+                        'label'   => trans('admin::app.marketing.promotions.cart-rules.create.shipping-method'),
+                    ], [
+                        'key'   => 'cart|postcode',
+                        'type'  => 'text',
+                        'label' => trans('admin::app.marketing.promotions.cart-rules.create.shipping-postcode'),
+                    ], [
+                        'key'     => 'cart|state',
+                        'type'    => 'select',
+                        'options' => $cartRule->groupedStatesByCountries(),
+                        'label'   => trans('admin::app.marketing.promotions.cart-rules.create.shipping-state'),
+                    ], [
+                        'key'     => 'cart|country',
+                        'type'    => 'select',
+                        'options' => $cartRule->getCountries(),
+                        'label'   => trans('admin::app.marketing.promotions.cart-rules.create.shipping-country'),
+                    ],
+                ],
+            ], [
+                'key'      => 'cart_item',
+                'label'    => trans('admin::app.marketing.promotions.cart-rules.create.cart-item-attribute'),
+                'children' => [
+                    [
+                        'key'   => 'cart_item|base_price',
+                        'type'  => 'price',
+                        'label' => trans('admin::app.marketing.promotions.cart-rules.create.price-in-cart'),
+                    ], [
+                        'key'   => 'cart_item|quantity',
+                        'type'  => 'integer',
+                        'label' => trans('admin::app.marketing.promotions.cart-rules.create.qty-in-cart'),
+                    ], [
+                        'key'   => 'cart_item|base_total_weight',
+                        'type'  => 'decimal',
+                        'label' => trans('admin::app.marketing.promotions.cart-rules.create.total-weight'),
+                    ], [
+                        'key'   => 'cart_item|base_total',
+                        'type'  => 'price',
+                        'label' => trans('admin::app.marketing.promotions.cart-rules.create.subtotal'),
+                    ], [
+                        'key'   => 'cart_item|additional',
+                        'type'  => 'text',
+                        'label' => trans('admin::app.marketing.promotions.cart-rules.create.additional'),
+                    ],
+                ],
+            ], [
+                'key'      => 'product',
+                'label'    => trans('admin::app.marketing.promotions.cart-rules.create.product-attribute'),
+                'children' => [
+                    [
+                        'key'     => 'product|category_ids',
+                        'type'    => 'multiselect',
+                        'label'   => trans('admin::app.marketing.promotions.cart-rules.create.categories'),
+                        'options' => [],
+                    ], [
+                        'key'     => 'product|children::category_ids',
+                        'type'    => 'multiselect',
+                        'label'   => trans('admin::app.marketing.promotions.cart-rules.create.children-categories'),
+                        'options' => [],
+                    ], [
+                        'key'     => 'product|parent::category_ids',
+                        'type'    => 'multiselect',
+                        'label'   => trans('admin::app.marketing.promotions.cart-rules.create.parent-categories'),
+                        'options' => [],
+                    ], [
+                        'key'     => 'product|attribute_family_id',
+                        'type'    => 'select',
+                        'label'   => trans('admin::app.marketing.promotions.cart-rules.create.attribute-family'),
+                        'options' => $cartRule->getAttributeFamilies(),
+                    ],
+                ],
+            ],
+        ];
 
-        $items = $cartRuleRepository->getConditionAttributes();
+        $tempAttributes = $attributeRepository->with([
+            'translations',
+            'options',
+            'options.translations'
+        ])->findWhereNotIn('type', [
+            'textarea',
+            'image',
+            'file'
+        ]);
+
+        //return $tempAttributes;
+
+        foreach ($tempAttributes as $attribute) {
+            $attributeType = $attribute->type;
+
+            if ($attribute->code == 'tax_category_id') {
+                $options = $cartRule->getTaxCategories();
+            } else {
+                $options = $attribute->options;
+            }
+
+            if ($attribute->validation == 'decimal') {
+                $attributeType = 'decimal';
+            } elseif ($attribute->validation == 'numeric') {
+                $attributeType = 'integer';
+            }
+
+            $attributes[2]['children'][] = [
+                'key'     => 'product|' . $attribute->code,
+                'type'    => $attribute->type,
+                'label'   => $attribute->name,
+                'options' => $options,
+            ];
+
+            $attributes[2]['children'][] = [
+                'key'     => 'product|children::' . $attribute->code,
+                'type'    => $attribute->type,
+                'label'   => trans('admin::app.marketing.promotions.cart-rules.create.attribute-name-children-only', ['attribute_name' => $attribute->name]),
+                'options' => $options,
+            ];
+
+            $attributes[2]['children'][] = [
+                'key'     => 'product|parent::' . $attribute->code,
+                'type'    => $attribute->type,
+                'label'   => trans('admin::app.marketing.promotions.cart-rules.create.attribute-name-parent-only', ['attribute_name' => $attribute->name]),
+                'options' => $options,
+            ];
+        }
+
+        //return $attributes;
 
 
-        return response([
-            'message' => trans('Apis::app.admin.marketing.promotions.cart-rules.condition-attributes'),
-            'data'    => $items,
+
+        return response()->json([
+           'data' => $attributes
         ]);
     }
 
