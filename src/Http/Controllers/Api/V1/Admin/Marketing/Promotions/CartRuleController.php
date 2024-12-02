@@ -122,4 +122,15 @@ class CartRuleController extends MarketingController
             'message' => trans('Apis::app.admin.marketing.promotions.cart-rules.delete-success'),
         ]);
     }
+
+    /**
+     *  getConditionAttributes
+     * 
+     */
+    public function getConditionAttributes() {
+        return response()->json([
+            'data' => $this->getRepositoryInstance()->getConditionAttributes(),
+        ]);
+    }
+
 }

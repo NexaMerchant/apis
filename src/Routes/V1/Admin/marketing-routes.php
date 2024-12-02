@@ -51,6 +51,8 @@ Route::group([
         Route::put('{id}', 'update');
 
         Route::delete('{id}', 'destroy');
+
+        Route::get('get-condition-attributes', 'getConditionAttributes');
     });
 
     /**

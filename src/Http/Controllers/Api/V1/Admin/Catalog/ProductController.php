@@ -40,61 +40,28 @@ class ProductController extends CatalogController
      */
     public function quickCreate(Request $request){
         $request->validate([
-            'type'                => 'required',
-            'attribute_family_id' => 'required',
             'sku'                 => ['required', 'unique:products,sku', new Slug],
         ]);
 
-        
+        $req = $request->all();
+        $input = [];
+        $input['sku'] = $req['sku'];
+        $input['type'] = 'configurable';
+        $input['attribute_family_id'] = 1;
 
         Event::dispatch('catalog.product.create.before');
 
-        $product = $this->getRepositoryInstance()->create($request->all());
+        $product = $this->getRepositoryInstance()->create($input);
 
         Event::dispatch('catalog.product.create.after', $product);
 
-        return response([
-            'data'    => new ProductResource($product),
-            'message' => trans('Apis::app.admin.catalog.products.create-success'),
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        if (
-            ProductType::hasVariants($request->input('type'))
-            && (! $request->has('super_attributes')
-                || ! count($request->get('super_attributes')))
-        ) {
-            return response([
-                'message' => trans('Apis::app.admin.catalog.products.error.configurable-error'),
-            ], 400);
-        }
-
-        $request->validate([
-            'type'                => 'required',
-            'attribute_family_id' => 'required',
-            'sku'                 => ['required', 'unique:products,sku', new Slug],
-        ]);
-
-        Event::dispatch('catalog.product.create.before');
-
-        $product = $this->getRepositoryInstance()->create($request->all());
-
-        Event::dispatch('catalog.product.create.after', $product);
-
-        // product update
-        $data = $request->all();
+        $id = $product->id;
 
         $multiselectAttributeCodes = [];
+        $productAttributes = $this->getRepositoryInstance()->findOrFail($id);
 
-        $productAttributes = $this->getRepositoryInstance()->findOrFail($product->id);
-
+        $data = $request->all();
+        
         foreach ($productAttributes->attribute_family->attribute_groups as $attributeGroup) {
             $customAttributes = $productAttributes->getEditableAttributes($attributeGroup);
 
@@ -115,15 +82,50 @@ class ProductController extends CatalogController
             }
         }
 
-        Event::dispatch('catalog.product.update.before', $product->id);
+        Event::dispatch('catalog.product.update.before', $id);
 
-        $product = $this->getRepositoryInstance()->update($data, $product->id);
+        $product = $this->getRepositoryInstance()->update($data, $id);
 
         Event::dispatch('catalog.product.update.after', $product);
 
         return response([
             'data'    => new ProductResource($product),
             'message' => trans('Apis::app.admin.catalog.products.create-success'),
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        if (
+            ProductType::hasVariants($request->input('type'))
+            && (! $request->has('super_attributes')
+                || ! count($request->get('super_attributes')))
+        ) {
+            return response([
+                'message' => trans('rest-api::app.admin.catalog.products.error.configurable-error'),
+            ], 400);
+        }
+
+        $request->validate([
+            'type'                => 'required',
+            'attribute_family_id' => 'required',
+            'sku'                 => ['required', 'unique:products,sku', new Slug],
+        ]);
+
+        Event::dispatch('catalog.product.create.before');
+
+        $product = $this->getRepositoryInstance()->create($request->all());
+
+        Event::dispatch('catalog.product.create.after', $product);
+
+        return response([
+            'data'    => new ProductResource($product),
+            'message' => trans('rest-api::app.admin.catalog.products.create-success'),
         ]);
     }
 
