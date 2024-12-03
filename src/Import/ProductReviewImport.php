@@ -73,7 +73,6 @@ class ProductReviewImport implements ToModel, WithHeadingRow, WithValidation {
             '*.rating'        => 'required|integer|min:1|max:5',
             '*.comment'       => 'nullable|string',
             '*.images'       => 'nullable|string',
-            '*.status'        => 'nullable|boolean',
         ];
     }
 }

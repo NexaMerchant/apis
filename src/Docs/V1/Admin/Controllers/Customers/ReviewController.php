@@ -333,4 +333,50 @@ class ReviewController
     public function massUpdate()
     {
     }
+
+    /**
+     * @OA\Post(
+     *      path="/api/v1/admin/customers/reviews/import/{product_id}",
+     *      operationId="importCustomerReview",
+     *      tags={"CustomerReviews"},
+     *      summary="Import customer review product_id",
+     *      description="Import customer review product_id",
+     *      security={ {"sanctum_admin": {} }},
+     *
+     *      @OA\RequestBody(
+     *
+     *          @OA\MediaType(
+     *              mediaType="multipart/form-data",
+     *
+     *              @OA\Schema(
+     *
+     *                  @OA\Property(
+     *                      property="file",
+     *                      description="xls file",
+     *                      type="file",
+     *                  ),
+     *                  required={"file"}
+     *              )
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *          @OA\JsonContent(
+     *
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Review imported successfully."),
+     *              )
+     *          )
+     *      )
+     * )
+     */
+
+    public function import()
+    {
+    }
 }

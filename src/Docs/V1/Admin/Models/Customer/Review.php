@@ -148,4 +148,26 @@ class Review
      * @var \NexaMerchant\Apis\Docs\V1\Admin\Models\Customer\Customer
      */
     private $customer;
+
+    /**
+     * @OA\Property(
+     *     title="Attachments",
+     *     description="Review's Attachments"
+     * )
+     *
+     * @var array
+     */
+    private $attachments;
+
+    /**
+     * @OA\Property(
+     *     title="Sort",
+     *     description="Sort",
+     *     format="int64",
+     *     example=0
+     * )
+     *
+     * @var int
+     */
+    private $sort;
 }
