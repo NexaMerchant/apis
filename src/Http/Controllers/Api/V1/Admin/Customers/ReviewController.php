@@ -2,11 +2,14 @@
 
 namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Customers;
 
+use Google\Rpc\Context\AttributeContext\Request;
 use Illuminate\Support\Facades\Event;
 use Nicelizhi\Manage\Http\Requests\MassDestroyRequest;
 use Nicelizhi\Manage\Http\Requests\MassUpdateRequest;
 use Webkul\Product\Repositories\ProductReviewRepository;
 use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Catalog\ProductReviewResource;
+use NexaMerchant\Apis\Imports\ProductReviewImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReviewController extends BaseController
 {
@@ -111,5 +114,39 @@ class ReviewController extends BaseController
         return response([
             'message' => trans('Apis::app.admin.customers.reviews.mass-operations.delete-success'),
         ]);
+    }
+
+    /**
+     * 
+     * product id import a xls file
+     * 
+     * upload a xls file to import its products review
+     */
+    public function import(Request $requet, $product_id) {
+
+        $this->validate(request(), [
+            'file' => 'required|mimes:xls,xlsx',
+        ]);
+
+        try {
+            Excel::import(new ProductReviewImport, $request->file('file'));
+
+            return response()->json([
+                'message' => 'Product reviews imported successfully.',
+            ]);
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+
+            return response()->json([
+                'message'  => 'Import failed due to validation errors.',
+                'errors'   => $failures,
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'An error occurred during import.',
+                'error'   => $e->getMessage(),
+            ], 500);
+        }
+
     }
 }
