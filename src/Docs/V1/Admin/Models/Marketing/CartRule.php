@@ -303,4 +303,30 @@ class CartRule
      * @var \DateTime
      */
     private $updated_at;
+
+    /**
+     * @OA\Property(
+     *     title="Channels",
+     *     description="Cart rule channels",
+     *     example={1, 2, 3},
+     *     type="array",
+     *     @OA\Items(type="integer")
+     * )
+     *
+     * @var array
+     */
+    private $channels;
+
+    /**
+     * @OA\Property(
+     *     title="Customer Groups",
+     *     description="Cart rule customer groups",
+     *     example={1, 2, 3},
+     *     type="array",
+     *     @OA\Items(type="integer")
+     * )
+     *
+     * @var array
+     */
+    private $customer_groups;
 }

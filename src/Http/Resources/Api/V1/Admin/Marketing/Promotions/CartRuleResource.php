@@ -39,6 +39,8 @@ class CartRuleResource extends JsonResource
             'sort_order'                => $this->sort_order,
             'created_at'                => $this->created_at,
             'updated_at'                => $this->updated_at,
+            'channels'                  => $this->channels,
+            'customer_groups'           => $this->customer_groups,
         ];
     }
 }
