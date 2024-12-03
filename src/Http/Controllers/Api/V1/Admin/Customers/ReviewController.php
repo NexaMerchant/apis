@@ -2,7 +2,7 @@
 
 namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Customers;
 
-use Google\Rpc\Context\AttributeContext\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Nicelizhi\Manage\Http\Requests\MassDestroyRequest;
 use Nicelizhi\Manage\Http\Requests\MassUpdateRequest;
@@ -122,7 +122,7 @@ class ReviewController extends BaseController
      * 
      * upload a xls file to import its products review
      */
-    public function import(Request $requet, $product_id) {
+    public function import(Request $request, $product_id) {
 
         $this->validate(request(), [
             'file' => 'required|mimes:xls,xlsx',

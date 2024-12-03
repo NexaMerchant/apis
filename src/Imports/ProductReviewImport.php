@@ -1,8 +1,9 @@
 <?php
 
-namespace NexaMerchant\Apis\Import;
+namespace NexaMerchant\Apis\Imports;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Webkul\Product\Models\Product;
@@ -24,17 +25,21 @@ class ProductReviewImport implements ToModel, WithHeadingRow, WithValidation {
         $customer = DB::table('customers')->where('email', $row['customer_email'])->first();
         if(!$customer) {
             // create a new customer
-            $customer = DB::table('customers')->insertGetId([
+            DB::table('customers')->insertGetId([
                 'first_name' => $row['customer_name'],
                 'last_name' => $row['customer_name'],
                 'email' => $row['customer_email'],
                 'password' => bcrypt('password'),
-                'channel_id' => 1,
                 'is_verified' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+
+            $customer = DB::table('customers')->where('email', $row['customer_email'])->first();
+
         }
+
+        Log::info('Product Review Import: ' . json_encode($row));
 
 
 
@@ -50,15 +55,19 @@ class ProductReviewImport implements ToModel, WithHeadingRow, WithValidation {
             'sort'          => 0,
         ]);
 
+        $productReview->save();
+
         // if the images are provided and add images url to the product review attachments
         if (isset($row['images'])) {
             $images = explode(',', $row['images']);
             foreach ($images as $image) {
-                $productReview->attachments()->create([
+                $productReview->images()->create([
                     'path' => $image,
                     'type' => 'image',
                     'mime_type' => 'jpeg',
                 ]);
+
+                
             }
         }
     }
@@ -66,7 +75,7 @@ class ProductReviewImport implements ToModel, WithHeadingRow, WithValidation {
     public function rules(): array
     {
         return [
-            '*.product_id'   => 'required|string|exists:products,id',
+            '*.product_id'   => 'required|integer|exists:products,id',
             '*.customer_name' => 'required|string',
             '*.customer_email' => 'required|email',
             '*.title'         => 'required|string',
