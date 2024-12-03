@@ -107,18 +107,6 @@ class Review
 
     /**
      * @OA\Property(
-     *     title="Product ID",
-     *     description="Product ID",
-     *     format="int64",
-     *     example=1
-     * )
-     *
-     * @var int
-     */
-    private $product_id;
-
-    /**
-     * @OA\Property(
      *     title="Product",
      *     description="Reviewed Product"
      * )
@@ -126,18 +114,6 @@ class Review
      * @var \NexaMerchant\Apis\Docs\V1\Shop\Models\Catalog\Product
      */
     private $product;
-
-    /**
-     * @OA\Property(
-     *     title="Customer ID",
-     *     description="Customer ID",
-     *     format="int64",
-     *     example=1
-     * )
-     *
-     * @var int
-     */
-    private $customer_id;
 
     /**
      * @OA\Property(
