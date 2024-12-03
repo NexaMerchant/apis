@@ -155,7 +155,7 @@ class Review
      *     description="Review's Attachments"
      * )
      *
-     * @var array
+     * @var \NexaMerchant\Apis\Docs\V1\Admin\Models\Customer\Attachment
      */
     private $attachments;
 

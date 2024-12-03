@@ -13,7 +13,7 @@ class ProductReviewImport implements ToModel, WithHeadingRow, WithValidation {
     public function model(array $row)
     {
         // Find the product by SKU
-        $product = Product::where('sku', $row['product_sku'])->first();
+        $product = Product::where('id', $row['product_id'])->first();
 
         if (!$product) {
             // Skip if product not found
@@ -66,7 +66,7 @@ class ProductReviewImport implements ToModel, WithHeadingRow, WithValidation {
     public function rules(): array
     {
         return [
-            '*.product_sku'   => 'required|string|exists:products,sku',
+            '*.product_id'   => 'required|string|exists:products,id',
             '*.customer_name' => 'required|string',
             '*.customer_email' => 'required|email',
             '*.title'         => 'required|string',
