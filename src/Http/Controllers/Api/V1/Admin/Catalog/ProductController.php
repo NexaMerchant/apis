@@ -4,6 +4,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Catalog;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Log;
 use Nicelizhi\Manage\Http\Requests\InventoryRequest;
 use Nicelizhi\Manage\Http\Requests\MassDestroyRequest;
 use Nicelizhi\Manage\Http\Requests\MassUpdateRequest;
@@ -48,6 +49,76 @@ class ProductController extends CatalogController
         $input['sku'] = $req['sku'];
         $input['type'] = 'configurable';
         $input['attribute_family_id'] = 1;
+        $super_attributes = [];
+
+        // create super attributes and check if the attribute is valid
+        $attributeRepository = app('Webkul\Attribute\Repositories\AttributeRepository');
+        foreach ($req['options'] as $attribute) {
+
+            //var_dump($attribute['values']);
+            
+            $attributeRepos = $attributeRepository->findOneByField('code', $attribute['name']);
+            //var_dump($attributeRepos);exit;
+            if(!$attributeRepos){
+                // attribute not found and create a new attribute
+                $attributeRepos = $attributeRepository->create([
+                    'code' => $attribute['name'],
+                    'admin_name' => $attribute['name'],
+                    'type' => 'select',
+                    'is_required' => 1,
+                    'is_unique' => 0,
+                    'validation' => '',
+                    'position' => $attribute['position'],
+                    'is_visible' => 1,
+                    'is_configurable' => 1,
+                    'is_filterable' => 1,
+                    'is_filterable_in_search' => 1,
+                    'is_filterable_in_list' => 1,
+                    'use_in_flat' => 1,
+                    'is_comparable' => 1,
+                    'is_used_for_promo_rules' => 1,
+                    'is_visible_on_front' => 1,
+                    'swatch_type' => 'dropdown',
+                    'use_in_product_listing' => 1,
+                    'use_in_comparison' => 1,
+                    'is_user_defined' => 1,
+                    'value_per_locale' => 0,
+                    'value_per_channel' => 0,
+                    'channel_based' => 0,
+                    'locale_based' => 0,
+                    'default_value' => ''
+                ]);
+            }
+            // check if the attribute option is valid
+            $attributeOptionRepository = app('Webkul\Attribute\Repositories\AttributeOptionRepository');
+            $attributeOptionArray = [];
+            foreach ($attribute['values'] as $option) {
+                $attributeOption = $attributeOptionRepository->findOneByField(['admin_name'=>$option, 'attribute_id'=>$attributeRepos->id]);
+                if(!$attributeOption){
+                    $attributeOption = $attributeOptionRepository->create([
+                        'admin_name' => $option,
+                        'sort_order' => $attribute['position'],
+                        'attribute_id' => $attributeRepos->id
+                    ]);
+                }
+                //var_dump($attributeOption->admin_name);
+                $attributeOptionArray[$attributeOption->id] = $attributeOption->id;
+
+                Log::info('Attribute Option: ' . json_encode($attributeOption));
+            }
+            
+            // var_dump($attributeOptionArray);
+            // var_dump($attributeRepos->id);
+
+            $super_attributes[$attributeRepos->code] = $attributeOptionArray;
+            
+        }
+
+        //var_dump($super_attributes);exit;
+
+        $input['super_attributes'] = $super_attributes;
+
+        //var_dump($input);exit;
 
         Event::dispatch('catalog.product.create.before');
 
@@ -83,6 +154,14 @@ class ProductController extends CatalogController
         }
 
         Event::dispatch('catalog.product.update.before', $id);
+
+        $variants = $variantCollection = $product->variants()->get()->toArray();
+
+        $tableData = [];
+        $skus = $request->input('tableData');
+
+        var_dump($skus);exit;
+        
 
         $product = $this->getRepositoryInstance()->update($data, $id);
 
