@@ -5,6 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Catalog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use Nicelizhi\Manage\Http\Requests\InventoryRequest;
 use Nicelizhi\Manage\Http\Requests\MassDestroyRequest;
 use Nicelizhi\Manage\Http\Requests\MassUpdateRequest;
@@ -14,6 +15,7 @@ use Webkul\Product\Helpers\ProductType;
 use Webkul\Product\Repositories\ProductInventoryRepository;
 use Webkul\Product\Repositories\ProductRepository;
 use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Catalog\ProductResource;
+use Nicelizhi\Airwallex\Core;
 
 class ProductController extends CatalogController
 {
@@ -33,6 +35,16 @@ class ProductController extends CatalogController
         return ProductResource::class;
     }
 
+    public function getResource(int $id)
+    {
+        $product = $this->getRepositoryInstance()->findOrFail($id);
+        
+        return response([
+            'data'    => new ProductResource($product),
+            'message' => trans('Apis::app.admin.catalog.products.show-success'),
+        ]);
+    }
+
     /**
      * 
      * Quick Create a new product.
@@ -40,29 +52,39 @@ class ProductController extends CatalogController
      * @return \Illuminate\Http\Response
      */
     public function quickCreate(Request $request){
-        $request->validate([
-            'sku'                 => ['required', 'unique:products,sku', new Slug],
-        ]);
-
+        //$request['sku'] = time(); // for test
         $req = $request->all();
+        if(empty($req['id'])) {
+            $request->validate([
+                'sku'=> ['required', 'unique:products,sku', new Slug],
+            ]);
+        }        
+
         $input = [];
         $input['sku'] = $req['sku'];
+        // $input['sku'] = time();
         $input['type'] = 'configurable';
         $input['attribute_family_id'] = 1;
         $super_attributes = [];
+        $super_attributes_label = []; // super attributes label
+        $super_attributes_ids = [];
 
         // create super attributes and check if the attribute is valid
         $attributeRepository = app('Webkul\Attribute\Repositories\AttributeRepository');
         foreach ($req['options'] as $attribute) {
-
             //var_dump($attribute['values']);
+
+            $code = "attr_".md5($attribute['name']);
+            $super_attributes_label[$attribute['position']] = $code;
+
+             // create a unique code for the attribute
             
-            $attributeRepos = $attributeRepository->findOneByField('code', $attribute['name']);
+            $attributeRepos = $attributeRepository->findOneByField('code', $code);
             //var_dump($attributeRepos);exit;
             if(!$attributeRepos){
                 // attribute not found and create a new attribute
                 $attributeRepos = $attributeRepository->create([
-                    'code' => $attribute['name'],
+                    'code' => $code,
                     'admin_name' => $attribute['name'],
                     'type' => 'select',
                     'is_required' => 1,
@@ -104,29 +126,42 @@ class ProductController extends CatalogController
                 //var_dump($attributeOption->admin_name);
                 $attributeOptionArray[$attributeOption->id] = $attributeOption->id;
 
-                Log::info('Attribute Option: ' . json_encode($attributeOption));
+                //Log::info('Attribute Option: ' . json_encode($attributeOption));
             }
-            
-            // var_dump($attributeOptionArray);
-            // var_dump($attributeRepos->id);
-
             $super_attributes[$attributeRepos->code] = $attributeOptionArray;
-            
+            $super_attributes_ids[$attributeRepos->id] = $attributeRepos->id;
         }
 
-        //var_dump($super_attributes);exit;
-
         $input['super_attributes'] = $super_attributes;
+        $input['channel'] = Core()->getCurrentChannel()->code;
+        $input['locale'] = Core()->getCurrentLocale()->code;
+       
 
-        //var_dump($input);exit;
+        //add attribut id to attribute_group_mappings
+        $attributeGroupMappingRespos = app();
+        foreach($super_attributes_ids as $key=>$super_attributes_id) {
+            $attribute_group_mapping = DB::table('attribute_group_mappings')->where("attribute_id", $super_attributes_id)->where("attribute_group_id", 1)->first();
+            if(!$attribute_group_mapping){
+                DB::table('attribute_group_mappings')->insert([
+                    'attribute_id' => $super_attributes_id,
+                    'attribute_group_id' => 1
+                ]);
+            }
+        }
 
-        Event::dispatch('catalog.product.create.before');
+        if($req['id']){
 
-        $product = $this->getRepositoryInstance()->create($input);
+            $product = $this->getRepositoryInstance()->findOrFail($req['id']);
+            //$product->update($input);
+            $id = $req['id'];
 
-        Event::dispatch('catalog.product.create.after', $product);
-
-        $id = $product->id;
+        }else{
+            Event::dispatch('catalog.product.create.before');
+            $product = $this->getRepositoryInstance()->create($input);
+            Event::dispatch('catalog.product.create.after', $product);
+            $id = $product->id;
+        }
+        
 
         $multiselectAttributeCodes = [];
         $productAttributes = $this->getRepositoryInstance()->findOrFail($id);
@@ -155,17 +190,84 @@ class ProductController extends CatalogController
 
         Event::dispatch('catalog.product.update.before', $id);
 
-        $variants = $variantCollection = $product->variants()->get()->toArray();
+        $Localvariants = $variantCollection = $product->variants()->get()->toArray();
+
+        //var_dump($Localvariants);exit;
 
         $tableData = [];
         $skus = $request->input('tableData');
 
-        var_dump($skus);exit;
+        $categories = $request->input('categories');
+        //$categories[] = 5;
+
+        $Variants = [];
+        $VariantsImages = [];
+        $i = 0;
+        foreach($skus as $key=>$sku) {
+            $Variant = [];
+            $sku['sku'] = $sku['sku'] ? $sku['sku'] : $sku['label'];
+            $Variant['sku'] = $input['sku'] . $sku['sku'];
+            $Variant['name'] = $sku['label']; 
+            $Variant['price'] = $sku['price'];
+            $Variant['weight'] = "1000";
+            $Variant['status'] = 1;
+            $Variant['inventories'][1] = 1000;
+            $Variant['channel'] = Core()->getCurrentChannel()->code;
+            $Variant['locale'] = Core()->getCurrentLocale()->code;
+
+            $Variant['categories'] = $categories;
+            $option1 = isset($super_attributes_label[1]) ? $super_attributes_label[1] : null;
+            $option2 = isset($super_attributes_label[2]) ? $super_attributes_label[2] : null;
+            $option3 = isset($super_attributes_label[3]) ? $super_attributes_label[3] : null;
+
+            //var_dump($option1);
+            //var_dump($option2);
+            //var_dump($option3);
+
+            if($option1) $Variant[$option1] = $sku['option1'];
+            if($option2) $Variant[$option2] = $sku['option2'];
+            if($option3) $Variant[$option3] = $sku['option3'];
+
+            //var_dump($Variant);exit;
+            
+            if(empty($sku['id'])) {
+                $Variants["variant_".$i] = $Variant;
+                $i++;
+            }else{
+                // use sku to find the variant
+                //$variantFind = $this->getRepositoryInstance()->findSku
+                $Variants[$sku['id']] = $Variant;
+            }
+            
+
+        }
+
+        $tableData['channel'] = Core()->getCurrentChannel()->code;
+        $tableData['locale'] = Core()->getCurrentLocale()->code;
+        $tableData['variants'] = $Variants;
+        $tableData['url_key'] = isset($req['url_key']) ? $req['url_key'] : $req['sku'];
+        $tableData['name'] = $req['name'];
+        $tableData['new'] = 1;
+        $tableData['status'] = $req['status'];
+        $tableData['description'] = $req['description'];
+        $tableData['price'] = $req['pricingData']['price'];
+        $tableData['compare_at_price'] = $req['pricingData']['originalPrice'];
+
+        //var_dump($super_attributes_label);exit;
+
+        //exit;
+
+
+        //var_dump($tableData, $super_attributes_label);exit;
         
 
-        $product = $this->getRepositoryInstance()->update($data, $id);
+        $product = $this->getRepositoryInstance()->update($tableData, $id);
 
         Event::dispatch('catalog.product.update.after', $product);
+
+        // variant images add
+        
+
 
         return response([
             'data'    => new ProductResource($product),

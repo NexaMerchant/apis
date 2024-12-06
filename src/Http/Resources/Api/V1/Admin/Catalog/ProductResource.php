@@ -30,6 +30,25 @@ class ProductResource extends JsonResource
 
             'sku' => $this->resource->sku,
 
+            'super_attributes' => $this->super_attributes,
+
+            'variants' => $this->variants->map(function ($variant) {
+                return [
+                    'id'    => $variant->id,
+                    'sku'   => $variant->sku,
+                    'price' => $variant->price,
+                    'stock' => $variant->stock,
+                    'images' => ProductImageResource::collection($variant->images),
+                ];
+            }),
+
+            'categories' => $this->categories->map(function ($category) {
+                return [
+                    'id'   => $category->id,
+                    'name' => $category->name,
+                ];
+            }),
+
             /**
              * Additional attributes.
              */
