@@ -30,7 +30,28 @@ class ProductResource extends JsonResource
 
             'sku' => $this->resource->sku,
 
-            'super_attributes' => $this->super_attributes,
+            // need filter 
+            'super_attributes' => $this->super_attributes->map(function ($attribute) {
+                // need filter the product have the attribute
+                return [
+                    'id'   => $attribute->id,
+                    'name' => $attribute->name,
+                    'admin_name' => $attribute->admin_name,
+                    'position' => $attribute->position,
+                    'options' => $attribute->options->map(function ($option) {
+                        return [
+                            'id'    => $option->id,
+                            'admin_name' => $option->admin_name,
+                            'label' => $option->label,
+                            'swatch_value' => $option->swatch_value,
+                        ];
+                    }),
+                ];
+            }),
+
+            //'resource' => $configurableOption->getOptions($this->resource, $getAllowedVariants),
+
+            // super attributes are the attributes that are used to create variants.
 
             'variants' => $this->variants->map(function ($variant) {
                 return [
@@ -38,7 +59,11 @@ class ProductResource extends JsonResource
                     'sku'   => $variant->sku,
                     'price' => $variant->price,
                     'stock' => $variant->stock,
+                    'name'  => $variant->name,
+                    "admin_name" => $variant->admin_name,
+                    //'values' => $variant,
                     'images' => ProductImageResource::collection($variant->images),
+                    'sku_data' => explode('-', $variant->sku),
                 ];
             }),
 

@@ -38,7 +38,7 @@ class ProductController extends CatalogController
     public function getResource(int $id)
     {
         $product = $this->getRepositoryInstance()->findOrFail($id);
-        
+
         return response([
             'data'    => new ProductResource($product),
             'message' => trans('Apis::app.admin.catalog.products.show-success'),
@@ -64,17 +64,105 @@ class ProductController extends CatalogController
         $input['sku'] = $req['sku'];
         // $input['sku'] = time();
         $input['type'] = 'configurable';
-        $input['attribute_family_id'] = 1;
+       // $input['attribute_family_id'] = 1;
         $super_attributes = [];
         $super_attributes_label = []; // super attributes label
         $super_attributes_ids = [];
+
+        // create a family attribute by sku
+        $attributeFamilyRepository = app('Webkul\Attribute\Repositories\AttributeFamilyRepository');
+        $attributeFamily = $attributeFamilyRepository->findOneByField('code', $req['sku']);
+
+        $attribute_group_id = 0;
+
+        if(!$attributeFamily){
+            $attributeFamily = $attributeFamilyRepository->create([
+                'code' => $req['sku'],
+                'name' => $req['sku'],
+                'status' => 1,
+                'is_user_defined' => 1
+            ]);
+
+            // create a default group for the family
+            $attributeGroupRepository = app('Webkul\Attribute\Repositories\AttributeGroupRepository');
+            $attributeGroup = DB::table('attribute_groups')->insert([
+                    [
+                    'name' => 'General',
+                    'position' => 1,
+                    'column' => 1,
+                    'attribute_family_id' => $attributeFamily->id
+                ],[
+                    'attribute_family_id' => $attributeFamily->id,
+                    'name' => 'Description',
+                    'column' => 1,
+                    'position' => 2
+                ],[
+                    'attribute_family_id' => $attributeFamily->id,
+                    'name' => 'Meta Description',
+                    'column' => 1,
+                    'position' => 3
+                ],[
+                    'attribute_family_id' => $attributeFamily->id,
+                    'name' => 'Price',
+                    'column' => 2,
+                    'position' => 1
+                ],[
+                    'attribute_family_id' => $attributeFamily->id,
+                    'name' => 'Shipping',
+                    'column' => 2,
+                    'position' => 2
+                ],[
+                    'attribute_family_id' => $attributeFamily->id,
+                    'name' => 'Settings',
+                    'column' => 2,
+                    'position' => 3
+                ],[
+                    'attribute_family_id' => $attributeFamily->id,
+                    'name' => 'Inventories',
+                    'column' => 2,
+                    'position' => 4
+                ]
+            ]);
+
+            // base use attribute group add attribute group mappings
+            //$attributeGroupMappingRepository = app('Webkul\Attribute\Repositories\AttributeGroupMappingRepository');
+            $attributeGroupItems = $attributeGroupRepository->where('attribute_family_id', $attributeFamily->id)->limit(1)->get();
+
+            //var_dump($attributeGroupItems);exit;
+            
+            foreach($attributeGroupItems as $attributeGroupItem) {
+                $attributeGroupMapping = DB::table('attribute_group_mappings')->where("attribute_id", )->where("attribute_group_id", $attributeGroupItem->id)->first();
+                if(!$attributeGroupMapping){
+                    $attributeMaxID = 32;
+                    $attributeGroupMappingDatas = [];
+                    for($i=1;$i<=$attributeMaxID;$i++){
+
+                        // check if the attribute group mapping is have the attribute
+                        $attributeGroupMappingData = [
+                            'attribute_id' => $i,
+                            'attribute_group_id' => $attributeGroupItem->id
+                        ];
+
+                        $attributeGroupMappingDatas[] = $attributeGroupMappingData;
+                    }
+                    DB::table('attribute_group_mappings')->insert($attributeGroupMappingDatas);
+                    
+                }
+                $attribute_group_id = $attributeGroupItem->id;
+            }
+        }else{
+            $attributeGroupRepository = app('Webkul\Attribute\Repositories\AttributeGroupRepository');
+            $attributeGroup = $attributeGroupRepository->findOneByField('attribute_family_id', $attributeFamily->id);
+            $attribute_group_id = $attributeGroup->id;
+        }
+        $input['attribute_family_id'] = $attributeFamily->id;
 
         // create super attributes and check if the attribute is valid
         $attributeRepository = app('Webkul\Attribute\Repositories\AttributeRepository');
         foreach ($req['options'] as $attribute) {
             //var_dump($attribute['values']);
 
-            $code = "attr_".md5($attribute['name']);
+            $code = "attr_".$input['attribute_family_id']."_".md5($attribute['name']);
             $super_attributes_label[$attribute['position']] = $code;
 
              // create a unique code for the attribute
@@ -140,20 +228,42 @@ class ProductController extends CatalogController
         //add attribut id to attribute_group_mappings
         $attributeGroupMappingRespos = app();
         foreach($super_attributes_ids as $key=>$super_attributes_id) {
-            $attribute_group_mapping = DB::table('attribute_group_mappings')->where("attribute_id", $super_attributes_id)->where("attribute_group_id", 1)->first();
+            $attribute_group_mapping = DB::table('attribute_group_mappings')->where("attribute_id", $super_attributes_id)->where("attribute_group_id", $attribute_group_id)->first();
             if(!$attribute_group_mapping){
                 DB::table('attribute_group_mappings')->insert([
                     'attribute_id' => $super_attributes_id,
-                    'attribute_group_id' => 1
+                    'attribute_group_id' => $attribute_group_id
                 ]);
             }
         }
 
         if($req['id']){
 
+            // update the product super_attributes
+
+
             $product = $this->getRepositoryInstance()->findOrFail($req['id']);
+
+            // delete the product super attributes info
+            DB::table('product_super_attributes')->where('product_id', $req['id'])->delete();
+            
             //$product->update($input);
             $id = $req['id'];
+
+            
+
+            //var_dump($input,$super_attributes_ids);exit;
+
+            // add new super attributes
+            foreach($super_attributes_ids as $key=>$super_attributes_id) {
+                DB::table('product_super_attributes')->insert([
+                    'product_id' => $id,
+                    'attribute_id' => $super_attributes_id
+                ]);
+            }
+
+           // exit;
+
 
         }else{
             Event::dispatch('catalog.product.create.before');
@@ -198,19 +308,24 @@ class ProductController extends CatalogController
         $skus = $request->input('tableData');
 
         $categories = $request->input('categories');
-        //$categories[] = 5;
+        // $categories = [];
+        // foreach($categorie as $key=>$category) {
+        //     $categories[] = $category;
+        // }
+
+        //var_dump($categories);exit;
 
         $Variants = [];
         $VariantsImages = [];
         $i = 0;
         foreach($skus as $key=>$sku) {
             $Variant = [];
-            $sku['sku'] = $sku['sku'] ? $sku['sku'] : $sku['label'];
-            $Variant['sku'] = $input['sku'] . $sku['sku'];
+            $sku['sku'] = !empty($sku['sku']) ? $sku['sku'] : $sku['label'];
+            
             $Variant['name'] = $sku['label']; 
             $Variant['price'] = $sku['price'];
             $Variant['weight'] = "1000";
-            $Variant['status'] = 1;
+            $Variant['status'] = $req['status'];
             $Variant['inventories'][1] = 1000;
             $Variant['channel'] = Core()->getCurrentChannel()->code;
             $Variant['locale'] = Core()->getCurrentLocale()->code;
@@ -231,13 +346,22 @@ class ProductController extends CatalogController
             //var_dump($Variant);exit;
             
             if(empty($sku['id'])) {
+                $Variant['sku'] = $input['sku'].'-'. $sku['sku'];
                 $Variants["variant_".$i] = $Variant;
                 $i++;
             }else{
                 // use sku to find the variant
-                //$variantFind = $this->getRepositoryInstance()->findSku
+                
+
+
+                $Variant['sku'] = $sku['sku'];
                 $Variants[$sku['id']] = $Variant;
             }
+
+            //add images to the variant
+            $image = $sku['image'];
+
+
             
 
         }
@@ -248,24 +372,33 @@ class ProductController extends CatalogController
         $tableData['url_key'] = isset($req['url_key']) ? $req['url_key'] : $req['sku'];
         $tableData['name'] = $req['name'];
         $tableData['new'] = 1;
+        $tableData['guest_checkout'] = 1;
         $tableData['status'] = $req['status'];
         $tableData['description'] = $req['description'];
         $tableData['price'] = $req['pricingData']['price'];
         $tableData['compare_at_price'] = $req['pricingData']['originalPrice'];
+       // $tableData['categories'] = $categories;
 
-        //var_dump($super_attributes_label);exit;
-
-        //exit;
-
-
-        //var_dump($tableData, $super_attributes_label);exit;
-        
+       //var_dump($tableData);exit;
 
         $product = $this->getRepositoryInstance()->update($tableData, $id);
 
         Event::dispatch('catalog.product.update.after', $product);
 
-        // variant images add
+        $images = $request->input('images');
+
+        // add images to the product
+        $productImages = [];
+        foreach($images as $key=>$image) {
+            $productImages[] = [
+                'path' => $image['url'],
+                'type' => 'images',
+                'position' => $key
+            ];
+        }
+
+        $product->images()->createMany($productImages);
+
         
 
 
