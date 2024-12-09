@@ -9,12 +9,12 @@ namespace NexaMerchant\Apis\Docs\V1\Shop\Controllers;
  *      description="NexaMerchant Store Front Rest API Documentation",
  *
  *      @OA\Contact(
- *          email="shop@example.com"
+ *          email="nice.lizhi@gmail.com"
  *      )
  * )
  *
  * @OA\Server(
- *      url=APP_URL,
+ *      url="/api/v1",
  *      description="NexaMerchant Rest API"
  * )
  *
