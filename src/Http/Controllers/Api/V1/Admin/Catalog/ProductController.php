@@ -359,7 +359,7 @@ class ProductController extends CatalogController
             }
 
             //add images to the variant
-            $image = $sku['images'];
+            // $image = $sku['images'];
 
 
             
