@@ -171,23 +171,21 @@ class ProductController extends CatalogController
             //var_dump($attributeRepos);exit;
             if(!$attributeRepos){
                 // attribute not found and create a new attribute
+                Event::dispatch('catalog.attribute.create.before');
                 $attributeRepos = $attributeRepository->create([
                     'code' => $code,
                     'admin_name' => $attribute['name'],
                     'type' => 'select',
-                    'is_required' => 1,
+                    'is_required' => 0,
                     'is_unique' => 0,
                     'validation' => '',
                     'position' => $attribute['position'],
                     'is_visible' => 1,
                     'is_configurable' => 1,
                     'is_filterable' => 1,
-                    'is_filterable_in_search' => 1,
-                    'is_filterable_in_list' => 1,
-                    'use_in_flat' => 1,
-                    'is_comparable' => 1,
-                    'is_used_for_promo_rules' => 1,
-                    'is_visible_on_front' => 1,
+                    'use_in_flat' => 0,
+                    'is_comparable' => 0,
+                    'is_visible_on_front' => 0,
                     'swatch_type' => 'dropdown',
                     'use_in_product_listing' => 1,
                     'use_in_comparison' => 1,
@@ -198,6 +196,7 @@ class ProductController extends CatalogController
                     'locale_based' => 0,
                     'default_value' => ''
                 ]);
+                Event::dispatch('catalog.attribute.create.after', $attribute);
             }
             // check if the attribute option is valid
             $attributeOptionRepository = app('Webkul\Attribute\Repositories\AttributeOptionRepository');
