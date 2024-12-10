@@ -329,6 +329,7 @@ class ProductController extends CatalogController
             $Variant['inventories'][1] = 1000;
             $Variant['channel'] = Core()->getCurrentChannel()->code;
             $Variant['locale'] = Core()->getCurrentLocale()->code;
+            $Variant['visible_individually'] = 1;
 
             $Variant['categories'] = $categories;
             $option1 = isset($super_attributes_label[1]) ? $super_attributes_label[1] : null;
@@ -377,6 +378,7 @@ class ProductController extends CatalogController
         $tableData['description'] = $req['description'];
         $tableData['price'] = $req['pricingData']['price'];
         $tableData['compare_at_price'] = $req['pricingData']['originalPrice'];
+        $tableData['visible_individually'] = 1;
        // $tableData['categories'] = $categories;
 
        //var_dump($tableData);exit;
