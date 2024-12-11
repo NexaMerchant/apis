@@ -62,9 +62,7 @@ class ProductController extends CatalogController
 
         $input = [];
         $input['sku'] = $req['sku'];
-        // $input['sku'] = time();
         $input['type'] = 'configurable';
-       // $input['attribute_family_id'] = 1;
         $super_attributes = [];
         $super_attributes_label = []; // super attributes label
         $super_attributes_ids = [];
@@ -75,7 +73,10 @@ class ProductController extends CatalogController
 
         $attribute_group_id = 0;
 
+        $action = 'create';
+
         if(!$attributeFamily){
+            Event::dispatch('catalog.attribute_family.create.before');
             $attributeFamily = $attributeFamilyRepository->create([
                 'code' => $req['sku'],
                 'name' => $req['sku'],
@@ -83,46 +84,20 @@ class ProductController extends CatalogController
                 'is_user_defined' => 1
             ]);
 
+            Event::dispatch('catalog.attribute_family.create.after', $attributeFamily);
+
             // create a default group for the family
             $attributeGroupRepository = app('Webkul\Attribute\Repositories\AttributeGroupRepository');
-            $attributeGroup = DB::table('attribute_groups')->insert([
-                    [
-                    'name' => 'General',
-                    'position' => 1,
-                    'column' => 1,
-                    'attribute_family_id' => $attributeFamily->id
-                ],[
-                    'attribute_family_id' => $attributeFamily->id,
-                    'name' => 'Description',
-                    'column' => 1,
-                    'position' => 2
-                ],[
-                    'attribute_family_id' => $attributeFamily->id,
-                    'name' => 'Meta Description',
-                    'column' => 1,
-                    'position' => 3
-                ],[
-                    'attribute_family_id' => $attributeFamily->id,
-                    'name' => 'Price',
-                    'column' => 2,
-                    'position' => 1
-                ],[
-                    'attribute_family_id' => $attributeFamily->id,
-                    'name' => 'Shipping',
-                    'column' => 2,
-                    'position' => 2
-                ],[
-                    'attribute_family_id' => $attributeFamily->id,
-                    'name' => 'Settings',
-                    'column' => 2,
-                    'position' => 3
-                ],[
-                    'attribute_family_id' => $attributeFamily->id,
-                    'name' => 'Inventories',
-                    'column' => 2,
-                    'position' => 4
-                ]
-            ]);
+            Event::dispatch('catalog.attributeGroup.create.before');
+            $attributeGroupData = [
+                'name' => 'General',
+                'position' => 1,
+                'attribute_family_id' => $attributeFamily->id
+            ];
+
+            $attributeGroup = $attributeFamily->attribute_groups()->create($attributeGroupData);
+
+            Event::dispatch('catalog.attributeGroup.create.before', $attributeGroup);
 
             // base use attribute group add attribute group mappings
             //$attributeGroupMappingRepository = app('Webkul\Attribute\Repositories\AttributeGroupMappingRepository');
@@ -239,7 +214,7 @@ class ProductController extends CatalogController
         if($req['id']){
 
             // update the product super_attributes
-
+            Event::dispatch('catalog.product.update.before', $req['id']);
 
             $product = $this->getRepositoryInstance()->findOrFail($req['id']);
 
@@ -249,10 +224,6 @@ class ProductController extends CatalogController
             //$product->update($input);
             $id = $req['id'];
 
-            
-
-            //var_dump($input,$super_attributes_ids);exit;
-
             // add new super attributes
             foreach($super_attributes_ids as $key=>$super_attributes_id) {
                 DB::table('product_super_attributes')->insert([
@@ -261,8 +232,9 @@ class ProductController extends CatalogController
                 ]);
             }
 
+            Event::dispatch('catalog.product.update.after', $product);
            // exit;
-
+           $action = 'update';
 
         }else{
             Event::dispatch('catalog.product.create.before');
@@ -271,51 +243,32 @@ class ProductController extends CatalogController
             $id = $product->id;
         }
         
-
         $multiselectAttributeCodes = [];
         $productAttributes = $this->getRepositoryInstance()->findOrFail($id);
 
-        $data = $request->all();
-        
-        foreach ($productAttributes->attribute_family->attribute_groups as $attributeGroup) {
-            $customAttributes = $productAttributes->getEditableAttributes($attributeGroup);
-
-            if (count($customAttributes)) {
-                foreach ($customAttributes as $attribute) {
-                    if ($attribute->type == 'multiselect' || $attribute->type == 'checkbox') {
-                        array_push($multiselectAttributeCodes, $attribute->code);
-                    }
-                }
-            }
-        }
-
-        if (count($multiselectAttributeCodes)) {
-            foreach ($multiselectAttributeCodes as $multiselectAttributeCode) {
-                if (! isset($data[$multiselectAttributeCode])) {
-                    $data[$multiselectAttributeCode] = [];
-                }
-            }
-        }
+        //$data = $request->all();
 
         Event::dispatch('catalog.product.update.before', $id);
-
-        $Localvariants = $variantCollection = $product->variants()->get()->toArray();
-
-        //var_dump($Localvariants);exit;
 
         $tableData = [];
         $skus = $request->input('tableData');
 
         $categories = $request->input('categories');
-        // $categories = [];
-        // foreach($categorie as $key=>$category) {
-        //     $categories[] = $category;
-        // }
-
-        //var_dump($categories);exit;
+        $categories[] = 5; // add the default category
 
         $Variants = [];
         $VariantsImages = [];
+
+        $variantCollection = $product->variants()->get()->toArray(); // get the variants of the product
+        $variantCollection = array_column($variantCollection, null, 'sku');
+
+        if($action =='create') {
+            $product->variants()->delete(); // delete the variants of the product
+        }
+
+        // match the variants to the sku id
+
+
         $i = 0;
         foreach($skus as $key=>$sku) {
             $Variant = [];
@@ -329,21 +282,23 @@ class ProductController extends CatalogController
             $Variant['channel'] = Core()->getCurrentChannel()->code;
             $Variant['locale'] = Core()->getCurrentLocale()->code;
             $Variant['visible_individually'] = 1;
+            $Variant['guest_checkout'] = 1;
+            $Variant['new'] = 1;
+            $Variant['attribute_family_id'] = $attributeFamily->id;
+            $Variant['manage_stock'] = 0;
+            $Variant['visible_individually'] = 1;
+            $Variant['product_number'] = 10000;
+
 
             $Variant['categories'] = $categories;
             $option1 = isset($super_attributes_label[1]) ? $super_attributes_label[1] : null;
             $option2 = isset($super_attributes_label[2]) ? $super_attributes_label[2] : null;
             $option3 = isset($super_attributes_label[3]) ? $super_attributes_label[3] : null;
 
-            //var_dump($option1);
-            //var_dump($option2);
-            //var_dump($option3);
-
-            if($option1) $Variant[$option1] = $sku['option1'];
-            if($option2) $Variant[$option2] = $sku['option2'];
-            if($option3) $Variant[$option3] = $sku['option3'];
-
-            //var_dump($Variant);exit;
+            //if($option1) $Variant[$option1] = $sku['option1'];
+            if($option1) $Variant[$option1] = $this->findAttributeOptionID($option1, $sku['option1']);
+            if($option2) $Variant[$option2] = $this->findAttributeOptionID($option2, $sku['option2']);
+            if($option3) $Variant[$option3] = $this->findAttributeOptionID($option3, $sku['option3']);
             
             if(empty($sku['id'])) {
                 $Variant['sku'] = $input['sku'].'-'. $sku['sku'];
@@ -351,19 +306,9 @@ class ProductController extends CatalogController
                 $i++;
             }else{
                 // use sku to find the variant
-                
-
-
                 $Variant['sku'] = $sku['sku'];
                 $Variants[$sku['id']] = $Variant;
             }
-
-            //add images to the variant
-            // $image = $sku['images'];
-
-
-            
-
         }
 
         $tableData['channel'] = Core()->getCurrentChannel()->code;
@@ -378,9 +323,11 @@ class ProductController extends CatalogController
         $tableData['price'] = $req['pricingData']['price'];
         $tableData['compare_at_price'] = $req['pricingData']['originalPrice'];
         $tableData['visible_individually'] = 1;
-       // $tableData['categories'] = $categories;
-
-       //var_dump($tableData);exit;
+        $tableData['manage_stock'] = 0;
+        $tableData['inventories'][1] = 1000;
+        $tableData['product_number'] = 10000;
+       
+        //Log::info("quick-create-product: ".json_encode($tableData));
 
         $product = $this->getRepositoryInstance()->update($tableData, $id);
 
@@ -400,13 +347,30 @@ class ProductController extends CatalogController
 
         $product->images()->createMany($productImages);
 
-        
-
-
         return response([
             'data'    => new ProductResource($product),
             'message' => trans('Apis::app.admin.catalog.products.create-success'),
         ]);
+    }
+
+    //
+    public function findAttributeOptionID($attribute_id, $attribute_value) {
+
+        //
+        $attributeRepository = app('Webkul\Attribute\Repositories\AttributeRepository');
+
+        $attribute = $attributeRepository->findOneByField('code', $attribute_id);
+        if(!$attribute) return 0;
+
+        Log::info("findAttributeOptionID: ".$attribute->id." ".$attribute_value);
+
+        //
+        $attributeOptionRepository = app('Webkul\Attribute\Repositories\AttributeOptionRepository');
+        $attributeOption = $attributeOptionRepository->findOneByField(['admin_name'=>$attribute_value, 'attribute_id'=>$attribute->id]);
+        if($attributeOption){
+            return $attributeOption->id;
+        }
+        return 0;
     }
 
     /**
