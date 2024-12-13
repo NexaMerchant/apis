@@ -2,10 +2,18 @@
 
 namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Reporting;
 
-use Webkul\Admin\Helpers\Reporting;
+use Nicelizhi\Manage\Helpers\Reporting;
 
 class CustomerController extends ReportingController
 {
+    public $reportingHelper;
+
+    public function __construct()
+    {
+        //parent::__construct();
+
+        $this->reportingHelper = app(Reporting::class);
+    }
     /**
      * Request param functions.
      *
