@@ -2,6 +2,8 @@
 
 namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Reporting;
 
+use Webkul\Admin\Helpers\Reporting;
+
 class ProductController extends ReportingController
 {
     /**
