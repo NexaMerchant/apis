@@ -290,10 +290,40 @@ class CartRuleController extends MarketingController
      * 
      * Create a new cart rule for the product quantity
      * 
+     * @param int $product_id
+     * @param \Illuminate\Http\Request $request
+     * 
      * @return \Illuminate\Http\Response
      */
     public function createProductQuantityRule($product_id, Request $request){
+        $product = app(\Webkul\Product\Repositories\ProductRepository::class)->findOrFail($product_id);
+        if(!$product){
+            return response()->json([
+                'message' => trans('admin::app.marketing.promotions.cart-rules.product-not-found')
+            ], 404);
+        }
+
+        $request->set('product_id', $product_id);
+        $request->set('name', $product->name);
+        $request->set('channels', ['all']);
+        $request->set('customer_groups', ['all']);
+        $request->set('coupon_type', 0);
         
+
+        // create a new cart rule for the product quantity
+        $request->validate([
+            'name'                => 'required',
+            'channels'            => 'required|array|min:1',
+            'customer_groups'     => 'required|array|min:1',
+            'coupon_type'         => 'required',
+            'use_auto_generation' => 'required_if:coupon_type,==,1',
+            'coupon_code'         => 'required_if:use_auto_generation,==,0|unique:cart_rule_coupons,code',
+            'starts_from'         => 'nullable|date',
+            'ends_till'           => 'nullable|date|after_or_equal:starts_from',
+            'action_type'         => 'required',
+            'discount_amount'     => 'required|numeric',
+        ]);
+
     }
 
 }
