@@ -305,8 +305,6 @@ class CartRuleController extends MarketingController
 
         $product_family_id = $product->attribute_family_id;
 
-
-
         // create a new cart rule for the product quantity
         $request->validate([
             'product_id'                => 'required|integer',
@@ -338,6 +336,32 @@ class CartRuleController extends MarketingController
         return response([
             'data'    => new CartRuleResource($cartRule),
             'message' => trans('Apis::app.admin.marketing.promotions.cart-rules.create-success'),
+        ]);
+
+    }
+
+    /**
+     * 
+     * Get all Rules for the Product Quantity
+     * 
+     * @param int $product_id
+     * 
+     * 
+     */
+    public function getProductQuantityRules($product_id){
+        $product = app(\Webkul\Product\Repositories\ProductRepository::class)->findOrFail($product_id);
+        if(!$product){
+            return response()->json([
+                'message' => trans('admin::app.marketing.promotions.cart-rules.product-not-found')
+            ], 404);
+        }
+
+        $rules = app(\Webkul\CartRule\Repositories\CartRuleRepository::class)->findWhere([
+            'product_id' => $product_id
+        ]);
+
+        return response()->json([
+            'data' => CartRuleResource::collection($rules)
         ]);
 
     }

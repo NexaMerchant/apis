@@ -718,4 +718,85 @@ class CartRuleController
     public function createProductQuantityRule()
     {
     }
+
+    /**
+     * @OA\Get(
+     *      path="/api/v1/admin/promotions/cart-rules/{id}/product-quantity-rules",
+     *      operationId="getProductQuantityRules",
+     *      tags={"CartRules"},
+     *      summary="Get product quantity rules",
+     *      description="Get product quantity rules",
+     *      security={ {"sanctum_admin": {} }},
+     *
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="cart rule ID",
+     *          required=true,
+     *          in="path",
+     *
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *          @OA\JsonContent(
+     *
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *
+     *                  @OA\Items(
+     *                      type="object",
+     *
+     *                      @OA\Property(
+     *                          property="id",
+     *                          type="integer",
+     *                          example=1
+     *                      ),
+     *                      @OA\Property(
+     *                          property="product_id",
+     *                          type="integer",
+     *                          example=1
+     *                      ),
+     *                      @OA\Property(
+     *                          property="rules",
+     *                          type="object",
+     *                          example={{
+     *                             "value": "2",
+     *                             "operator": "==",
+     *                             "attribute": {
+     *                                "cart_item|item_qty",
+     *                                "product|attribute_family_id"
+     *                             },
+     *                             "attribute_type": "integer",
+     *                             "action_type": "by_percent",
+     *                             "price": "10.50"
+     *                          }}
+     *                      ),
+     *                      @OA\Property(
+     *                          property="created_at",
+     *                          type="string",
+     *                          format="date-time",
+     *                          example="2023-05-25T12:00:00Z"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="updated_at",
+     *                          type="string",
+     *                          format="date-time",
+     *                          example="2023-05-25T12:00:00Z"
+     *                     )
+     *                 )
+     *             )
+     *        )
+     * 
+     *     )
+     * )
+     */
+    public function getProductQuantityRules()
+    {
+    }
 }
