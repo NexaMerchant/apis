@@ -303,6 +303,9 @@ class CartRuleController extends MarketingController
             ], 404);
         }
 
+        $product_family_id = $product->attribute_family_id;
+
+
 
         // create a new cart rule for the product quantity
         $request->validate([
@@ -325,6 +328,7 @@ class CartRuleController extends MarketingController
             'discount_amount'     => 0,
         ];
 
+        // need match product quantity and product family id for this rule and create it.
         Event::dispatch('promotions.cart_rule.create.before');
 
         $cartRule = $this->getRepositoryInstance()->create($request->all());

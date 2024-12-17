@@ -685,9 +685,13 @@ class CartRuleController
      *                      description="Rules",
      *                      example={{
      *                         "value": "2",
-     *                         "operator": ">=",
-        *                      "attribute": "cart_item|quantity",
+     *                         "operator": "==",
+        *                      "attribute": {
+        *                        "cart_item|item_qty",
+        *                        "product|attribute_family_id"
+                                },
         *                      "attribute_type": "integer",
+        *                       "action_type": "by_percent",
         *                      "price": "10.50"
      *                       }},
      *                  ),
