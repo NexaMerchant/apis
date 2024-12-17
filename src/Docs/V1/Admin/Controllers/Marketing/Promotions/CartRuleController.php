@@ -645,4 +645,73 @@ class CartRuleController
     public function getConditionAttributes()
     {
     }
+
+    /**
+     * @OA\Post(
+     *      path="/api/v1/admin/promotions/cart-rules/{id}/create-product-quantity-rule",
+     *      operationId="createProductQuantityRule",
+     *      tags={"CartRules"},
+     *      summary="Create product quantity rule",
+     *      description="Create product quantity rule",
+     *      security={ {"sanctum_admin": {} }},
+     *
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="cart rule ID",
+     *          required=true,
+     *          in="path",
+     *
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *
+     *      @OA\RequestBody(
+     *
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *
+     *              @OA\Schema(
+     *
+     *                  @OA\Property(
+     *                      property="product_id",
+     *                      type="integer",
+     *                      description="Product ID",
+     *                      example=1
+     *                  ),
+     *                  @OA\Property(
+     *                      property="rules",
+     *                      type="array",
+     *                      description="Rules",
+     *                      example={{
+     *                         "value": "2",
+     *                         "operator": ">=",
+        *                      "attribute": "cart|items_qty",
+        *                      "attribute_type": "integer",
+        *                      "price": "10.50"
+     *                       }},
+     *                  ),
+     *                  required={"product_id", "quantity"}
+     *              )
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *
+     *          @OA\JsonContent(
+     *
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Product quantity rule created successfully."),
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function createProductQuantityRule()
+    {
+    }
 }

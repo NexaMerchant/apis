@@ -55,6 +55,8 @@ Route::group([
 
         Route::delete('{id}', 'destroy');
 
+        Route::post('{id}/create-product-quantity-rule', 'createProductQuantityRule');
+
         
     });
 

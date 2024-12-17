@@ -286,4 +286,14 @@ class CartRuleController extends MarketingController
         ]);
     }
 
+    /**
+     * 
+     * Create a new cart rule for the product quantity
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function createProductQuantityRule($product_id, Request $request){
+        
+    }
+
 }
