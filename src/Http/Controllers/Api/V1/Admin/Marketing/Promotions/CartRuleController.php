@@ -308,7 +308,7 @@ class CartRuleController extends MarketingController
         $request->set('channels', ['all']);
         $request->set('customer_groups', ['all']);
         $request->set('coupon_type', 0);
-        
+
 
         // create a new cart rule for the product quantity
         $request->validate([
@@ -322,6 +322,17 @@ class CartRuleController extends MarketingController
             'ends_till'           => 'nullable|date|after_or_equal:starts_from',
             'action_type'         => 'required',
             'discount_amount'     => 'required|numeric',
+        ]);
+
+        Event::dispatch('promotions.cart_rule.create.before');
+
+        $cartRule = $this->getRepositoryInstance()->create($request->all());
+
+        Event::dispatch('promotions.cart_rule.create.after', $cartRule);
+
+        return response([
+            'data'    => new CartRuleResource($cartRule),
+            'message' => trans('Apis::app.admin.marketing.promotions.cart-rules.create-success'),
         ]);
 
     }
