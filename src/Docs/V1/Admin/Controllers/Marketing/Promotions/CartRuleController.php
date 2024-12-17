@@ -681,7 +681,7 @@ class CartRuleController
      *                  ),
      *                  @OA\Property(
      *                      property="rules",
-     *                      type="array",
+     *                      type="object",
      *                      description="Rules",
      *                      example={{
      *                         "value": "2",
