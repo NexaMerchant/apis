@@ -686,7 +686,7 @@ class CartRuleController
      *                      example={{
      *                         "value": "2",
      *                         "operator": ">=",
-        *                      "attribute": "cart|items_qty",
+        *                      "attribute": "cart_item|quantity",
         *                      "attribute_type": "integer",
         *                      "price": "10.50"
      *                       }},
