@@ -651,13 +651,13 @@ class CartRuleController
      *      path="/api/v1/admin/promotions/cart-rules/{id}/product-quantity-rules",
      *      operationId="createProductQuantityRule",
      *      tags={"CartRules"},
-     *      summary="Create product quantity rule",
-     *      description="Create product quantity rule",
+     *      summary="Create and Update product quantity rule",
+     *      description="Create and Update  product quantity rule",
      *      security={ {"sanctum_admin": {} }},
      *
      *      @OA\Parameter(
      *          name="id",
-     *          description="cart rule ID",
+     *          description="Product ID",
      *          required=true,
      *          in="path",
      *
