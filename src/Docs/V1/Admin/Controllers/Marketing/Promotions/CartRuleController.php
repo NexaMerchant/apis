@@ -648,7 +648,7 @@ class CartRuleController
 
     /**
      * @OA\Post(
-     *      path="/api/v1/admin/promotions/cart-rules/{id}/create-product-quantity-rule",
+     *      path="/api/v1/admin/promotions/cart-rules/{id}/product-quantity-rules",
      *      operationId="createProductQuantityRule",
      *      tags={"CartRules"},
      *      summary="Create product quantity rule",
@@ -684,15 +684,18 @@ class CartRuleController
      *                      type="object",
      *                      description="Rules",
      *                      example={{
-     *                         "value": "2",
-     *                         "operator": "==",
-        *                      "attribute": {
-        *                        "cart_item|item_qty",
-        *                        "product|attribute_family_id"
-                                },
-        *                      "attribute_type": "integer",
-        *                       "action_type": "by_percent",
-        *                      "price": "10.50"
+     *                         "id": 0,
+     *                        "action_tye": "by_percent",
+     *                       "price": "10.50",
+     *                      "attributes": [{
+     *                        "attribute": "cart_item|item_qty",
+     *                       "operator": "==",
+     *                     "value": "2"
+     *                  },{
+     *                   "attribute": "product|attribute_family_id",
+     *                    "operator": "==",
+     *                     "value": "1"
+     *                 }]
      *                       }},
      *                  ),
      *                  required={"product_id", "quantity"}

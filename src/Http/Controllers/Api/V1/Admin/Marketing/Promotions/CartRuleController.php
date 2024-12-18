@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Event;
 use Webkul\CartRule\Repositories\CartRuleRepository;
 use NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\Marketing\MarketingController;
 use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Marketing\Promotions\CartRuleResource;
+use Illuminate\Support\Facades\Redis;
 
 class CartRuleController extends MarketingController
 {
@@ -303,8 +304,6 @@ class CartRuleController extends MarketingController
             ], 404);
         }
 
-        $product_family_id = $product->attribute_family_id;
-
         // create a new cart rule for the product quantity
         $request->validate([
             'product_id'                => 'required|integer',
@@ -313,28 +312,64 @@ class CartRuleController extends MarketingController
 
         $cartRule = app(\Webkul\CartRule\Repositories\CartRuleRepository::class);
 
-        $cartRuleData = [
-            'name'                => $product->name,
-            'description'         => $product->description,
-            'channels'            => [1],
-            'customer_groups'     => [1],
-            'coupon_type'         => 0,
-            'use_auto_generation' => 1,
-            'starts_from'         => null,
-            'ends_till'           => null,
-            'action_type'         => 1,
-            'discount_amount'     => 0,
-        ];
+        $rules = $request->rules;
 
-        // need match product quantity and product family id for this rule and create it.
-        Event::dispatch('promotions.cart_rule.create.before');
+        foreach($rules as $rule){
 
-        $cartRule = $this->getRepositoryInstance()->create($request->all());
+            $cartRuleData = [
+                'name'                => $product->name . $rule['action_type']. $rule['price'],
+                'starts_from'         => null,
+                'ends_till'           => null,
+                'action_type'         => $rule['action_type'],
+                'discount_amount'     => $rule['price'],
+                'end_other_rules'     => 1,
+                'coupon_type'         => 0,
+                'use_auto_generation' => 0,
+                'discount_step'       => 0,
+                'channels'            => [1],
+                'customer_groups'     => [1],
+            ];
 
-        Event::dispatch('promotions.cart_rule.create.after', $cartRule);
+            $rulesAttributes = $rule['attributes'];
+
+            //var_dump($rule['attributes']);exit;
+
+            foreach($rulesAttributes as $key=>$attribute){
+                $cartRuleData['conditions'][] = [
+                    'attribute' => $attribute['attribute'],
+                    'operator' => $attribute['operator'],
+                    "attribute_type" => "integer",
+                    'value' => $attribute['value'],
+                ];
+            }
+
+            $id = $rule['id'];
+
+            if($id > 0) {
+
+                // update the rule
+                $cartRule = $this->getRepositoryInstance()->findOrFail($id);
+
+                Event::dispatch('promotions.cart_rule.update.before', $id);
+
+                $cartRule = $this->getRepositoryInstance()->update($cartRuleData, $id);
+
+                Event::dispatch('promotions.cart_rule.update.after', $cartRule);
+
+
+            }else{
+                Event::dispatch('promotions.cart_rule.create.before');
+
+                $cartRule = $this->getRepositoryInstance()->create($cartRuleData);
+    
+                Event::dispatch('promotions.cart_rule.create.after', $cartRule);
+            }
+               
+            Redis::sadd('product-quantity-rules-'.$product_id, $cartRule->id);
+
+        }
 
         return response([
-            'data'    => new CartRuleResource($cartRule),
             'message' => trans('Apis::app.admin.marketing.promotions.cart-rules.create-success'),
         ]);
 
@@ -346,9 +381,13 @@ class CartRuleController extends MarketingController
      * 
      * @param int $product_id
      * 
+     * @return \Illuminate\Http\Response
      * 
      */
-    public function getProductQuantityRules($product_id){
+    public function getProductQuantityRules($product_id, Request $request){
+
+        
+
         $product = app(\Webkul\Product\Repositories\ProductRepository::class)->findOrFail($product_id);
         if(!$product){
             return response()->json([
@@ -356,9 +395,13 @@ class CartRuleController extends MarketingController
             ], 404);
         }
 
-        $rules = app(\Webkul\CartRule\Repositories\CartRuleRepository::class)->findWhere([
-            'product_id' => $product_id
-        ]);
+        
+        // get all the rules for the product quantity
+
+        $rules = Redis::smembers('product-quantity-rules-'.$product_id);
+
+        $rules = $this->getRepositoryInstance()->findWhereIn('id', $rules);
+
 
         return response()->json([
             'data' => CartRuleResource::collection($rules)
