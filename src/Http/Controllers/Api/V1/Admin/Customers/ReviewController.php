@@ -37,12 +37,14 @@ class ReviewController extends BaseController
     public function update(int $id)
     {
         $this->validate(request(), [
-            'status' => 'required|in:approved,disapproved,pending',
+            'status' => 'in:approved,disapproved,pending',
+            "rating" => "numeric|min:1|max:5",
+            "sort" => "numeric|min:1|max:100",
         ]);
         
         Event::dispatch('customer.review.update.before', $id);
 
-        $review = $this->getRepositoryInstance()->update(request()->only(['status']), $id);
+        $review = $this->getRepositoryInstance()->update(request()->only(['status','sort','rating']), $id);
 
         Event::dispatch('customer.review.update.after', $review);
 

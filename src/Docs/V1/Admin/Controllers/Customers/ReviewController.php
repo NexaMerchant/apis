@@ -167,7 +167,18 @@ class ReviewController
      *                      example="approved",
      *                      enum={"pending", "approved", "disapproved"}
      *                  ),
-     *                  required={"status"}
+     *                 @OA\Property(
+     *                     property="rating",
+     *                      description="Review's rating",
+     *                      type="integer",
+     *                      example="5"
+     *                  ),
+     *                 @OA\Property(
+     *                      property="sort",
+     *                      description="Review's sort",
+     *                      type="integer",
+     *                      example="1"
+     *                  ),
      *              )
      *          )
      *      ),
