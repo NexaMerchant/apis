@@ -733,7 +733,7 @@ class CartRuleController
      *
      *      @OA\Parameter(
      *          name="id",
-     *          description="cart rule ID",
+     *          description="Product ID",
      *          required=true,
      *          in="path",
      *
