@@ -687,7 +687,7 @@ class CartRuleController
      *                         "id": 0,
      *                        "action_tye": "by_percent",
      *                       "price": "10.50",
-     *                      "attributes": [{
+     *                      "attributes": {{
      *                        "attribute": "cart_item|item_qty",
      *                       "operator": "==",
      *                     "value": "2"
@@ -695,7 +695,7 @@ class CartRuleController
      *                   "attribute": "product|attribute_family_id",
      *                    "operator": "==",
      *                     "value": "1"
-     *                 }]
+     *                 }}
      *                       }},
      *                  ),
      *                  required={"product_id", "quantity"}
