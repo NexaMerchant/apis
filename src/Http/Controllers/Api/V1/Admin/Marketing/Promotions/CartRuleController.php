@@ -356,8 +356,8 @@ class CartRuleController extends MarketingController
 
                 Event::dispatch('promotions.cart_rule.update.after', $cartRule);
 
-
             }else{
+
                 Event::dispatch('promotions.cart_rule.create.before');
 
                 $cartRule = $this->getRepositoryInstance()->create($cartRuleData);
