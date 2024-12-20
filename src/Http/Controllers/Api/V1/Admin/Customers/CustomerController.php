@@ -136,7 +136,7 @@ class CustomerController extends BaseController
     {
         $customer = $this->getRepositoryInstance()->findOrFail($id);
 
-        if (! $this->getRepositoryInstance()->haveActiveOrders($customer)) {
+        if (! $this->getRepositoryInstance()->checkIfCustomerHasOrderPendingOrProcessing($customer)) {
             $this->getRepositoryInstance()->delete($id);
 
             return response([
@@ -187,7 +187,7 @@ class CustomerController extends BaseController
              * Ensure that customers do not have any active orders before performing deletion.
              */
             foreach ($customers as $customer) {
-                if ($this->getRepositoryInstance()->haveActiveOrders($customer)) {
+                if ($this->getRepositoryInstance()->checkIfCustomerHasOrderPendingOrProcessing($customer)) {
                     throw new \Exception(trans('Apis::app.admin.customers.customers.error.order-pending-account-delete'));
                 }
             }
