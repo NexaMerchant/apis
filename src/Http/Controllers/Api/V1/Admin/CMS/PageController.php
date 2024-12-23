@@ -5,7 +5,7 @@ namespace NexaMerchant\Apis\Http\Controllers\Api\V1\Admin\CMS;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Nicelizhi\Manage\Http\Requests\MassDestroyRequest;
-use Webkul\CMS\Repositories\CmsRepository as PageRepository;
+use Webkul\CMS\Repositories\CmsRepository as PageRepository; // Change this line
 use Webkul\Core\Rules\Slug;
 use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\CMS\PageResource;
 
