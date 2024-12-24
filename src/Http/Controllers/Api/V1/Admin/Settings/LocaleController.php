@@ -97,6 +97,9 @@ class LocaleController extends SettingController
         }
         Event::dispatch('core.locale.delete.before', $id);
 
+        // clean the locale repository cache
+        
+
         $this->getRepositoryInstance()->delete($id);    
         
         Event::dispatch('core.locale.delete.after', $id);
