@@ -211,4 +211,24 @@ class Channel
      * @var \DateTime
      */
     private $updated_at;
+    
+    /**
+     * @OA\Property(
+     *     title="Locales",
+     *     description="Channel locales"
+     * )
+     *
+     * @var \NexaMerchant\Apis\Docs\V1\Admin\Models\Settings\Locale[]
+     */
+    private $locales;
+    
+    /**
+     * @OA\Property(
+     *     title="Currencies",
+     *     description="Channel currencies"
+     * )
+     *
+     * @var \NexaMerchant\Apis\Docs\V1\Admin\Models\Settings\Currency[]
+     */
+    private $currencies;
 }
