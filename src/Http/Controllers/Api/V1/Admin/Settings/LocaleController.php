@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Webkul\Core\Repositories\LocaleRepository;
 use Webkul\Core\Rules\Code;
 use NexaMerchant\Apis\Http\Resources\Api\V1\Admin\Settings\LocaleResource;
+use Illuminate\Support\Facades\Event;
 
 class LocaleController extends SettingController
 {
@@ -94,8 +95,11 @@ class LocaleController extends SettingController
                 'message' => trans('Apis::app.admin.settings.locales.error.last-item-delete'),
             ]);
         }
+        Event::dispatch('core.locale.delete.before', $id);
 
-        $this->getRepositoryInstance()->delete($id);
+        $this->getRepositoryInstance()->delete($id);    
+        
+        Event::dispatch('core.locale.delete.after', $id);
 
         return response([
             'message' => trans('Apis::app.admin.settings.locales.delete-success'),
