@@ -33,6 +33,8 @@ class ChannelResource extends JsonResource
             'root_category'     => $this->when($this->root_category_id, new CategoryResource($this->root_category)),
             'created_at'        => $this->created_at,
             'updated_at'        => $this->updated_at,
+            'locales'           => LocaleResource::collection($this->locales),
+            'currencies'        => CurrencyResource::collection($this->currencies),
         ];
     }
 }
